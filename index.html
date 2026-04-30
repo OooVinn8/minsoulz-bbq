@@ -1,0 +1,2113 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BBQ Night – Minsoulz</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --black: #0a0a0a;
+        --white: #f5f5f0;
+        --gray-light: #e0dfd8;
+        --gray-mid: #9a9a90;
+        --gray-dark: #2a2a2a;
+        --orange: #ff5500;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        background: var(--black);
+        color: var(--white);
+        font-family: "DM Sans", sans-serif;
+        overflow-x: hidden;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 9997;
+      }
+
+      /* NAV */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        padding: 16px 5vw;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: rgba(10, 10, 10, 0.9);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      }
+      .nav-logo {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 22px;
+        color: var(--white);
+        letter-spacing: 0.08em;
+      }
+      .nav-links {
+        display: flex;
+        gap: 24px;
+        list-style: none;
+      }
+      .nav-links a {
+        font-family: "Space Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        color: var(--gray-mid);
+        text-decoration: none;
+        text-transform: uppercase;
+        transition: color 0.2s;
+      }
+      .nav-links a:hover {
+        color: var(--white);
+      }
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+        padding: 4px;
+      }
+      .hamburger span {
+        display: block;
+        width: 24px;
+        height: 1.5px;
+        background: var(--white);
+        transition: all 0.3s;
+      }
+      .mobile-menu {
+        display: none;
+        position: fixed;
+        top: 57px;
+        left: 0;
+        right: 0;
+        background: rgba(10, 10, 10, 0.97);
+        backdrop-filter: blur(12px);
+        z-index: 99;
+        padding: 20px 5vw;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        flex-direction: column;
+        gap: 0;
+      }
+      .mobile-menu.open {
+        display: flex;
+      }
+      .mobile-menu a {
+        font-family: "Space Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.2em;
+        color: var(--gray-mid);
+        text-decoration: none;
+        text-transform: uppercase;
+        padding: 14px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        transition: color 0.2s;
+      }
+      .mobile-menu a:hover {
+        color: var(--white);
+      }
+
+      /* Live Indicator in nav */
+      .live-dot {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-family: "Space Mono", monospace;
+        font-size: 9px;
+        letter-spacing: 0.15em;
+        color: #4caf50;
+      }
+      .live-dot::before {
+        content: "";
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #4caf50;
+        animation: blink-dot 1.4s ease-in-out infinite;
+      }
+      @keyframes blink-dot {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.3;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .nav-links {
+          display: none;
+        }
+        .hamburger {
+          display: flex;
+        }
+      }
+
+      /* HERO */
+      #hero {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+        padding: 100px 20px 60px;
+        text-align: center;
+      }
+      .hero-bg-text {
+        position: absolute;
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(150px, 30vw, 800px);
+        color: rgba(255, 255, 255, 0.03);
+        letter-spacing: -0.02em;
+        user-select: none;
+        white-space: nowrap;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      .flame-ring {
+        position: absolute;
+        width: min(340px, 80vw);
+        height: min(340px, 80vw);
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(255, 85, 0, 0.08) 0%,
+          transparent 70%
+        );
+        animation: pulse-ring 3s ease-in-out infinite;
+      }
+      @keyframes pulse-ring {
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 0.5;
+        }
+        50% {
+          transform: scale(1.15);
+          opacity: 1;
+        }
+      }
+      .hero-eyebrow {
+        font-family: "Space Mono", monospace;
+        font-size: clamp(9px, 2vw, 11px);
+        letter-spacing: 0.3em;
+        color: var(--gray-mid);
+        text-transform: uppercase;
+        margin-bottom: 24px;
+        position: relative;
+        z-index: 2;
+        animation: fadeUp 0.8s ease both;
+      }
+      .hero-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(64px, 18vw, 180px);
+        line-height: 0.9;
+        text-align: center;
+        letter-spacing: -0.01em;
+        position: relative;
+        z-index: 2;
+        animation: fadeUp 0.8s 0.2s ease both;
+      }
+      .hero-title span {
+        display: block;
+        color: var(--white);
+      }
+      .hero-title .outline {
+        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
+        color: transparent;
+      }
+      .hero-sub {
+        font-family: "Space Mono", monospace;
+        font-size: clamp(11px, 2.5vw, 16px);
+        color: var(--gray-mid);
+        margin-top: 28px;
+        letter-spacing: 0.1em;
+        position: relative;
+        z-index: 2;
+        animation: fadeUp 0.8s 0.4s ease both;
+      }
+      .hero-fire-emoji {
+        font-size: clamp(36px, 8vw, 48px);
+        margin-top: 32px;
+        position: relative;
+        z-index: 2;
+        animation: fadeUp 0.8s 0.5s ease both,
+          float 2.5s ease-in-out infinite 1.5s;
+      }
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-12px);
+        }
+      }
+      .scroll-hint {
+        position: absolute;
+        bottom: 36px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        color: var(--gray-mid);
+        font-family: "Space Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        animation: fadeUp 1s 1s ease both;
+      }
+      .scroll-line {
+        width: 1px;
+        height: 50px;
+        background: linear-gradient(to bottom, var(--gray-mid), transparent);
+        animation: scroll-down 1.8s ease-in-out infinite;
+      }
+      @keyframes scroll-down {
+        0% {
+          transform: scaleY(0);
+          transform-origin: top;
+        }
+        50% {
+          transform: scaleY(1);
+          transform-origin: top;
+        }
+        51% {
+          transform: scaleY(1);
+          transform-origin: bottom;
+        }
+        100% {
+          transform: scaleY(0);
+          transform-origin: bottom;
+        }
+      }
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* SECTIONS */
+      .section-wrap {
+        padding: 80px 5vw;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .section-label {
+        font-family: "Space Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.35em;
+        color: var(--gray-mid);
+        text-transform: uppercase;
+        margin-bottom: 40px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+      .section-label::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--gray-dark);
+      }
+      .section-label.dark {
+        color: rgba(0, 0, 0, 0.4);
+      }
+      .section-label.dark::after {
+        background: rgba(0, 0, 0, 0.15);
+      }
+
+      /* INFO CARDS */
+      .info-row {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 2px;
+      }
+      @media (max-width: 900px) {
+        .info-row {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+      @media (max-width: 560px) {
+        .info-row {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      .info-card {
+        background: var(--gray-dark);
+        padding: 28px 22px;
+        position: relative;
+        overflow: hidden;
+        transition: background 0.3s;
+      }
+      .info-card:hover {
+        background: #333;
+      }
+      .info-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: var(--white);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.4s ease;
+      }
+      .info-card:hover::before {
+        transform: scaleX(1);
+      }
+      .info-icon {
+        font-size: 28px;
+        margin-bottom: 12px;
+        display: block;
+      }
+      .info-label {
+        font-family: "Space Mono", monospace;
+        font-size: 9px;
+        letter-spacing: 0.3em;
+        color: var(--gray-mid);
+        text-transform: uppercase;
+        margin-bottom: 6px;
+      }
+      .info-value {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 22px;
+        line-height: 1.15;
+        color: var(--white);
+      }
+      .info-sub {
+        font-size: 12px;
+        color: var(--gray-mid);
+        margin-top: 4px;
+      }
+
+      /* COUNTDOWN */
+      #countdown-section {
+        background: var(--white);
+        color: var(--black);
+        padding: 80px 5vw;
+      }
+      .countdown-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(24px, 5vw, 44px);
+        color: var(--black);
+        margin-bottom: 40px;
+      }
+      .countdown-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 4px;
+      }
+      @media (max-width: 400px) {
+        .countdown-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      .countdown-block {
+        background: var(--black);
+        color: var(--white);
+        padding: 28px 16px;
+        text-align: center;
+      }
+      .countdown-num {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(40px, 10vw, 80px);
+        line-height: 1;
+        display: block;
+      }
+      .countdown-unit {
+        font-family: "Space Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.3em;
+        color: var(--gray-mid);
+        text-transform: uppercase;
+        margin-top: 6px;
+      }
+
+      /* MENU */
+      .menu-row {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2px;
+      }
+      @media (max-width: 700px) {
+        .menu-row {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (max-width: 400px) {
+        .menu-row {
+          grid-template-columns: 1fr;
+        }
+      }
+      .menu-cat {
+        background: var(--gray-dark);
+        padding: 32px 28px;
+        position: relative;
+        overflow: hidden;
+        transition: background 0.3s;
+      }
+      .menu-cat:hover {
+        background: #303030;
+      }
+      .menu-cat::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: var(--white);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.4s ease;
+      }
+      .menu-cat:hover::after {
+        transform: scaleX(1);
+      }
+      .cat-icon {
+        font-size: 32px;
+        margin-bottom: 16px;
+        display: block;
+      }
+      .cat-name {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 30px;
+        color: var(--white);
+        margin-bottom: 20px;
+        letter-spacing: 0.02em;
+      }
+      .cat-items {
+        list-style: none;
+      }
+      .cat-items li {
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        font-size: 14px;
+        color: var(--gray-light);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .cat-items li:last-child {
+        border-bottom: none;
+      }
+      .cat-items li::before {
+        content: "—";
+        color: var(--gray-mid);
+        font-size: 11px;
+      }
+
+      /* BUDGET */
+      #budget {
+        background: var(--gray-dark);
+        padding: 80px 5vw;
+      }
+      .budget-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: center;
+      }
+      @media (max-width: 700px) {
+        .budget-inner {
+          grid-template-columns: 1fr;
+          gap: 40px;
+        }
+      }
+      .budget-left h2 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(40px, 9vw, 100px);
+        line-height: 0.9;
+        margin-bottom: 20px;
+      }
+      .budget-left p {
+        font-size: 14px;
+        color: var(--gray-mid);
+        line-height: 1.7;
+      }
+      .budget-right {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      .budget-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        font-size: 14px;
+      }
+      .budget-row .b-label {
+        color: var(--gray-mid);
+        font-family: "Space Mono", monospace;
+        font-size: 11px;
+      }
+      .budget-row .b-val {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 24px;
+        color: var(--white);
+      }
+      .budget-total {
+        background: var(--white);
+        color: var(--black);
+        padding: 20px 0 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 8px;
+      }
+      .budget-total .b-label {
+        font-family: "Space Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.2em;
+        color: rgba(0, 0, 0, 0.5);
+        padding: 20px 24px;
+        flex: 1;
+      }
+      .budget-total .b-val {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 32px;
+        color: var(--black);
+        padding: 20px 24px;
+      }
+
+      /* BRING LIST */
+      .bring-intro {
+        font-size: 14px;
+        color: var(--gray-mid);
+        max-width: 500px;
+        line-height: 1.7;
+        margin-bottom: 40px;
+      }
+      .bring-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 2px;
+      }
+      .bring-card {
+        background: var(--gray-dark);
+        padding: 28px 24px;
+        display: flex;
+        align-items: flex-start;
+        gap: 18px;
+        transition: background 0.25s;
+      }
+      .bring-card:hover {
+        background: #303030;
+      }
+      .bring-icon {
+        font-size: 26px;
+        flex-shrink: 0;
+        margin-top: 2px;
+      }
+      .bring-text h4 {
+        font-family: "DM Sans", sans-serif;
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--white);
+        margin-bottom: 4px;
+      }
+      .bring-text p {
+        font-size: 13px;
+        color: var(--gray-mid);
+        line-height: 1.5;
+      }
+
+      /* ===== REALTIME CHECKLIST ===== */
+      #checklist {
+        background: var(--white);
+        color: var(--black);
+        padding: 80px 5vw;
+      }
+      .checklist-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(28px, 5vw, 52px);
+        color: var(--black);
+        margin-bottom: 8px;
+      }
+      .checklist-sub {
+        font-size: 12px;
+        color: rgba(0, 0, 0, 0.4);
+        margin-bottom: 24px;
+        font-family: "Space Mono", monospace;
+        line-height: 1.6;
+      }
+
+      /* Name modal */
+      .name-modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.85);
+        z-index: 500;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(6px);
+      }
+      .name-modal {
+        background: var(--white);
+        color: var(--black);
+        padding: 40px;
+        max-width: 380px;
+        width: 90%;
+        animation: fadeUp 0.4s ease both;
+      }
+      .name-modal h3 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 36px;
+        margin-bottom: 8px;
+      }
+      .name-modal p {
+        font-size: 13px;
+        color: rgba(0, 0, 0, 0.5);
+        margin-bottom: 24px;
+        font-family: "Space Mono", monospace;
+        font-size: 11px;
+        line-height: 1.6;
+      }
+      .name-input {
+        width: 100%;
+        padding: 14px 16px;
+        border: 2px solid rgba(0, 0, 0, 0.15);
+        background: transparent;
+        font-family: "DM Sans", sans-serif;
+        font-size: 16px;
+        color: var(--black);
+        outline: none;
+        margin-bottom: 12px;
+        transition: border-color 0.2s;
+      }
+      .name-input:focus {
+        border-color: var(--black);
+      }
+      .name-btn {
+        width: 100%;
+        padding: 14px;
+        background: var(--black);
+        color: var(--white);
+        border: none;
+        cursor: pointer;
+        font-family: "Space Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        transition: opacity 0.2s;
+      }
+      .name-btn:hover {
+        opacity: 0.8;
+      }
+
+      /* Online users bar */
+      .online-bar {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 28px;
+        padding: 14px 18px;
+        background: rgba(0, 0, 0, 0.04);
+        font-family: "Space Mono", monospace;
+        font-size: 10px;
+        color: rgba(0, 0, 0, 0.5);
+      }
+      .online-bar strong {
+        color: var(--black);
+      }
+      .online-avatars {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+      .online-avatar {
+        padding: 4px 10px;
+        background: var(--black);
+        color: var(--white);
+        font-family: "Space Mono", monospace;
+        font-size: 9px;
+        letter-spacing: 0.1em;
+        border-radius: 2px;
+      }
+      .online-avatar.me {
+        background: var(--orange);
+      }
+
+      .checklist-categories {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .checklist-cat-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 22px;
+        color: var(--black);
+        margin-bottom: 10px;
+      }
+      .checklist-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 6px;
+      }
+
+      .check-item {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 14px 18px;
+        border: 1.5px solid rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        transition: all 0.2s;
+        user-select: none;
+        position: relative;
+      }
+      .check-item:hover {
+        border-color: var(--black);
+      }
+      .check-item.checked {
+        background: var(--black);
+        color: var(--white);
+        border-color: var(--black);
+      }
+      .check-box {
+        width: 20px;
+        height: 20px;
+        border: 1.5px solid rgba(0, 0, 0, 0.3);
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s;
+      }
+      .check-item.checked .check-box {
+        background: var(--white);
+        border-color: var(--white);
+      }
+      .check-tick {
+        opacity: 0;
+        transform: scale(0);
+        transition: all 0.2s;
+        color: var(--black);
+        font-size: 12px;
+        font-weight: bold;
+      }
+      .check-item.checked .check-tick {
+        opacity: 1;
+        transform: scale(1);
+      }
+      .check-label {
+        font-size: 13px;
+        font-family: "DM Sans", sans-serif;
+        flex: 1;
+      }
+      .check-by {
+        font-family: "Space Mono", monospace;
+        font-size: 9px;
+        color: rgba(255, 255, 255, 0.5);
+        margin-top: 2px;
+        display: block;
+        letter-spacing: 0.05em;
+      }
+      .check-item:not(.checked) .check-by {
+        color: rgba(0, 0, 0, 0.3);
+      }
+
+      .check-progress {
+        font-family: "Space Mono", monospace;
+        font-size: 11px;
+        color: rgba(0, 0, 0, 0.4);
+        margin-top: 24px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .progress-bar-wrap {
+        flex: 1;
+        height: 3px;
+        background: rgba(0, 0, 0, 0.1);
+        border-radius: 2px;
+        max-width: 300px;
+      }
+      .progress-bar-fill {
+        height: 100%;
+        background: var(--black);
+        border-radius: 2px;
+        transition: width 0.4s ease;
+      }
+
+      /* ===== PHOTO GALLERY ===== */
+      #gallery {
+        background: var(--black);
+        padding: 80px 5vw;
+      }
+      .gallery-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(28px, 5vw, 52px);
+        color: var(--white);
+        margin-bottom: 8px;
+      }
+      .gallery-sub {
+        font-size: 12px;
+        color: var(--gray-mid);
+        margin-bottom: 32px;
+        font-family: "Space Mono", monospace;
+        line-height: 1.6;
+      }
+
+      .upload-zone {
+        border: 2px dashed rgba(255, 255, 255, 0.15);
+        padding: 40px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s;
+        margin-bottom: 32px;
+        position: relative;
+      }
+      .upload-zone:hover,
+      .upload-zone.drag-over {
+        border-color: rgba(255, 255, 255, 0.4);
+        background: rgba(255, 255, 255, 0.03);
+      }
+      .upload-zone input[type="file"] {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        cursor: pointer;
+        width: 100%;
+        height: 100%;
+      }
+      .upload-icon {
+        font-size: 40px;
+        margin-bottom: 12px;
+        display: block;
+      }
+      .upload-text {
+        font-family: "Space Mono", monospace;
+        font-size: 11px;
+        color: var(--gray-mid);
+        letter-spacing: 0.15em;
+      }
+      .upload-text strong {
+        color: var(--white);
+        display: block;
+        font-size: 14px;
+        margin-bottom: 6px;
+        font-family: "DM Sans", sans-serif;
+        font-weight: 600;
+      }
+
+      .upload-progress-bar {
+        height: 3px;
+        background: var(--gray-dark);
+        margin-bottom: 32px;
+        display: none;
+      }
+      .upload-progress-fill {
+        height: 100%;
+        background: var(--white);
+        width: 0%;
+        transition: width 0.2s;
+      }
+
+      .photo-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 4px;
+      }
+      .photo-item {
+        aspect-ratio: 1;
+        overflow: hidden;
+        position: relative;
+        cursor: pointer;
+        background: var(--gray-dark);
+      }
+      .photo-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+        display: block;
+      }
+      .photo-item:hover img {
+        transform: scale(1.06);
+      }
+      .photo-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 12px;
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+      .photo-item:hover .photo-overlay {
+        opacity: 1;
+      }
+      .photo-uploader {
+        font-family: "Space Mono", monospace;
+        font-size: 9px;
+        color: rgba(255, 255, 255, 0.8);
+        letter-spacing: 0.1em;
+      }
+      .photo-time {
+        font-family: "Space Mono", monospace;
+        font-size: 8px;
+        color: rgba(255, 255, 255, 0.4);
+        margin-top: 2px;
+      }
+
+      /* Lightbox */
+      .lightbox {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.95);
+        z-index: 600;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+      .lightbox.open {
+        display: flex;
+      }
+      .lightbox img {
+        max-width: 90vw;
+        max-height: 85vh;
+        object-fit: contain;
+      }
+      .lightbox-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-family: "Space Mono", monospace;
+        font-size: 11px;
+        color: var(--gray-mid);
+        cursor: pointer;
+        letter-spacing: 0.2em;
+        background: none;
+        border: none;
+        padding: 8px 12px;
+      }
+      .lightbox-close:hover {
+        color: var(--white);
+      }
+      .lightbox-info {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: "Space Mono", monospace;
+        font-size: 10px;
+        color: var(--gray-mid);
+        letter-spacing: 0.15em;
+        text-align: center;
+      }
+
+      /* no photos */
+      .no-photos {
+        font-family: "Space Mono", monospace;
+        font-size: 11px;
+        color: var(--gray-mid);
+        letter-spacing: 0.15em;
+        padding: 40px;
+        text-align: center;
+        border: 1px solid var(--gray-dark);
+      }
+
+      /* LOADING SPINNER */
+      .loading-items {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-family: "Space Mono", monospace;
+        font-size: 10px;
+        color: rgba(0, 0, 0, 0.4);
+        padding: 20px 0;
+      }
+      .spinner {
+        width: 16px;
+        height: 16px;
+        border: 2px solid rgba(0, 0, 0, 0.1);
+        border-top-color: var(--black);
+        border-radius: 50%;
+        animation: spin 0.7s linear infinite;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* LOCATION */
+      #location {
+        background: var(--gray-dark);
+        padding: 80px 5vw;
+      }
+      .location-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: start;
+      }
+      @media (max-width: 700px) {
+        .location-inner {
+          grid-template-columns: 1fr;
+        }
+      }
+      .map-embed {
+        width: 100%;
+        aspect-ratio: 4/3;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        display: block;
+      }
+      .map-embed iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+        display: block;
+        filter: grayscale(100%) invert(90%) contrast(90%);
+      }
+      .location-info h2 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(32px, 6vw, 60px);
+        margin-bottom: 20px;
+        line-height: 1;
+      }
+      .location-address {
+        font-size: 14px;
+        color: var(--gray-mid);
+        line-height: 1.8;
+        margin-bottom: 28px;
+        font-style: normal;
+      }
+      .location-address strong {
+        color: var(--white);
+        display: block;
+        font-size: 16px;
+        margin-bottom: 4px;
+      }
+      .btn-maps {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: var(--white);
+        color: var(--black);
+        padding: 14px 24px;
+        font-family: "Space Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        text-decoration: none;
+        text-transform: uppercase;
+        transition: opacity 0.2s;
+      }
+      .btn-maps:hover {
+        opacity: 0.8;
+      }
+
+      /* RULES */
+      .rules-list {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .rule-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 28px;
+        padding: 22px 26px;
+        background: var(--gray-dark);
+        transition: background 0.2s;
+      }
+      .rule-row:hover {
+        background: #333;
+      }
+      .rule-num {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 32px;
+        color: rgba(255, 255, 255, 0.15);
+        flex-shrink: 0;
+        width: 44px;
+        line-height: 1;
+      }
+      .rule-content textarea {
+        width: 100%;
+        background: transparent;
+        border: none;
+        color: var(--gray-mid);
+        font-family: "DM Sans", sans-serif;
+        font-size: 14px;
+        line-height: 1.6;
+        resize: vertical;
+        min-height: 24px;
+        padding: 0;
+        outline: none;
+        cursor: text;
+      }
+      .rule-content textarea:focus {
+        color: var(--white);
+      }
+      .rule-content textarea::placeholder {
+        color: rgba(255, 255, 255, 0.2);
+      }
+
+      /* FOOTER */
+      footer {
+        border-top: 1px solid var(--gray-dark);
+        padding: 40px 5vw;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+      .footer-logo {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 28px;
+        color: var(--white);
+      }
+      .footer-tag {
+        font-family: "Space Mono", monospace;
+        font-size: 10px;
+        color: var(--gray-mid);
+        letter-spacing: 0.2em;
+      }
+
+      .divider {
+        height: 1px;
+        background: var(--gray-dark);
+      }
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.7s ease, transform 0.7s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Toast */
+      .toast {
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%) translateY(20px);
+        background: var(--black);
+        color: var(--white);
+        padding: 12px 24px;
+        font-family: "Space Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.15em;
+        z-index: 9999;
+        opacity: 0;
+        transition: all 0.3s;
+        border: 1px solid var(--gray-dark);
+        white-space: nowrap;
+      }
+      .toast.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+
+      /* TIMELINE */
+      .timeline-wrap {
+        position: relative;
+        margin-top: 20px;
+        padding-left: 30px;
+      }
+
+      /* garis tengah */
+      .timeline-wrap::before {
+        content: "";
+        position: absolute;
+        left: 8px;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: var(--gray-dark);
+      }
+
+      /* item */
+      .timeline-item {
+        position: relative;
+        margin-bottom: 32px;
+        padding-left: 20px;
+        transition: transform 0.2s;
+      }
+
+      .timeline-item:hover {
+        transform: translateX(4px);
+      }
+
+      /* titik */
+      .timeline-dot {
+        position: absolute;
+        left: -2px;
+        top: 6px;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: var(--black);
+        border: 2px solid var(--white);
+        z-index: 2;
+      }
+
+      /* waktu */
+      .timeline-time {
+        font-family: "Space Mono", monospace;
+        font-size: 10px;
+        color: var(--gray-mid);
+        letter-spacing: 0.2em;
+        margin-bottom: 6px;
+      }
+
+      /* title */
+      .timeline-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 26px;
+        color: var(--white);
+        line-height: 1;
+      }
+
+      /* desc */
+      .timeline-desc {
+        font-size: 13px;
+        color: var(--gray-mid);
+        margin-top: 4px;
+        max-width: 400px;
+      }
+      .hero-title {
+        font-family: "Bebas Neue", sans-serif;
+        line-height: 0.85;
+        letter-spacing: -0.02em;
+      }
+
+      /* BBQ gede banget */
+      .hero-title .bbq {
+        display: block;
+        font-size: clamp(90px, 22vw, 260px);
+        color: #ffffff;
+
+        animation: glowPulse 2.5s ease-in-out infinite;
+      }
+
+      /* NIGHT sedikit lebih kecil + outline */
+      .hero-title .night {
+        display: block;
+        font-size: clamp(70px, 16vw, 200px);
+
+        color: transparent;
+        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.6);
+        animation: none;
+      }
+
+      /* 🔥 glow utama (BBQ) */
+      @keyframes glowPulse {
+        0%,
+        100% {
+          text-shadow: 0 0 6px rgba(255, 255, 255, 0.3),
+            0 0 12px rgba(255, 255, 255, 0.2);
+        }
+        50% {
+          text-shadow: 0 0 12px rgba(255, 255, 255, 0.8),
+            0 0 24px rgba(255, 255, 255, 0.6), 0 0 40px rgba(255, 255, 255, 0.3);
+        }
+      }
+
+      /* glow lebih halus untuk NIGHT */
+      @keyframes glowPulseSoft {
+        0%,
+        100% {
+          text-shadow: 0 0 4px rgba(255, 255, 255, 0.2);
+        }
+        50% {
+          text-shadow: 0 0 10px rgba(255, 255, 255, 0.6),
+            0 0 20px rgba(255, 255, 255, 0.3);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAME MODAL -->
+    <div class="name-modal-overlay" id="nameModal">
+      <div class="name-modal">
+        <h3>Siapa kamu?</h3>
+        <p></p>
+        <input
+          class="name-input"
+          id="nameInput"
+          type="text"
+          placeholder="Nama kamu..."
+          maxlength="20"
+        />
+        <button class="name-btn" id="nameSubmit">MASUK</button>
+      </div>
+    </div>
+
+    <!-- LIGHTBOX -->
+    <div class="lightbox" id="lightbox">
+      <button class="lightbox-close" id="lightboxClose">✕ TUTUP</button>
+      <img id="lightboxImg" src="" alt="Foto BBQ" />
+      <div class="lightbox-info" id="lightboxInfo"></div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast"></div>
+
+    <!-- NAV -->
+    <nav>
+      <div class="nav-logo">MINSOULZ</div>
+      <ul class="nav-links">
+        <li><a href="#info">Info</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#checklist">Checklist</a></li>
+        <li><a href="#location">Lokasi</a></li>
+        <li><a href="#rules">Aturan</a></li>
+        <li><span class="live-dot" id="liveIndicator">LIVE</span></li>
+      </ul>
+      <div class="hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#info" onclick="closeMobile()">Info</a>
+      <a href="#menu" onclick="closeMobile()">Menu</a>
+      <a href="#checklist" onclick="closeMobile()">Checklist</a>
+      <a href="#location" onclick="closeMobile()">Lokasi</a>
+      <a href="#rules" onclick="closeMobile()">Aturan</a>
+    </div>
+
+    <!-- HERO -->
+    <section id="hero">
+      <div class="hero-bg-text">MINSOULZ</div>
+      <div class="flame-ring"></div>
+      <p class="hero-eyebrow">Minsoulz Presents</p>
+      <h1 class="hero-title">
+        <h1 class="hero-title">
+          <span class="bbq">BBQ</span>
+          <span class="outline night">NIGHT</span>
+        </h1>
+      </h1>
+      <p class="hero-sub">Selasa, 12 Mei 2026</p>
+    </section>
+
+    <!-- INFO -->
+    <div id="info" style="background: var(--black)">
+      <div class="section-wrap" style="padding-bottom: 0">
+        <div class="section-label reveal">Event Details</div>
+        <div class="info-row reveal">
+          <div class="info-card">
+            <span class="info-icon">📅</span>
+            <div class="info-label">Tanggal</div>
+            <div class="info-value">Selasa, 12 Mei 2026</div>
+          </div>
+          <div class="info-card">
+            <span class="info-icon">⏰</span>
+            <div class="info-label">Jam</div>
+            <div class="info-value">TBA</div>
+            <div class="info-sub">Akan diumumkan segera</div>
+          </div>
+          <div class="info-card">
+            <span class="info-icon">📍</span>
+            <div class="info-label">Lokasi</div>
+            <div class="info-value">Rumah Davin</div>
+            <div class="info-sub">Jl. Meranti, Gang Meranti 15 No.1</div>
+          </div>
+          <div class="info-card">
+            <span class="info-icon">👥</span>
+            <div class="info-label">Peserta</div>
+            <div class="info-value">9 Orang</div>
+            <div class="info-sub">Minsoulz</div>
+          </div>
+          <div class="info-card">
+            <span class="info-icon">💰</span>
+            <div class="info-label">Budget / Orang</div>
+            <div class="info-value">Rp 50.000</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="height: 80px; background: var(--black)"></div>
+    <div class="divider"></div>
+
+    <!-- COUNTDOWN -->
+    <div id="countdown-section">
+      <div style="max-width: 1200px; margin: 0 auto">
+        <div class="section-label dark reveal">Mundur ke Hari H</div>
+        <p class="countdown-title reveal">Hitung Mundur Acara</p>
+        <div class="countdown-grid reveal" id="countdown">
+          <div class="countdown-block">
+            <span class="countdown-num" id="cd-days">--</span
+            ><span class="countdown-unit">Hari</span>
+          </div>
+          <div class="countdown-block">
+            <span class="countdown-num" id="cd-hours">--</span
+            ><span class="countdown-unit">Jam</span>
+          </div>
+          <div class="countdown-block">
+            <span class="countdown-num" id="cd-mins">--</span
+            ><span class="countdown-unit">Menit</span>
+          </div>
+          <div class="countdown-block">
+            <span class="countdown-num" id="cd-secs">--</span
+            ><span class="countdown-unit">Detik</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MENU -->
+    <div id="menu">
+      <div class="section-wrap">
+        <div class="section-label reveal">Menu Makanan</div>
+        <div class="menu-row reveal">
+          <div class="menu-cat">
+            <div class="cat-name">Bakar</div>
+            <ul class="cat-items">
+              <li>Ayam</li>
+              <li>Sosis</li>
+              <li>Pentol / Bakso</li>
+              <li>Marshmellow</li>
+            </ul>
+          </div>
+          <div class="menu-cat">
+            <div class="cat-name">Goreng</div>
+            <ul class="cat-items">
+              <li>Kentang Goreng</li>
+            </ul>
+          </div>
+          <div class="menu-cat">
+            <div class="cat-name">Pelengkap</div>
+            <ul class="cat-items">
+              <li>Indomie</li>
+            </ul>
+          </div>
+          <div class="menu-cat">
+            <div class="cat-name">Minuman</div>
+            <ul class="cat-items">
+              <li>Soda</li>
+              <li>Air Putih</li>
+              <li>Marjan + Nata de Coco</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- BUDGET -->
+    <div id="budget">
+      <div class="budget-inner">
+        <div class="budget-left reveal">
+          <h2>Budget<br />Patungan</h2>
+        </div>
+        <div class="budget-right reveal">
+          <div class="budget-row">
+            <span class="b-label">Budget / Orang</span
+            ><span class="b-val">Rp 50.000</span>
+          </div>
+          <div class="budget-row">
+            <span class="b-label">Jumlah Peserta</span
+            ><span class="b-val">9 Orang</span>
+          </div>
+          <div class="budget-total">
+            <span class="b-label">TOTAL BUDGET</span
+            ><span class="b-val">Rp 450.000</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BRING LIST -->
+    <div id="bring">
+      <div class="section-wrap">
+        <div class="section-label reveal">Bawa Apa?</div>
+        <div class="bring-grid reveal">
+          <div class="bring-card">
+            <span class="bring-icon">🍖</span>
+            <div class="bring-text">
+              <h4>Bahan Makanan</h4>
+              <p>menyusul</p>
+            </div>
+          </div>
+          <div class="bring-card">
+            <span class="bring-icon">🥩</span>
+            <div class="bring-text">
+              <h4>Bumbu Bakar & Marinasi</h4>
+              <p>menyusul</p>
+            </div>
+          </div>
+          <div class="bring-card">
+            <span class="bring-icon">🔥</span>
+            <div class="bring-text">
+              <h4>Arang & Korek Api</h4>
+              <p>bensin</p>
+            </div>
+          </div>
+          <div class="bring-card">
+            <span class="bring-icon">🥢</span>
+            <div class="bring-text">
+              <h4>Alat Bakar</h4>
+              <p>menyusul</p>
+            </div>
+          </div>
+          <div class="bring-card">
+            <span class="bring-icon">🎵</span>
+            <div class="bring-text">
+              <h4>Hiburan</h4>
+              <p>menyusul</p>
+            </div>
+          </div>
+          <div class="bring-card">
+            <span class="bring-icon">📱</span>
+            <div class="bring-text">
+              <h4>Dokumentasi</h4>
+              <p>Kamera HP Iphone 17</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="divider"></div>
+
+    <!-- TIMELINE -->
+    <div id="timeline">
+      <div class="section-wrap">
+        <div class="section-label reveal">Timeline Acara</div>
+
+        <div class="timeline-wrap reveal" id="timelineList">
+          <!-- isi nanti di JS -->
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- REALTIME CHECKLIST -->
+    <div id="checklist">
+      <div style="max-width: 1200px; margin: 0 auto">
+        <div class="section-label dark reveal">Persiapan Bareng — Realtime</div>
+        <p class="checklist-title reveal">Checklist Belanja & Peralatan 📋</p>
+        <p class="checklist-sub reveal">
+          Checklist ini realtime — pas kamu centang, semua langsung tau! ✓<br />
+          Siapa yang centang juga keliatan biar makin semangat.
+        </p>
+
+        <!-- Online users -->
+        <div class="online-bar reveal" id="onlineBar">
+          <div class="live-dot">ONLINE SEKARANG</div>
+          <div class="online-avatars" id="onlineAvatars">—</div>
+        </div>
+
+        <div id="checklistLoading" class="loading-items reveal">
+          <div class="spinner"></div>
+          <span>Memuat checklist dari server...</span>
+        </div>
+
+        <div
+          class="checklist-categories reveal"
+          id="checklistCategories"
+          style="display: none"
+        ></div>
+        <div
+          class="check-progress reveal"
+          id="checkProgress"
+          style="margin-top: 28px; display: none"
+        >
+          <span id="checkCount">0 / 0 item siap</span>
+          <div class="progress-bar-wrap">
+            <div
+              class="progress-bar-fill"
+              id="progressFill"
+              style="width: 0%"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LOCATION -->
+    <div id="location">
+      <div style="max-width: 1200px; margin: 0 auto; padding: 0">
+        <div class="section-label reveal">Lokasi Acara</div>
+        <div class="location-inner">
+          <div class="map-embed reveal">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.6!2d109.3405!3d-0.0263!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMCowMSdMJ1MgMTA5wrAyMCcyNi42IkU!5e0!3m2!1sid!2sid!4v1234567890"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Lokasi Rumah Davin"
+            >
+            </iframe>
+          </div>
+          <div class="reveal">
+            <div class="location-info">
+              <h2>Rumah<br />Davin</h2>
+              <address class="location-address">
+                <strong>Jl. Meranti, Gang Meranti 15 No. 1</strong>
+                Pontianak, Kalimantan Barat<br />Indonesia
+              </address>
+              <a
+                class="btn-maps"
+                href="https://maps.app.goo.gl/Vax4B8XuMNMNBQvy9"
+                target="_blank"
+                >🗺️ &nbsp; Buka di Google Maps</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-logo">MINSOULZ</div>
+      <div class="footer-tag">BBQ NIGHT · 12 MEI 2026 · PONTIANAK</div>
+    </footer>
+
+    <!-- ===== SCRIPTS ===== -->
+    <script>
+      // Mobile menu
+      const hamburger = document.getElementById("hamburger");
+      const mobileMenu = document.getElementById("mobileMenu");
+      hamburger.addEventListener("click", () =>
+        mobileMenu.classList.toggle("open")
+      );
+      function closeMobile() {
+        mobileMenu.classList.remove("open");
+      }
+
+      // Countdown
+      function updateCountdown() {
+        const target = new Date("2026-05-12T12:00:00");
+        const diff = target - new Date();
+        if (diff <= 0) {
+          ["cd-days", "cd-hours", "cd-mins", "cd-secs"].forEach(
+            (id) => (document.getElementById(id).textContent = "00")
+          );
+          return;
+        }
+        const d = Math.floor(diff / 86400000),
+          h = Math.floor((diff % 86400000) / 3600000),
+          m = Math.floor((diff % 3600000) / 60000),
+          s = Math.floor((diff % 60000) / 1000);
+        document.getElementById("cd-days").textContent = String(d).padStart(
+          2,
+          "0"
+        );
+        document.getElementById("cd-hours").textContent = String(h).padStart(
+          2,
+          "0"
+        );
+        document.getElementById("cd-mins").textContent = String(m).padStart(
+          2,
+          "0"
+        );
+        document.getElementById("cd-secs").textContent = String(s).padStart(
+          2,
+          "0"
+        );
+      }
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+
+      // Toast
+      function showToast(msg) {
+        const t = document.getElementById("toast");
+        t.textContent = msg;
+        t.classList.add("show");
+        setTimeout(() => t.classList.remove("show"), 3000);
+      }
+
+      // Reveal on scroll
+      const observer = new IntersectionObserver(
+        (entries) =>
+          entries.forEach((e) => {
+            if (e.isIntersecting) e.target.classList.add("visible");
+          }),
+        { threshold: 0.08, rootMargin: "0px 0px -40px 0px" }
+      );
+      document.querySelectorAll(".reveal").forEach((r) => observer.observe(r));
+
+      // Name modal
+      let myName = localStorage.getItem("bbq_username") || "";
+      if (myName) document.getElementById("nameModal").style.display = "none";
+      document.getElementById("nameSubmit").addEventListener("click", () => {
+        const val = document.getElementById("nameInput").value.trim();
+        if (!val) {
+          showToast("Masukkan nama dulu ya!");
+          return;
+        }
+        myName = val.toUpperCase().slice(0, 16);
+        localStorage.setItem("bbq_username", myName);
+        document.getElementById("nameModal").style.display = "none";
+        showToast("Halo " + myName + "! 🔥");
+      });
+      document.getElementById("nameInput").addEventListener("keydown", (e) => {
+        if (e.key === "Enter") document.getElementById("nameSubmit").click();
+      });
+    </script>
+
+    <!-- FIREBASE -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+      import {
+        getDatabase,
+        ref,
+        onValue,
+        set,
+        update,
+        get,
+        serverTimestamp,
+        onDisconnect,
+        push,
+        remove,
+      } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+      import {
+        getStorage,
+        ref as sRef,
+        uploadBytesResumable,
+        getDownloadURL,
+      } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyCsfOGvVR7FtihQ51Iqaw1h5iJf0WFkU3Y",
+        authDomain: "bbq-minsoulz.firebaseapp.com",
+        databaseURL:
+          "https://bbq-minsoulz-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "bbq-minsoulz",
+        storageBucket: "bbq-minsoulz.firebasestorage.app",
+        messagingSenderId: "788013415717",
+        appId: "1:788013415717:web:21cf137065741bbe95aecc",
+        measurementId: "G-9KL5JDPCMV",
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const db = getDatabase(app);
+      const storage = getStorage(app);
+
+      // ===== CHECKLIST DATA =====
+      const checklistData = [
+        {
+          category: "🛒 Belanja Bahan Makanan",
+          items: [
+            "Ayam",
+            "Sosis",
+            "Pentol / Bakso",
+            "Marshmellow",
+            "Kentang",
+            "Indomie",
+            "Bumbu bakar / kecap manis",
+            "Saus BBQ",
+          ],
+        },
+        {
+          category: "🥤 Belanja Minuman",
+          items: [
+            "Soda / minuman bersoda",
+            "Air mineral / galon",
+            "Marjan",
+            "Nata de Coco",
+            "Es batu",
+          ],
+        },
+        {
+          category: "🔥 Perlengkapan Bakar",
+          items: [
+            "Panggangan / grill",
+            "Arang",
+            "Korek api / lighter",
+            "Minyak tanah / firestarter",
+            "Kipas arang",
+            "Tusuk sate / jepit BBQ",
+            "Sarung tangan anti panas",
+          ],
+        },
+        {
+          category: "🍽️ Perlengkapan Makan & Masak",
+          items: [
+            "Piring",
+            "Sendok & Garpu",
+            "Gelas / cup",
+            "Tisu / napkin",
+            "Mangkuk kecil untuk saus",
+            "Wajan / panci untuk goreng kentang",
+          ],
+        },
+        {
+          category: "🎉 Hiburan & Dokumentasi",
+          items: [
+            "Speaker bluetooth",
+            "Playlist lagu sudah disiapkan",
+            "Kartu UNO / permainan",
+            "HP dengan kamera OK",
+            "Powerbank / charger",
+            "Tikar / alas duduk",
+          ],
+        },
+      ];
+
+      const timelineData = [
+        {
+          time: "12",
+          title: "mKn   ",
+          desc: "sini oi",
+        },
+
+        {
+          time: "",
+          title: "",
+          desc: "",
+        },
+
+        {
+          time: "",
+          title: "",
+          desc: "",
+        },
+
+        {
+          time: "",
+          title: "",
+          desc: "",
+        },
+
+        {
+          time: "",
+          title: "",
+          desc: "",
+        },
+      ];
+
+      function renderTimeline() {
+        const container = document.getElementById("timelineList");
+        container.innerHTML = "";
+
+        timelineData.forEach((item) => {
+          const el = document.createElement("div");
+          el.className = "timeline-item";
+
+          el.innerHTML = `
+      <div class="timeline-dot"></div>
+      <div class="timeline-time">${item.time}</div>
+      <div class="timeline-title">${item.title}</div>
+      <div class="timeline-desc">${item.desc}</div>
+    `;
+
+          container.appendChild(el);
+        });
+      }
+
+      renderTimeline();
+
+      // ===== ONLINE PRESENCE =====
+      function setupPresence() {
+        const name = localStorage.getItem("bbq_username");
+        if (!name) return;
+        const uid = name + "_" + Math.random().toString(36).slice(2, 6);
+        const presRef = ref(db, "presence/" + uid);
+        set(presRef, { name, online: true, ts: Date.now() });
+        onDisconnect(presRef).remove();
+      }
+      setupPresence();
+
+      onValue(ref(db, "presence"), (snap) => {
+        const data = snap.val() || {};
+        const myName = localStorage.getItem("bbq_username") || "";
+        const avatarsEl = document.getElementById("onlineAvatars");
+        const users = Object.values(data).filter((u) => u.online);
+        if (users.length === 0) {
+          avatarsEl.textContent = "—";
+          return;
+        }
+        avatarsEl.innerHTML = users
+          .map(
+            (u) =>
+              `<span class="online-avatar${u.name === myName ? " me" : ""}">${
+                u.name
+              }</span>`
+          )
+          .join("");
+      });
+
+      // ===== REALTIME CHECKLIST =====
+      let checkStates = {};
+
+      function renderChecklist(states) {
+        checkStates = states || {};
+        const container = document.getElementById("checklistCategories");
+        const myName = localStorage.getItem("bbq_username") || "???";
+        container.innerHTML = "";
+        let total = 0,
+          done = 0;
+
+        checklistData.forEach((cat, ci) => {
+          const catDiv = document.createElement("div");
+          const title = document.createElement("div");
+          title.className = "checklist-cat-title";
+          title.textContent = cat.category;
+          catDiv.appendChild(title);
+          const grid = document.createElement("div");
+          grid.className = "checklist-grid";
+
+          cat.items.forEach((item, ii) => {
+            const key = `${ci}_${ii}`;
+            const state = checkStates[key];
+            const checked = state && state.checked;
+            total++;
+            if (checked) done++;
+
+            const el = document.createElement("div");
+            el.className = "check-item" + (checked ? " checked" : "");
+            el.innerHTML = `
+              <div class="check-box"><span class="check-tick">✓</span></div>
+              <div style="flex:1">
+                <span class="check-label">${item}</span>
+                ${
+                  checked
+                    ? `<span class="check-by">✓ ${state.by || "?"}</span>`
+                    : ""
+                }
+              </div>
+            `;
+            el.addEventListener("click", () => {
+              const newChecked = !(
+                checkStates[key] && checkStates[key].checked
+              );
+              const itemRef = ref(db, `checklist/${key}`);
+              if (newChecked) {
+                set(itemRef, { checked: true, by: myName, ts: Date.now() });
+                showToast("✅ " + item + " dicatat oleh " + myName);
+              } else {
+                set(itemRef, { checked: false, by: null, ts: Date.now() });
+              }
+            });
+            grid.appendChild(el);
+          });
+
+          catDiv.appendChild(grid);
+          container.appendChild(catDiv);
+        });
+
+        document.getElementById(
+          "checkCount"
+        ).textContent = `${done} / ${total} item siap`;
+        document.getElementById("progressFill").style.width = total
+          ? (done / total) * 100 + "%"
+          : "0%";
+      }
+
+      // Listen to checklist realtime
+      onValue(ref(db, "checklist"), (snap) => {
+        document.getElementById("checklistLoading").style.display = "none";
+        document.getElementById("checklistCategories").style.display = "flex";
+        document.getElementById("checkProgress").style.display = "flex";
+        renderChecklist(snap.val());
+      });
+
+      // ===== PHOTO GALLERY =====
+      const fileInput = document.getElementById("fileInput");
+      const uploadZone = document.getElementById("uploadZone");
+      const photoGrid = document.getElementById("photoGrid");
+      const noPhotos = document.getElementById("noPhotos");
+      const progressBar = document.getElementById("uploadProgressBar");
+      const progressFill = document.getElementById("uploadProgressFill");
+
+      // Drag & Drop
+      uploadZone.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        uploadZone.classList.add("drag-over");
+      });
+      uploadZone.addEventListener("dragleave", () =>
+        uploadZone.classList.remove("drag-over")
+      );
+      uploadZone.addEventListener("drop", (e) => {
+        e.preventDefault();
+        uploadZone.classList.remove("drag-over");
+        const files = [...e.dataTransfer.files].filter((f) =>
+          f.type.startsWith("image/")
+        );
+        if (files.length) uploadFiles(files);
+      });
+      fileInput.addEventListener("change", () => {
+        const files = [...fileInput.files];
+        if (files.length) uploadFiles(files);
+        fileInput.value = "";
+      });
+
+      // Listen to photos realtime
+
+      document
+        .getElementById("lightboxClose")
+        .addEventListener("click", () =>
+          document.getElementById("lightbox").classList.remove("open")
+        );
+      document.getElementById("lightbox").addEventListener("click", (e) => {
+        if (e.target === e.currentTarget)
+          e.currentTarget.classList.remove("open");
+      });
+
+      function formatTime(ts) {
+        if (!ts) return "";
+        const d = new Date(ts);
+        return (
+          d.toLocaleDateString("id-ID", { day: "2-digit", month: "short" }) +
+          " " +
+          d.toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" })
+        );
+      }
+
+      // Re-setup presence after name is set
+      document.getElementById("nameSubmit").addEventListener("click", () => {
+        setTimeout(setupPresence, 100);
+      });
+    </script>
+  </body>
+</html>
