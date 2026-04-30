@@ -1778,20 +1778,45 @@
 
       // Name modal
       let myName = localStorage.getItem("bbq_username") || "";
-      if (myName) document.getElementById("nameModal").style.display = "none";
+
+      if (myName) {
+        document.getElementById("nameModal").style.display = "none";
+      }
+
+      const allowedUsers = [
+        "Alfred",
+        "Andrew",
+        "Davin",
+        "Dedi",
+        "Grace",
+        "Karin",
+        "Shirlene",
+        "Vincent",
+        "Vellicia",
+      ];
+
       document.getElementById("nameSubmit").addEventListener("click", () => {
-        const val = document.getElementById("nameInput").value.trim();
+        const val = document
+          .getElementById("nameInput")
+          .value.trim()
+          .toUpperCase();
+
         if (!val) {
           showToast("Masukkan nama dulu ya!");
           return;
         }
-        myName = val.toUpperCase().slice(0, 16);
+
+        if (!allowedUsers.includes(val)) {
+          showToast("❌ Nama tidak terdaftar!");
+          return;
+        }
+
+        myName = val;
         localStorage.setItem("bbq_username", myName);
         document.getElementById("nameModal").style.display = "none";
         showToast("Halo " + myName + "! 🔥");
-      });
-      document.getElementById("nameInput").addEventListener("keydown", (e) => {
-        if (e.key === "Enter") document.getElementById("nameSubmit").click();
+
+        setTimeout(setupPresence, 100);
       });
     </script>
 
