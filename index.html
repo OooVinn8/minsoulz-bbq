@@ -733,6 +733,10 @@
       .name-btn:hover {
         opacity: 0.8;
       }
+      .name-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
 
       /* Online users bar */
       .online-bar {
@@ -1256,8 +1260,6 @@
         margin-top: 20px;
         padding-left: 30px;
       }
-
-      /* garis tengah */
       .timeline-wrap::before {
         content: "";
         position: absolute;
@@ -1267,20 +1269,15 @@
         width: 2px;
         background: var(--gray-dark);
       }
-
-      /* item */
       .timeline-item {
         position: relative;
         margin-bottom: 32px;
         padding-left: 20px;
         transition: transform 0.2s;
       }
-
       .timeline-item:hover {
         transform: translateX(4px);
       }
-
-      /* titik */
       .timeline-dot {
         position: absolute;
         left: -2px;
@@ -1292,8 +1289,6 @@
         border: 2px solid var(--white);
         z-index: 2;
       }
-
-      /* waktu */
       .timeline-time {
         font-family: "Space Mono", monospace;
         font-size: 10px;
@@ -1301,16 +1296,12 @@
         letter-spacing: 0.2em;
         margin-bottom: 6px;
       }
-
-      /* title */
       .timeline-title {
         font-family: "Bebas Neue", sans-serif;
         font-size: 26px;
         color: var(--white);
         line-height: 1;
       }
-
-      /* desc */
       .timeline-desc {
         font-size: 13px;
         color: var(--gray-mid);
@@ -1322,27 +1313,19 @@
         line-height: 0.85;
         letter-spacing: -0.02em;
       }
-
-      /* BBQ gede banget */
       .hero-title .bbq {
         display: block;
         font-size: clamp(90px, 22vw, 260px);
         color: #ffffff;
-
         animation: glowPulse 2.5s ease-in-out infinite;
       }
-
-      /* NIGHT sedikit lebih kecil + outline */
       .hero-title .night {
         display: block;
         font-size: clamp(70px, 16vw, 200px);
-
         color: transparent;
         -webkit-text-stroke: 1px rgba(255, 255, 255, 0.6);
         animation: none;
       }
-
-      /* 🔥 glow utama (BBQ) */
       @keyframes glowPulse {
         0%,
         100% {
@@ -1354,8 +1337,6 @@
             0 0 24px rgba(255, 255, 255, 0.6), 0 0 40px rgba(255, 255, 255, 0.3);
         }
       }
-
-      /* glow lebih halus untuk NIGHT */
       @keyframes glowPulseSoft {
         0%,
         100% {
@@ -1364,6 +1345,52 @@
         50% {
           text-shadow: 0 0 10px rgba(255, 255, 255, 0.6),
             0 0 20px rgba(255, 255, 255, 0.3);
+        }
+      }
+
+      /* ===== FLOATING AVATARS ===== */
+      .floating-avatars {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 1;
+        overflow: hidden;
+      }
+      .avatar-bubble {
+        position: absolute;
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 20px;
+        color: var(--black);
+        border: 2.5px solid rgba(255, 255, 255, 0.3);
+        opacity: 0;
+        animation: floatUp var(--dur) ease-in-out var(--delay) infinite;
+        bottom: -80px;
+        left: var(--x);
+        background: var(--color);
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+        overflow: hidden;
+      }
+      @keyframes floatUp {
+        0% {
+          opacity: 0;
+          transform: translateY(0) scale(0.8);
+        }
+        10% {
+          opacity: 0.85;
+          transform: translateY(-40px) scale(1);
+        }
+        80% {
+          opacity: 0.7;
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(-110vh) scale(0.95);
         }
       }
     </style>
@@ -1380,6 +1407,14 @@
           type="text"
           placeholder="Nama kamu..."
           maxlength="20"
+        />
+        <input
+          class="name-input"
+          id="passInput"
+          type="password"
+          placeholder="Password..."
+          maxlength="30"
+          style="margin-bottom: 12px"
         />
         <button class="name-btn" id="nameSubmit">MASUK</button>
       </div>
@@ -1422,12 +1457,12 @@
     <section id="hero">
       <div class="hero-bg-text">MINSOULZ</div>
       <div class="flame-ring"></div>
+      <!-- Floating avatars diisi JS -->
+      <div class="floating-avatars" id="floatingAvatars"></div>
       <p class="hero-eyebrow">Minsoulz Presents</p>
       <h1 class="hero-title">
-        <h1 class="hero-title">
-          <span class="bbq">BBQ</span>
-          <span class="outline night">NIGHT</span>
-        </h1>
+        <span class="bbq">BBQ</span>
+        <span class="outline night">NIGHT</span>
       </h1>
       <p class="hero-sub">Selasa, 12 Mei 2026</p>
     </section>
@@ -1613,17 +1648,13 @@
     </div>
 
     <div class="divider"></div>
-
     <div class="divider"></div>
 
     <!-- TIMELINE -->
     <div id="timeline">
       <div class="section-wrap">
         <div class="section-label reveal">Timeline Acara</div>
-
-        <div class="timeline-wrap reveal" id="timelineList">
-          <!-- isi nanti di JS -->
-        </div>
+        <div class="timeline-wrap reveal" id="timelineList"></div>
       </div>
     </div>
 
@@ -1678,28 +1709,28 @@
         <div class="section-label reveal">Lokasi Acara</div>
         <div class="location-inner">
           <div class="map-embed reveal">
+            <!-- src diisi dari Firebase -->
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.6!2d109.3405!3d-0.0263!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMCowMSdMJ1MgMTA5wrAyMCcyNi42IkU!5e0!3m2!1sid!2sid!4v1234567890"
+              id="mapIframe"
+              src=""
               allowfullscreen=""
               loading="lazy"
               referrerpolicy="no-referrer-when-downgrade"
               title="Lokasi Rumah Davin"
-            >
-            </iframe>
+            ></iframe>
           </div>
           <div class="reveal">
             <div class="location-info">
               <h2>Rumah<br />Davin</h2>
-              <address class="location-address">
-                <strong>Jl. Meranti, Gang Meranti 15 No. 1</strong>
-                Pontianak, Kalimantan Barat<br />Indonesia
+              <!-- alamat diisi dari Firebase -->
+              <address class="location-address" id="locationAddress">
+                <em style="color: var(--gray-mid); font-size: 13px"
+                  >Memuat lokasi...</em
+                >
               </address>
-              <a
-                class="btn-maps"
-                href="https://maps.app.goo.gl/Vax4B8XuMNMNBQvy9"
-                target="_blank"
-                >🗺️ &nbsp; Buka di Google Maps</a
-              >
+              <a class="btn-maps" id="btnMaps" href="#" target="_blank">
+                🗺️ &nbsp; Buka di Google Maps
+              </a>
             </div>
           </div>
         </div>
@@ -1776,48 +1807,14 @@
       );
       document.querySelectorAll(".reveal").forEach((r) => observer.observe(r));
 
-      // Name modal
+      // Name modal — cek localStorage
       let myName = localStorage.getItem("bbq_username") || "";
-
       if (myName) {
         document.getElementById("nameModal").style.display = "none";
       }
 
-      const allowedUsers = [
-        "ALFRED",
-        "ANDREW",
-        "DAVIN",
-        "DEDI",
-        "GRACE",
-        "KARIN",
-        "SHIRLENE",
-        "VINCENT",
-        "VELLICIA",
-      ];
-
-      document.getElementById("nameSubmit").addEventListener("click", () => {
-        const val = document
-          .getElementById("nameInput")
-          .value.trim()
-          .toUpperCase();
-
-        if (!val) {
-          showToast("Masukkan nama dulu ya!");
-          return;
-        }
-
-        if (!allowedUsers.includes(val)) {
-          showToast("❌ Nama tidak terdaftar!");
-          return;
-        }
-
-        myName = val;
-        localStorage.setItem("bbq_username", myName);
-        document.getElementById("nameModal").style.display = "none";
-        showToast("Halo " + myName + "! 🔥");
-
-        setTimeout(setupPresence, 100);
-      });
+      // ⚠️ allowedUsers SUDAH DIHAPUS dari sini
+      // Sekarang dicek langsung ke Firebase di bawah
     </script>
 
     <!-- FIREBASE -->
@@ -1828,12 +1825,8 @@
         ref,
         onValue,
         set,
-        update,
         get,
-        serverTimestamp,
         onDisconnect,
-        push,
-        remove,
       } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
       import {
         getStorage,
@@ -1857,6 +1850,93 @@
       const app = initializeApp(firebaseConfig);
       const db = getDatabase(app);
       const storage = getStorage(app);
+
+      // ===== NAME SUBMIT — cek ke Firebase =====
+      // ===== NAME SUBMIT — cek nama + password ke Firebase =====
+      document
+        .getElementById("nameSubmit")
+        .addEventListener("click", async () => {
+          const val = document
+            .getElementById("nameInput")
+            .value.trim()
+            .toUpperCase();
+          const pass = document.getElementById("passInput").value.trim();
+
+          if (!val) {
+            showToast("Masukkan nama dulu ya!");
+            return;
+          }
+          if (!pass) {
+            showToast("Masukkan password dulu ya!");
+            return;
+          }
+
+          const btn = document.getElementById("nameSubmit");
+          btn.disabled = true;
+          btn.textContent = "MENGECEK...";
+
+          try {
+            // Cek nama
+            const nameSnap = await get(ref(db, "config/allowedUsers/" + val));
+            if (!nameSnap.exists() || nameSnap.val() !== true) {
+              showToast("❌ Nama tidak terdaftar!");
+              btn.disabled = false;
+              btn.textContent = "MASUK";
+              return;
+            }
+
+            // Cek password
+            const passSnap = await get(ref(db, "config/password"));
+            if (
+              !passSnap.exists() ||
+              passSnap.val().toUpperCase() !== pass.toUpperCase()
+            ) {
+              showToast("❌ Password salah!");
+              btn.disabled = false;
+              btn.textContent = "MASUK";
+              return;
+            }
+
+            // Nama + password valid!
+            myName = val;
+            localStorage.setItem("bbq_username", myName);
+            document.getElementById("nameModal").style.display = "none";
+            showToast("Halo " + myName + "! 🔥");
+            setupPresence();
+          } catch (err) {
+            showToast("❌ Gagal cek, coba lagi.");
+            btn.disabled = false;
+            btn.textContent = "MASUK";
+            console.error(err);
+          }
+        });
+
+      // Enter key di input
+      document.getElementById("nameInput").addEventListener("keydown", (e) => {
+        if (e.key === "Enter") document.getElementById("passInput").focus();
+      });
+      document.getElementById("passInput").addEventListener("keydown", (e) => {
+        if (e.key === "Enter") document.getElementById("nameSubmit").click();
+      });
+
+      // ===== LOAD LOKASI dari Firebase =====
+      onValue(ref(db, "config/location"), (snap) => {
+        const loc = snap.val();
+        if (!loc) return;
+
+        // Isi alamat
+        document.getElementById(
+          "locationAddress"
+        ).innerHTML = `<strong>${loc.address}</strong>${loc.city}<br>Indonesia`;
+
+        // Isi tombol maps
+        const btn = document.getElementById("btnMaps");
+        if (btn && loc.mapsUrl) btn.href = loc.mapsUrl;
+
+        // Isi iframe
+        const iframe = document.getElementById("mapIframe");
+        if (iframe && loc.mapsEmbed) iframe.src = loc.mapsEmbed;
+      });
 
       // ===== CHECKLIST DATA =====
       const checklistData = [
@@ -1919,58 +1999,107 @@
         },
       ];
 
+      // ===== TIMELINE =====
       const timelineData = [
-        {
-          time: "12",
-          title: "mKn   ",
-          desc: "sini oi",
-        },
-
-        {
-          time: "",
-          title: "",
-          desc: "",
-        },
-
-        {
-          time: "",
-          title: "",
-          desc: "",
-        },
-
-        {
-          time: "",
-          title: "",
-          desc: "",
-        },
-
-        {
-          time: "",
-          title: "",
-          desc: "",
-        },
+        { time: "12", title: "mKn", desc: "sini oi" },
+        { time: "", title: "", desc: "" },
+        { time: "", title: "", desc: "" },
+        { time: "", title: "", desc: "" },
+        { time: "", title: "", desc: "" },
       ];
 
       function renderTimeline() {
         const container = document.getElementById("timelineList");
         container.innerHTML = "";
-
         timelineData.forEach((item) => {
           const el = document.createElement("div");
           el.className = "timeline-item";
+          el.innerHTML = `
+            <div class="timeline-dot"></div>
+            <div class="timeline-time">${item.time}</div>
+            <div class="timeline-title">${item.title}</div>
+            <div class="timeline-desc">${item.desc}</div>
+          `;
+          container.appendChild(el);
+        });
+      }
+      renderTimeline();
+
+      // ===== FLOATING AVATARS — foto dari Google Drive =====
+      const avatarPhotos = [
+        {
+          name: "ALFRED",
+          url: "https://drive.google.com/thumbnail?id=1hgKfpGjin5CJUqpcGIyHhkBwStGMzUbz&sz=w200",
+        },
+        {
+          name: "ANDREW",
+          url: "https://drive.google.com/thumbnail?id=1-ueScLPlgwazUaGW4qeWHk8bYW2bhAeh&sz=w200",
+        },
+        {
+          name: "DAVIN",
+          url: "https://drive.google.com/thumbnail?id=1g0d6YjZPGSTwaqc1wCHno0mZRF25WZuq&sz=w200",
+        },
+        {
+          name: "DEDI",
+          url: "https://drive.google.com/thumbnail?id=1bbU8V0zy0zYaNyfoE5viQeVrKlZSdbNB&sz=w200",
+        },
+        {
+          name: "GRACE",
+          url: "https://drive.google.com/thumbnail?id=1EtinKaSa_Opr6dCIQ8Bd6TkG3mUpmqgH&sz=w200",
+        },
+        {
+          name: "KARIN",
+          url: "https://drive.google.com/thumbnail?id=1-3qN1SrJDBoARUcSR9j87K-ePGlynVN6&sz=w200",
+        },
+        {
+          name: "SHIRLENE",
+          url: "https://drive.google.com/thumbnail?id=1HhhJ9UNjnqILAdJs_27Dk1Ekv5D0inUw&sz=w200",
+        },
+        {
+          name: "VINCENT",
+          url: "https://drive.google.com/thumbnail?id=1vnT_fWKE0a8S_hCyjwk3bQfSJGuNPVa3&sz=w200",
+        },
+        {
+          name: "VELLICIA",
+          url: "https://drive.google.com/thumbnail?id=1XpdJi1raeUDndZv_HNN0FOh3jarKoAEs&sz=w200",
+        },
+      ];
+
+      function renderFloatingAvatars() {
+        const container = document.getElementById("floatingAvatars");
+        container.innerHTML = "";
+
+        avatarPhotos.forEach((person, i) => {
+          const el = document.createElement("div");
+          el.className = "avatar-bubble";
+
+          const xPercent =
+            5 + (i / avatarPhotos.length) * 85 + (Math.random() * 8 - 4);
+          const dur = 7 + Math.random() * 6;
+          const delay = i * 1.1 + Math.random() * 2;
+
+          el.style.setProperty("--x", xPercent + "%");
+          el.style.setProperty("--dur", dur + "s");
+          el.style.setProperty("--delay", delay + "s");
+          el.style.setProperty("--color", "#1a1a1a");
 
           el.innerHTML = `
-      <div class="timeline-dot"></div>
-      <div class="timeline-time">${item.time}</div>
-      <div class="timeline-title">${item.title}</div>
-      <div class="timeline-desc">${item.desc}</div>
-    `;
+            <img src="${person.url}" alt="${person.name}"
+              style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"
+              onerror="this.style.display='none';this.parentElement.textContent='${person.name.charAt(
+                0
+              )}';"
+            />
+          `;
+
+          // Tooltip nama saat hover
+          el.title = person.name;
 
           container.appendChild(el);
         });
       }
 
-      renderTimeline();
+      renderFloatingAvatars();
 
       // ===== ONLINE PRESENCE =====
       function setupPresence() {
@@ -1985,7 +2114,7 @@
 
       onValue(ref(db, "presence"), (snap) => {
         const data = snap.val() || {};
-        const myName = localStorage.getItem("bbq_username") || "";
+        const myNameNow = localStorage.getItem("bbq_username") || "";
         const avatarsEl = document.getElementById("onlineAvatars");
         const users = Object.values(data).filter((u) => u.online);
         if (users.length === 0) {
@@ -1995,9 +2124,9 @@
         avatarsEl.innerHTML = users
           .map(
             (u) =>
-              `<span class="online-avatar${u.name === myName ? " me" : ""}">${
-                u.name
-              }</span>`
+              `<span class="online-avatar${
+                u.name === myNameNow ? " me" : ""
+              }">${u.name}</span>`
           )
           .join("");
       });
@@ -2008,7 +2137,7 @@
       function renderChecklist(states) {
         checkStates = states || {};
         const container = document.getElementById("checklistCategories");
-        const myName = localStorage.getItem("bbq_username") || "???";
+        const myNameNow = localStorage.getItem("bbq_username") || "???";
         container.innerHTML = "";
         let total = 0,
           done = 0;
@@ -2048,8 +2177,8 @@
               );
               const itemRef = ref(db, `checklist/${key}`);
               if (newChecked) {
-                set(itemRef, { checked: true, by: myName, ts: Date.now() });
-                showToast("✅ " + item + " dicatat oleh " + myName);
+                set(itemRef, { checked: true, by: myNameNow, ts: Date.now() });
+                showToast("✅ " + item + " dicatat oleh " + myNameNow);
               } else {
                 set(itemRef, { checked: false, by: null, ts: Date.now() });
               }
@@ -2069,7 +2198,6 @@
           : "0%";
       }
 
-      // Listen to checklist realtime
       onValue(ref(db, "checklist"), (snap) => {
         document.getElementById("checklistLoading").style.display = "none";
         document.getElementById("checklistCategories").style.display = "flex";
@@ -2077,38 +2205,7 @@
         renderChecklist(snap.val());
       });
 
-      // ===== PHOTO GALLERY =====
-      const fileInput = document.getElementById("fileInput");
-      const uploadZone = document.getElementById("uploadZone");
-      const photoGrid = document.getElementById("photoGrid");
-      const noPhotos = document.getElementById("noPhotos");
-      const progressBar = document.getElementById("uploadProgressBar");
-      const progressFill = document.getElementById("uploadProgressFill");
-
-      // Drag & Drop
-      uploadZone.addEventListener("dragover", (e) => {
-        e.preventDefault();
-        uploadZone.classList.add("drag-over");
-      });
-      uploadZone.addEventListener("dragleave", () =>
-        uploadZone.classList.remove("drag-over")
-      );
-      uploadZone.addEventListener("drop", (e) => {
-        e.preventDefault();
-        uploadZone.classList.remove("drag-over");
-        const files = [...e.dataTransfer.files].filter((f) =>
-          f.type.startsWith("image/")
-        );
-        if (files.length) uploadFiles(files);
-      });
-      fileInput.addEventListener("change", () => {
-        const files = [...fileInput.files];
-        if (files.length) uploadFiles(files);
-        fileInput.value = "";
-      });
-
-      // Listen to photos realtime
-
+      // ===== LIGHTBOX =====
       document
         .getElementById("lightboxClose")
         .addEventListener("click", () =>
@@ -2128,11 +2225,6 @@
           d.toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" })
         );
       }
-
-      // Re-setup presence after name is set
-      document.getElementById("nameSubmit").addEventListener("click", () => {
-        setTimeout(setupPresence, 100);
-      });
     </script>
   </body>
 </html>
