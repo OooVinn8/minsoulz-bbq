@@ -2172,9 +2172,19 @@
               </div>
             `;
             el.addEventListener("click", () => {
-              const newChecked = !(
-                checkStates[key] && checkStates[key].checked
-              );
+              const state = checkStates[key];
+              const alreadyChecked = state && state.checked;
+
+              if (alreadyChecked && state.by !== myNameNow) {
+                showToast(
+                  "❌ Diceklis oleh " +
+                    state.by +
+                    ", cuma dia yang bisa uncheck!"
+                );
+                return;
+              }
+
+              const newChecked = !alreadyChecked;
               const itemRef = ref(db, `checklist/${key}`);
               if (newChecked) {
                 set(itemRef, { checked: true, by: myNameNow, ts: Date.now() });
