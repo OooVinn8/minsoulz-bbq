@@ -34,7 +34,6 @@
         font-family: "DM Sans", sans-serif;
         overflow-x: hidden;
       }
-
       body::before {
         content: "";
         position: fixed;
@@ -128,7 +127,6 @@
         color: var(--white);
       }
 
-      /* Live Indicator in nav */
       .live-dot {
         display: inline-flex;
         align-items: center;
@@ -225,21 +223,34 @@
       }
       .hero-title {
         font-family: "Bebas Neue", sans-serif;
-        font-size: clamp(64px, 18vw, 180px);
-        line-height: 0.9;
-        text-align: center;
-        letter-spacing: -0.01em;
+        line-height: 0.85;
+        letter-spacing: -0.02em;
         position: relative;
         z-index: 2;
         animation: fadeUp 0.8s 0.2s ease both;
       }
-      .hero-title span {
+      .hero-title .bbq {
         display: block;
-        color: var(--white);
+        font-size: clamp(90px, 22vw, 260px);
+        color: #ffffff;
+        animation: glowPulse 2.5s ease-in-out infinite;
       }
-      .hero-title .outline {
-        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
+      .hero-title .night {
+        display: block;
+        font-size: clamp(70px, 16vw, 200px);
         color: transparent;
+        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.6);
+      }
+      @keyframes glowPulse {
+        0%,
+        100% {
+          text-shadow: 0 0 6px rgba(255, 255, 255, 0.3),
+            0 0 12px rgba(255, 255, 255, 0.2);
+        }
+        50% {
+          text-shadow: 0 0 12px rgba(255, 255, 255, 0.8),
+            0 0 24px rgba(255, 255, 255, 0.6), 0 0 40px rgba(255, 255, 255, 0.3);
+        }
       }
       .hero-sub {
         font-family: "Space Mono", monospace;
@@ -251,62 +262,6 @@
         z-index: 2;
         animation: fadeUp 0.8s 0.4s ease both;
       }
-      .hero-fire-emoji {
-        font-size: clamp(36px, 8vw, 48px);
-        margin-top: 32px;
-        position: relative;
-        z-index: 2;
-        animation: fadeUp 0.8s 0.5s ease both,
-          float 2.5s ease-in-out infinite 1.5s;
-      }
-      @keyframes float {
-        0%,
-        100% {
-          transform: translateY(0);
-        }
-        50% {
-          transform: translateY(-12px);
-        }
-      }
-      .scroll-hint {
-        position: absolute;
-        bottom: 36px;
-        left: 50%;
-        transform: translateX(-50%);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 8px;
-        color: var(--gray-mid);
-        font-family: "Space Mono", monospace;
-        font-size: 10px;
-        letter-spacing: 0.2em;
-        animation: fadeUp 1s 1s ease both;
-      }
-      .scroll-line {
-        width: 1px;
-        height: 50px;
-        background: linear-gradient(to bottom, var(--gray-mid), transparent);
-        animation: scroll-down 1.8s ease-in-out infinite;
-      }
-      @keyframes scroll-down {
-        0% {
-          transform: scaleY(0);
-          transform-origin: top;
-        }
-        50% {
-          transform: scaleY(1);
-          transform-origin: top;
-        }
-        51% {
-          transform: scaleY(1);
-          transform-origin: bottom;
-        }
-        100% {
-          transform: scaleY(0);
-          transform-origin: bottom;
-        }
-      }
       @keyframes fadeUp {
         from {
           opacity: 0;
@@ -315,6 +270,52 @@
         to {
           opacity: 1;
           transform: translateY(0);
+        }
+      }
+
+      /* FLOATING AVATARS */
+      .floating-avatars {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 1;
+        overflow: hidden;
+      }
+      .avatar-bubble {
+        position: absolute;
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 20px;
+        color: var(--black);
+        border: 2.5px solid rgba(255, 255, 255, 0.3);
+        opacity: 0;
+        animation: floatUp var(--dur) ease-in-out var(--delay) infinite;
+        bottom: -80px;
+        left: var(--x);
+        background: var(--color);
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+        overflow: hidden;
+      }
+      @keyframes floatUp {
+        0% {
+          opacity: 0;
+          transform: translateY(0) scale(0.8);
+        }
+        10% {
+          opacity: 0.85;
+          transform: translateY(-40px) scale(1);
+        }
+        80% {
+          opacity: 0.7;
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(-110vh) scale(0.95);
         }
       }
 
@@ -498,11 +499,6 @@
       .menu-cat:hover::after {
         transform: scaleX(1);
       }
-      .cat-icon {
-        font-size: 32px;
-        margin-bottom: 16px;
-        display: block;
-      }
       .cat-name {
         font-family: "Bebas Neue", sans-serif;
         font-size: 30px;
@@ -556,11 +552,6 @@
         line-height: 0.9;
         margin-bottom: 20px;
       }
-      .budget-left p {
-        font-size: 14px;
-        color: var(--gray-mid);
-        line-height: 1.7;
-      }
       .budget-right {
         display: flex;
         flex-direction: column;
@@ -587,7 +578,6 @@
       .budget-total {
         background: var(--white);
         color: var(--black);
-        padding: 20px 0 0;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -608,14 +598,7 @@
         padding: 20px 24px;
       }
 
-      /* BRING LIST */
-      .bring-intro {
-        font-size: 14px;
-        color: var(--gray-mid);
-        max-width: 500px;
-        line-height: 1.7;
-        margin-bottom: 40px;
-      }
+      /* BRING */
       .bring-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -650,7 +633,62 @@
         line-height: 1.5;
       }
 
-      /* ===== REALTIME CHECKLIST ===== */
+      /* TIMELINE */
+      .timeline-wrap {
+        position: relative;
+        margin-top: 20px;
+        padding-left: 30px;
+      }
+      .timeline-wrap::before {
+        content: "";
+        position: absolute;
+        left: 8px;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: var(--gray-dark);
+      }
+      .timeline-item {
+        position: relative;
+        margin-bottom: 32px;
+        padding-left: 20px;
+        transition: transform 0.2s;
+      }
+      .timeline-item:hover {
+        transform: translateX(4px);
+      }
+      .timeline-dot {
+        position: absolute;
+        left: -2px;
+        top: 6px;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: var(--black);
+        border: 2px solid var(--white);
+        z-index: 2;
+      }
+      .timeline-time {
+        font-family: "Space Mono", monospace;
+        font-size: 10px;
+        color: var(--gray-mid);
+        letter-spacing: 0.2em;
+        margin-bottom: 6px;
+      }
+      .timeline-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 26px;
+        color: var(--white);
+        line-height: 1;
+      }
+      .timeline-desc {
+        font-size: 13px;
+        color: var(--gray-mid);
+        margin-top: 4px;
+        max-width: 400px;
+      }
+
+      /* CHECKLIST */
       #checklist {
         background: var(--white);
         color: var(--black);
@@ -695,11 +733,10 @@
         margin-bottom: 8px;
       }
       .name-modal p {
-        font-size: 13px;
-        color: rgba(0, 0, 0, 0.5);
-        margin-bottom: 24px;
         font-family: "Space Mono", monospace;
         font-size: 11px;
+        color: rgba(0, 0, 0, 0.5);
+        margin-bottom: 24px;
         line-height: 1.6;
       }
       .name-input {
@@ -738,7 +775,7 @@
         cursor: not-allowed;
       }
 
-      /* Online users bar */
+      /* Online bar */
       .online-bar {
         display: flex;
         align-items: center;
@@ -750,9 +787,6 @@
         font-family: "Space Mono", monospace;
         font-size: 10px;
         color: rgba(0, 0, 0, 0.5);
-      }
-      .online-bar strong {
-        color: var(--black);
       }
       .online-avatars {
         display: flex;
@@ -790,7 +824,6 @@
         grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
         gap: 6px;
       }
-
       .check-item {
         display: flex;
         align-items: center;
@@ -800,7 +833,6 @@
         cursor: pointer;
         transition: all 0.2s;
         user-select: none;
-        position: relative;
       }
       .check-item:hover {
         border-color: var(--black);
@@ -852,7 +884,6 @@
       .check-item:not(.checked) .check-by {
         color: rgba(0, 0, 0, 0.3);
       }
-
       .check-progress {
         font-family: "Space Mono", monospace;
         font-size: 11px;
@@ -874,211 +905,6 @@
         background: var(--black);
         border-radius: 2px;
         transition: width 0.4s ease;
-      }
-
-      /* ===== PHOTO GALLERY ===== */
-      #gallery {
-        background: var(--black);
-        padding: 80px 5vw;
-      }
-      .gallery-title {
-        font-family: "Bebas Neue", sans-serif;
-        font-size: clamp(28px, 5vw, 52px);
-        color: var(--white);
-        margin-bottom: 8px;
-      }
-      .gallery-sub {
-        font-size: 12px;
-        color: var(--gray-mid);
-        margin-bottom: 32px;
-        font-family: "Space Mono", monospace;
-        line-height: 1.6;
-      }
-
-      .upload-zone {
-        border: 2px dashed rgba(255, 255, 255, 0.15);
-        padding: 40px;
-        text-align: center;
-        cursor: pointer;
-        transition: all 0.3s;
-        margin-bottom: 32px;
-        position: relative;
-      }
-      .upload-zone:hover,
-      .upload-zone.drag-over {
-        border-color: rgba(255, 255, 255, 0.4);
-        background: rgba(255, 255, 255, 0.03);
-      }
-      .upload-zone input[type="file"] {
-        position: absolute;
-        inset: 0;
-        opacity: 0;
-        cursor: pointer;
-        width: 100%;
-        height: 100%;
-      }
-      .upload-icon {
-        font-size: 40px;
-        margin-bottom: 12px;
-        display: block;
-      }
-      .upload-text {
-        font-family: "Space Mono", monospace;
-        font-size: 11px;
-        color: var(--gray-mid);
-        letter-spacing: 0.15em;
-      }
-      .upload-text strong {
-        color: var(--white);
-        display: block;
-        font-size: 14px;
-        margin-bottom: 6px;
-        font-family: "DM Sans", sans-serif;
-        font-weight: 600;
-      }
-
-      .upload-progress-bar {
-        height: 3px;
-        background: var(--gray-dark);
-        margin-bottom: 32px;
-        display: none;
-      }
-      .upload-progress-fill {
-        height: 100%;
-        background: var(--white);
-        width: 0%;
-        transition: width 0.2s;
-      }
-
-      .photo-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        gap: 4px;
-      }
-      .photo-item {
-        aspect-ratio: 1;
-        overflow: hidden;
-        position: relative;
-        cursor: pointer;
-        background: var(--gray-dark);
-      }
-      .photo-item img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.4s ease;
-        display: block;
-      }
-      .photo-item:hover img {
-        transform: scale(1.06);
-      }
-      .photo-overlay {
-        position: absolute;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.6);
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        padding: 12px;
-        opacity: 0;
-        transition: opacity 0.3s;
-      }
-      .photo-item:hover .photo-overlay {
-        opacity: 1;
-      }
-      .photo-uploader {
-        font-family: "Space Mono", monospace;
-        font-size: 9px;
-        color: rgba(255, 255, 255, 0.8);
-        letter-spacing: 0.1em;
-      }
-      .photo-time {
-        font-family: "Space Mono", monospace;
-        font-size: 8px;
-        color: rgba(255, 255, 255, 0.4);
-        margin-top: 2px;
-      }
-
-      /* Lightbox */
-      .lightbox {
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.95);
-        z-index: 600;
-        display: none;
-        align-items: center;
-        justify-content: center;
-        padding: 20px;
-      }
-      .lightbox.open {
-        display: flex;
-      }
-      .lightbox img {
-        max-width: 90vw;
-        max-height: 85vh;
-        object-fit: contain;
-      }
-      .lightbox-close {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        font-family: "Space Mono", monospace;
-        font-size: 11px;
-        color: var(--gray-mid);
-        cursor: pointer;
-        letter-spacing: 0.2em;
-        background: none;
-        border: none;
-        padding: 8px 12px;
-      }
-      .lightbox-close:hover {
-        color: var(--white);
-      }
-      .lightbox-info {
-        position: absolute;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        font-family: "Space Mono", monospace;
-        font-size: 10px;
-        color: var(--gray-mid);
-        letter-spacing: 0.15em;
-        text-align: center;
-      }
-
-      /* no photos */
-      .no-photos {
-        font-family: "Space Mono", monospace;
-        font-size: 11px;
-        color: var(--gray-mid);
-        letter-spacing: 0.15em;
-        padding: 40px;
-        text-align: center;
-        border: 1px solid var(--gray-dark);
-      }
-
-      /* LOADING SPINNER */
-      .loading-items {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        font-family: "Space Mono", monospace;
-        font-size: 10px;
-        color: rgba(0, 0, 0, 0.4);
-        padding: 20px 0;
-      }
-      .spinner {
-        width: 16px;
-        height: 16px;
-        border: 2px solid rgba(0, 0, 0, 0.1);
-        border-top-color: var(--black);
-        border-radius: 50%;
-        animation: spin 0.7s linear infinite;
-      }
-      @keyframes spin {
-        to {
-          transform: rotate(360deg);
-        }
       }
 
       /* LOCATION */
@@ -1149,52 +975,6 @@
         opacity: 0.8;
       }
 
-      /* RULES */
-      .rules-list {
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
-      }
-      .rule-row {
-        display: flex;
-        align-items: flex-start;
-        gap: 28px;
-        padding: 22px 26px;
-        background: var(--gray-dark);
-        transition: background 0.2s;
-      }
-      .rule-row:hover {
-        background: #333;
-      }
-      .rule-num {
-        font-family: "Bebas Neue", sans-serif;
-        font-size: 32px;
-        color: rgba(255, 255, 255, 0.15);
-        flex-shrink: 0;
-        width: 44px;
-        line-height: 1;
-      }
-      .rule-content textarea {
-        width: 100%;
-        background: transparent;
-        border: none;
-        color: var(--gray-mid);
-        font-family: "DM Sans", sans-serif;
-        font-size: 14px;
-        line-height: 1.6;
-        resize: vertical;
-        min-height: 24px;
-        padding: 0;
-        outline: none;
-        cursor: text;
-      }
-      .rule-content textarea:focus {
-        color: var(--white);
-      }
-      .rule-content textarea::placeholder {
-        color: rgba(255, 255, 255, 0.2);
-      }
-
       /* FOOTER */
       footer {
         border-top: 1px solid var(--gray-dark);
@@ -1254,147 +1034,7 @@
         transform: translateX(-50%) translateY(0);
       }
 
-      /* TIMELINE */
-      .timeline-wrap {
-        position: relative;
-        margin-top: 20px;
-        padding-left: 30px;
-      }
-      .timeline-wrap::before {
-        content: "";
-        position: absolute;
-        left: 8px;
-        top: 0;
-        bottom: 0;
-        width: 2px;
-        background: var(--gray-dark);
-      }
-      .timeline-item {
-        position: relative;
-        margin-bottom: 32px;
-        padding-left: 20px;
-        transition: transform 0.2s;
-      }
-      .timeline-item:hover {
-        transform: translateX(4px);
-      }
-      .timeline-dot {
-        position: absolute;
-        left: -2px;
-        top: 6px;
-        width: 14px;
-        height: 14px;
-        border-radius: 50%;
-        background: var(--black);
-        border: 2px solid var(--white);
-        z-index: 2;
-      }
-      .timeline-time {
-        font-family: "Space Mono", monospace;
-        font-size: 10px;
-        color: var(--gray-mid);
-        letter-spacing: 0.2em;
-        margin-bottom: 6px;
-      }
-      .timeline-title {
-        font-family: "Bebas Neue", sans-serif;
-        font-size: 26px;
-        color: var(--white);
-        line-height: 1;
-      }
-      .timeline-desc {
-        font-size: 13px;
-        color: var(--gray-mid);
-        margin-top: 4px;
-        max-width: 400px;
-      }
-      .hero-title {
-        font-family: "Bebas Neue", sans-serif;
-        line-height: 0.85;
-        letter-spacing: -0.02em;
-      }
-      .hero-title .bbq {
-        display: block;
-        font-size: clamp(90px, 22vw, 260px);
-        color: #ffffff;
-        animation: glowPulse 2.5s ease-in-out infinite;
-      }
-      .hero-title .night {
-        display: block;
-        font-size: clamp(70px, 16vw, 200px);
-        color: transparent;
-        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.6);
-        animation: none;
-      }
-      @keyframes glowPulse {
-        0%,
-        100% {
-          text-shadow: 0 0 6px rgba(255, 255, 255, 0.3),
-            0 0 12px rgba(255, 255, 255, 0.2);
-        }
-        50% {
-          text-shadow: 0 0 12px rgba(255, 255, 255, 0.8),
-            0 0 24px rgba(255, 255, 255, 0.6), 0 0 40px rgba(255, 255, 255, 0.3);
-        }
-      }
-      @keyframes glowPulseSoft {
-        0%,
-        100% {
-          text-shadow: 0 0 4px rgba(255, 255, 255, 0.2);
-        }
-        50% {
-          text-shadow: 0 0 10px rgba(255, 255, 255, 0.6),
-            0 0 20px rgba(255, 255, 255, 0.3);
-        }
-      }
-
-      /* ===== FLOATING AVATARS ===== */
-      .floating-avatars {
-        position: absolute;
-        inset: 0;
-        pointer-events: none;
-        z-index: 1;
-        overflow: hidden;
-      }
-      .avatar-bubble {
-        position: absolute;
-        width: 70px;
-        height: 70px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-family: "Bebas Neue", sans-serif;
-        font-size: 20px;
-        color: var(--black);
-        border: 2.5px solid rgba(255, 255, 255, 0.3);
-        opacity: 0;
-        animation: floatUp var(--dur) ease-in-out var(--delay) infinite;
-        bottom: -80px;
-        left: var(--x);
-        background: var(--color);
-        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
-        overflow: hidden;
-      }
-      @keyframes floatUp {
-        0% {
-          opacity: 0;
-          transform: translateY(0) scale(0.8);
-        }
-        10% {
-          opacity: 0.85;
-          transform: translateY(-40px) scale(1);
-        }
-        80% {
-          opacity: 0.7;
-        }
-        100% {
-          opacity: 0;
-          transform: translateY(-110vh) scale(0.95);
-        }
-      }
-
-      /* ===== MUSIC PLAYER ===== */
+      /* MUSIC PLAYER */
       #music-player {
         position: fixed;
         bottom: 24px;
@@ -1405,18 +1045,6 @@
         align-items: flex-end;
         gap: 10px;
       }
-
-      /* Hidden YouTube iframe */
-      #yt-player {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        opacity: 0;
-        pointer-events: none;
-        bottom: 0;
-        right: 0;
-      }
-
       .music-bar {
         display: flex;
         align-items: center;
@@ -1430,7 +1058,6 @@
         max-width: 260px;
         transition: all 0.3s;
       }
-
       .music-album {
         width: 36px;
         height: 36px;
@@ -1455,7 +1082,6 @@
           transform: rotate(360deg);
         }
       }
-
       .music-info {
         flex: 1;
         min-width: 0;
@@ -1480,7 +1106,6 @@
       .music-status.active {
         color: #4caf50;
       }
-
       .music-btn {
         width: 32px;
         height: 32px;
@@ -1499,20 +1124,18 @@
         transform: scale(1.1);
         opacity: 0.85;
       }
-
       .music-hint {
         font-family: "Space Mono", monospace;
         font-size: 9px;
         color: var(--gray-mid);
         letter-spacing: 0.1em;
         text-align: right;
-        animation: fadeUp 1s 1.2s ease both;
         opacity: 0;
+        transition: opacity 0.3s;
       }
       .music-hint.visible {
         opacity: 1;
       }
-
       @media (max-width: 480px) {
         #music-player {
           bottom: 16px;
@@ -1522,6 +1145,78 @@
           max-width: 220px;
         }
       }
+
+      /* LOADING */
+      .loading-items {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-family: "Space Mono", monospace;
+        font-size: 10px;
+        color: rgba(0, 0, 0, 0.4);
+        padding: 20px 0;
+      }
+      .spinner {
+        width: 16px;
+        height: 16px;
+        border: 2px solid rgba(0, 0, 0, 0.1);
+        border-top-color: var(--black);
+        border-radius: 50%;
+        animation: spin 0.7s linear infinite;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* LIGHTBOX */
+      .lightbox {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.95);
+        z-index: 600;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+      .lightbox.open {
+        display: flex;
+      }
+      .lightbox img {
+        max-width: 90vw;
+        max-height: 85vh;
+        object-fit: contain;
+      }
+      .lightbox-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-family: "Space Mono", monospace;
+        font-size: 11px;
+        color: var(--gray-mid);
+        cursor: pointer;
+        letter-spacing: 0.2em;
+        background: none;
+        border: none;
+        padding: 8px 12px;
+      }
+      .lightbox-close:hover {
+        color: var(--white);
+      }
+      .lightbox-info {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: "Space Mono", monospace;
+        font-size: 10px;
+        color: var(--gray-mid);
+        letter-spacing: 0.15em;
+        text-align: center;
+      }
+      
     </style>
   </head>
   <body>
@@ -1529,23 +1224,27 @@
     <div class="name-modal-overlay" id="nameModal">
       <div class="name-modal">
         <h3>Siapa kamu?</h3>
-        <p></p>
-        <input
-          class="name-input"
-          id="nameInput"
-          type="text"
-          placeholder="Nama kamu..."
-          maxlength="20"
-        />
-        <input
-          class="name-input"
-          id="passInput"
-          type="password"
-          placeholder="Password..."
-          maxlength="30"
-          style="margin-bottom: 12px"
-        />
-        <button class="name-btn" id="nameSubmit">MASUK</button>
+        <p>Masukkan nama dan password untuk masuk.</p>
+        <form onsubmit="return false;">
+          <input
+            class="name-input"
+            id="nameInput"
+            type="text"
+            placeholder="Nama kamu..."
+            maxlength="20"
+            autocomplete="username"
+          />
+          <input
+            class="name-input"
+            id="passInput"
+            type="password"
+            placeholder="Password..."
+            maxlength="30"
+            style="margin-bottom: 12px"
+            autocomplete="current-password"
+          />
+          <button class="name-btn" id="nameSubmit">MASUK</button>
+        </form>
       </div>
     </div>
 
@@ -1590,7 +1289,7 @@
         <span class="bbq">BBQ</span>
         <span class="outline night">NIGHT</span>
       </h1>
-      <p class="hero-sub">Sabtu, 9 Mei 2026</p>
+      <p class="hero-sub">Jumat, 8 Mei 2026</p>
     </section>
 
     <!-- INFO -->
@@ -1601,7 +1300,7 @@
           <div class="info-card">
             <span class="info-icon">📅</span>
             <div class="info-label">Tanggal</div>
-            <div class="info-value">Sabtu, 9 Mei 2026</div>
+            <div class="info-value">Jumat, 8 Mei 2026</div>
           </div>
           <div class="info-card">
             <span class="info-icon">⏰</span>
@@ -1795,7 +1494,6 @@
           Checklist ini realtime — pas kamu centang, semua langsung tau! ✓<br />
           Siapa yang centang juga keliatan biar makin semangat.
         </p>
-
         <button
           onclick="resetChecklist()"
           style="
@@ -1816,18 +1514,14 @@
         >
           ↺ Reset Semua Checklist
         </button>
-
-        <!-- Online users -->
         <div class="online-bar reveal" id="onlineBar">
           <div class="live-dot">ONLINE SEKARANG</div>
           <div class="online-avatars" id="onlineAvatars">—</div>
         </div>
-
         <div id="checklistLoading" class="loading-items reveal">
           <div class="spinner"></div>
           <span>Memuat checklist dari server...</span>
         </div>
-
         <div
           class="checklist-categories reveal"
           id="checklistCategories"
@@ -1873,9 +1567,9 @@
                   >Memuat lokasi...</em
                 >
               </address>
-              <a class="btn-maps" id="btnMaps" href="#" target="_blank">
-                🗺️ &nbsp; Buka di Google Maps
-              </a>
+              <a class="btn-maps" id="btnMaps" href="#" target="_blank"
+                >🗺️ &nbsp; Buka di Google Maps</a
+              >
             </div>
           </div>
         </div>
@@ -1885,18 +1579,17 @@
     <!-- FOOTER -->
     <footer>
       <div class="footer-logo">MINSOULZ</div>
-      <div class="footer-tag">BBQ NIGHT · 9 MEI 2026 · PONTIANAK</div>
+      <div class="footer-tag">BBQ NIGHT · 8 MEI 2026 · PONTIANAK</div>
     </footer>
 
-    <!-- ===== MUSIC PLAYER (floating, pojok kanan bawah) ===== -->
+    <!-- MUSIC PLAYER -->
     <div id="music-player">
-      <!-- YouTube iframe tersembunyi -->
-      <div id="yt-player"></div>
+      <div class="music-hint" id="musicHint">🎵 VIBE MODE ON</div>
       <div class="music-bar">
         <div class="music-album" id="musicAlbum">🔥</div>
         <div class="music-info">
-          <div class="music-title" id="musicTitle">BBQ Night Vibes</div>
-          <div class="music-status" id="musicStatus">LOADING...</div>
+          <div class="music-title" id="musicTitle">BBQ Night 🔥</div>
+          <div class="music-status" id="musicStatus">KLIK ▶ UNTUK PLAY</div>
         </div>
         <button class="music-btn" id="musicToggle" title="Play / Pause">
           ▶
@@ -1916,8 +1609,9 @@
         mobileMenu.classList.remove("open");
       }
 
+      // Countdown
       function updateCountdown() {
-        const target = new Date("2026-05-09T12:00:00");
+        const target = new Date("2026-05-08T12:00:00");
         const diff = target - new Date();
         if (diff <= 0) {
           ["cd-days", "cd-hours", "cd-mins", "cd-secs"].forEach(
@@ -1973,106 +1667,33 @@
         localStorage.removeItem("bbq_username");
         localStorage.setItem("bbq_login_version", CURRENT_VERSION);
       }
-
       let myName = localStorage.getItem("bbq_username") || "";
-      if (myName) {
-        document.getElementById("nameModal").style.display = "none";
-      }
+      if (myName) document.getElementById("nameModal").style.display = "none";
 
-      // ===== YOUTUBE MUSIC PLAYER =====
-      // Ganti VIDEO_ID di bawah dengan YouTube video ID yang kamu mau
-      // Contoh: https://www.youtube.com/watch?v=jfKfPfyJRdk → ID-nya adalah "jfKfPfyJRdk"
-      // Playlist lofi/BBQ vibes yang cocok:
+      // ===== MP3 MUSIC PLAYER =====
+      // 🎵 Ganti src di bawah dengan path file MP3 kamu
       const PLAYLIST = [
-        { id: "jfKfPfyJRdk", title: "🎵🎵🎵" },
-        { id: "5qap5aO4i9A", title: "🎵🎵🎵" },
-        { id: "DWcJFNfaw9c", title: "🎵🎵🎵" },
+        { src: "music/bbq-night.mp3", title: "BBQ Night Vibes 🔥" },
+        // { src: "music/lagu2.mp3", title: "Lagu 2" },
       ];
 
-      let ytPlayer = null;
+      const audio = new Audio();
+      audio.volume = 0.5;
       let currentTrack = 0;
-      let playerReady = false;
       let isPlaying = false;
-      let userInteracted = false;
 
-      // Load YouTube IFrame API
-      const ytScript = document.createElement("script");
-      ytScript.src = "https://www.youtube.com/iframe_api";
-      document.head.appendChild(ytScript);
-
-      window.onYouTubeIframeAPIReady = function () {
-        ytPlayer = new YT.Player("yt-player", {
-          height: "1",
-          width: "1",
-          videoId: PLAYLIST[0].id,
-          playerVars: {
-            autoplay: 1,
-            controls: 0,
-            loop: 0,
-            modestbranding: 1,
-            rel: 0,
-            playsinline: 1,
-          },
-          events: {
-            onReady: onPlayerReady,
-            onStateChange: onPlayerStateChange,
-          },
-        });
-      };
-
-      function onPlayerReady(event) {
-        playerReady = true;
-        ytPlayer.setVolume(40);
-        updateMusicUI();
-
-        // Coba autoplay — browser modern blokir tanpa interaksi user
-        // Kita coba dulu, kalau gagal tampilkan tombol play
-        try {
-          event.target.playVideo();
-          setTimeout(() => {
-            const state = ytPlayer.getPlayerState();
-            if (state === YT.PlayerState.PLAYING) {
-              isPlaying = true;
-              updateMusicUI();
-            } else {
-              // Autoplay diblokir — tunggu klik user
-              setStatus("KLIK ▶ UNTUK PLAY");
-            }
-          }, 1200);
-        } catch (e) {
-          setStatus("KLIK ▶ UNTUK PLAY");
-        }
-      }
-
-      function onPlayerStateChange(event) {
-        if (event.data === YT.PlayerState.PLAYING) {
-          isPlaying = true;
-          updateMusicUI();
-        } else if (
-          event.data === YT.PlayerState.PAUSED ||
-          event.data === YT.PlayerState.ENDED
-        ) {
-          if (event.data === YT.PlayerState.ENDED) {
-            // next track
-            currentTrack = (currentTrack + 1) % PLAYLIST.length;
-            ytPlayer.loadVideoById(PLAYLIST[currentTrack].id);
-            setTimeout(() => ytPlayer.playVideo(), 500);
-          } else {
-            isPlaying = false;
-            updateMusicUI();
-          }
-        }
+      function loadTrack(index) {
+        audio.src = PLAYLIST[index].src;
+        audio.load();
+        document.getElementById("musicTitle").textContent =
+          PLAYLIST[index].title;
       }
 
       function updateMusicUI() {
         const album = document.getElementById("musicAlbum");
-        const title = document.getElementById("musicTitle");
         const status = document.getElementById("musicStatus");
         const btn = document.getElementById("musicToggle");
         const hint = document.getElementById("musicHint");
-
-        title.textContent = PLAYLIST[currentTrack].title;
-
         if (isPlaying) {
           album.classList.add("playing");
           status.textContent = "NOW PLAYING";
@@ -2081,27 +1702,44 @@
           hint.classList.add("visible");
         } else {
           album.classList.remove("playing");
-          status.textContent = playerReady ? "PAUSED" : "LOADING...";
+          status.textContent = "PAUSED";
           status.classList.remove("active");
           btn.textContent = "▶";
         }
       }
 
-      function setStatus(msg) {
-        document.getElementById("musicStatus").textContent = msg;
-      }
+      // Auto next track
+      audio.addEventListener("ended", () => {
+        currentTrack = (currentTrack + 1) % PLAYLIST.length;
+        loadTrack(currentTrack);
+        audio
+          .play()
+          .then(() => {
+            isPlaying = true;
+            updateMusicUI();
+          })
+          .catch(() => {});
+      });
 
-      // Toggle play/pause
+      // Tombol play/pause
       document.getElementById("musicToggle").addEventListener("click", () => {
-        if (!playerReady) return;
         if (isPlaying) {
-          ytPlayer.pauseVideo();
+          audio.pause();
+          isPlaying = false;
+          updateMusicUI();
         } else {
-          ytPlayer.playVideo();
+          audio
+            .play()
+            .then(() => {
+              isPlaying = true;
+              updateMusicUI();
+            })
+            .catch(() => showToast("Gagal memutar lagu 😢"));
         }
       });
 
-      // Init UI
+      // Load lagu pertama saat halaman dibuka
+      loadTrack(0);
       updateMusicUI();
     </script>
 
@@ -2147,7 +1785,6 @@
             .value.trim()
             .toUpperCase();
           const pass = document.getElementById("passInput").value.trim();
-
           if (!val) {
             showToast("Masukkan nama dulu ya!");
             return;
@@ -2169,7 +1806,6 @@
               btn.textContent = "MASUK";
               return;
             }
-
             const passSnap = await get(ref(db, "config/password"));
             if (
               !passSnap.exists() ||
@@ -2180,7 +1816,6 @@
               btn.textContent = "MASUK";
               return;
             }
-
             myName = val;
             localStorage.setItem("bbq_username", myName);
             document.getElementById("nameModal").style.display = "none";
@@ -2281,7 +1916,7 @@
       ];
 
       const timelineData = [
-        { time: "12", title: "mKn", desc: "sini oi" },
+        { time: "12:00", title: "Kumpul", desc: "sini oi" },
         { time: "", title: "", desc: "" },
         { time: "", title: "", desc: "" },
         { time: "", title: "", desc: "" },
@@ -2292,14 +1927,10 @@
         const container = document.getElementById("timelineList");
         container.innerHTML = "";
         timelineData.forEach((item) => {
+          if (!item.title && !item.time) return;
           const el = document.createElement("div");
           el.className = "timeline-item";
-          el.innerHTML = `
-            <div class="timeline-dot"></div>
-            <div class="timeline-time">${item.time}</div>
-            <div class="timeline-title">${item.title}</div>
-            <div class="timeline-desc">${item.desc}</div>
-          `;
+          el.innerHTML = `<div class="timeline-dot"></div><div class="timeline-time">${item.time}</div><div class="timeline-title">${item.title}</div><div class="timeline-desc">${item.desc}</div>`;
           container.appendChild(el);
         });
       }
@@ -2399,15 +2030,14 @@
       });
 
       let checkStates = {};
-
       function renderChecklist(states) {
         checkStates = states || {};
         const container = document.getElementById("checklistCategories");
-        const myNameNow = localStorage.getItem("bbq_username") || "???";
+        const myNameNow =
+          myName || localStorage.getItem("bbq_username") || "???";
         container.innerHTML = "";
         let total = 0,
           done = 0;
-
         checklistData.forEach((cat, ci) => {
           const catDiv = document.createElement("div");
           const title = document.createElement("div");
@@ -2416,37 +2046,33 @@
           catDiv.appendChild(title);
           const grid = document.createElement("div");
           grid.className = "checklist-grid";
-
           cat.items.forEach((item, ii) => {
             const key = `${ci}_${ii}`;
             const state = checkStates[key];
             const checked = state && state.checked;
             total++;
             if (checked) done++;
-
             const el = document.createElement("div");
             el.className = "check-item" + (checked ? " checked" : "");
-            el.innerHTML = `
-              <div class="check-box"><span class="check-tick">✓</span></div>
-              <div style="flex:1">
-                <span class="check-label">${item}</span>
-                ${
-                  checked
-                    ? `<span class="check-by">✓ ${state.by || "?"}</span>`
-                    : ""
-                }
-              </div>
-            `;
+            el.innerHTML = `<div class="check-box"><span class="check-tick">✓</span></div><div style="flex:1"><span class="check-label">${item}</span>${
+              checked
+                ? `<span class="check-by">✓ ${state.by || "?"}</span>`
+                : ""
+            }</div>`;
             el.addEventListener("click", () => {
               const state = checkStates[key];
               const alreadyChecked = state && state.checked;
-              if (alreadyChecked && state.by !== myNameNow) {
-                showToast(
-                  "❌ Diceklis oleh " +
-                    state.by +
-                    ", cuma dia yang bisa uncheck!"
-                );
-                return;
+              const owner = state?.by;
+
+              if (alreadyChecked) {
+                if (owner && owner !== myNameNow) {
+                  showToast(
+                    "❌ Dicentang oleh " +
+                      owner +
+                      ", cuma dia yang bisa uncheck!"
+                  );
+                  return;
+                }
               }
               const newChecked = !alreadyChecked;
               const itemRef = ref(db, `checklist/${key}`);
@@ -2459,11 +2085,9 @@
             });
             grid.appendChild(el);
           });
-
           catDiv.appendChild(grid);
           container.appendChild(catDiv);
         });
-
         document.getElementById(
           "checkCount"
         ).textContent = `${done} / ${total} item siap`;
@@ -2488,16 +2112,6 @@
         if (e.target === e.currentTarget)
           e.currentTarget.classList.remove("open");
       });
-
-      function formatTime(ts) {
-        if (!ts) return "";
-        const d = new Date(ts);
-        return (
-          d.toLocaleDateString("id-ID", { day: "2-digit", month: "short" }) +
-          " " +
-          d.toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" })
-        );
-      }
     </script>
   </body>
 </html>
