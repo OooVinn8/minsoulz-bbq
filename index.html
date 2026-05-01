@@ -1668,6 +1668,27 @@
           Siapa yang centang juga keliatan biar makin semangat.
         </p>
 
+        <button
+          onclick="resetChecklist()"
+          style="
+            padding: 10px 24px;
+            background: transparent;
+            color: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            cursor: pointer;
+            margin-bottom: 24px;
+            transition: all 0.2s;
+          "
+          onmouseover="this.style.borderColor='black';this.style.color='black'"
+          onmouseout="this.style.borderColor='rgba(0,0,0,0.15)';this.style.color='rgba(0,0,0,0.4)'"
+        >
+          ↺ Reset Semua Checklist
+        </button>
+
         <!-- Online users -->
         <div class="online-bar reveal" id="onlineBar">
           <div class="live-dot">ONLINE SEKARANG</div>
@@ -1921,6 +1942,13 @@
             console.error(err);
           }
         });
+
+      window.resetChecklist = async () => {
+        if (!confirm("Reset semua checklist? Semua centang akan hilang."))
+          return;
+        await set(ref(db, "checklist"), null);
+        showToast("✅ Checklist direset!");
+      };
 
       // Enter key di input
       document.getElementById("nameInput").addEventListener("keydown", (e) => {
