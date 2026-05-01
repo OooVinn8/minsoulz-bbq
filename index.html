@@ -1805,6 +1805,19 @@
       );
       document.querySelectorAll(".reveal").forEach((r) => observer.observe(r));
 
+      // =====================================================
+      // ===== LOGIN VERSION — PAKSA RE-LOGIN SEMUA ORANG ====
+      // Naikkan angka CURRENT_VERSION setiap kali mau reset:
+      //   '2' → '3' → '4' → dst
+      // Semua yang sudah login akan otomatis dikeluarkan
+      // saat mereka buka/refresh halaman ini.
+      // =====================================================
+      const CURRENT_VERSION = "3";
+      if (localStorage.getItem("bbq_login_version") !== CURRENT_VERSION) {
+        localStorage.removeItem("bbq_username");
+        localStorage.setItem("bbq_login_version", CURRENT_VERSION);
+      }
+
       // Name modal — cek localStorage
       let myName = localStorage.getItem("bbq_username") || "";
       if (myName) {
