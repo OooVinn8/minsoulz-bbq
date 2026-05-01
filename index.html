@@ -1393,6 +1393,135 @@
           transform: translateY(-110vh) scale(0.95);
         }
       }
+
+      /* ===== MUSIC PLAYER ===== */
+      #music-player {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        z-index: 9000;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 10px;
+      }
+
+      /* Hidden YouTube iframe */
+      #yt-player {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        opacity: 0;
+        pointer-events: none;
+        bottom: 0;
+        right: 0;
+      }
+
+      .music-bar {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: rgba(10, 10, 10, 0.92);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(16px);
+        padding: 10px 16px 10px 12px;
+        border-radius: 2px;
+        animation: fadeUp 1s 0.8s ease both;
+        max-width: 260px;
+        transition: all 0.3s;
+      }
+
+      .music-album {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: var(--gray-dark);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        flex-shrink: 0;
+        animation: spinRecord 4s linear infinite;
+        animation-play-state: paused;
+      }
+      .music-album.playing {
+        animation-play-state: running;
+      }
+      @keyframes spinRecord {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .music-info {
+        flex: 1;
+        min-width: 0;
+        overflow: hidden;
+      }
+      .music-title {
+        font-family: "DM Sans", sans-serif;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--white);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .music-status {
+        font-family: "Space Mono", monospace;
+        font-size: 9px;
+        color: var(--gray-mid);
+        letter-spacing: 0.1em;
+        margin-top: 2px;
+      }
+      .music-status.active {
+        color: #4caf50;
+      }
+
+      .music-btn {
+        width: 32px;
+        height: 32px;
+        background: var(--white);
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        flex-shrink: 0;
+        transition: transform 0.2s, opacity 0.2s;
+      }
+      .music-btn:hover {
+        transform: scale(1.1);
+        opacity: 0.85;
+      }
+
+      .music-hint {
+        font-family: "Space Mono", monospace;
+        font-size: 9px;
+        color: var(--gray-mid);
+        letter-spacing: 0.1em;
+        text-align: right;
+        animation: fadeUp 1s 1.2s ease both;
+        opacity: 0;
+      }
+      .music-hint.visible {
+        opacity: 1;
+      }
+
+      @media (max-width: 480px) {
+        #music-player {
+          bottom: 16px;
+          right: 16px;
+        }
+        .music-bar {
+          max-width: 220px;
+        }
+      }
     </style>
   </head>
   <body>
@@ -1455,14 +1584,13 @@
     <section id="hero">
       <div class="hero-bg-text">MINSOULZ</div>
       <div class="flame-ring"></div>
-      <!-- Floating avatars diisi JS -->
       <div class="floating-avatars" id="floatingAvatars"></div>
       <p class="hero-eyebrow">Minsoulz Presents</p>
       <h1 class="hero-title">
         <span class="bbq">BBQ</span>
         <span class="outline night">NIGHT</span>
       </h1>
-      <p class="hero-sub">Selasa, 12 Mei 2026</p>
+      <p class="hero-sub">Sabtu, 9 Mei 2026</p>
     </section>
 
     <!-- INFO -->
@@ -1473,7 +1601,7 @@
           <div class="info-card">
             <span class="info-icon">📅</span>
             <div class="info-label">Tanggal</div>
-            <div class="info-value">Selasa, 12 Mei 2026</div>
+            <div class="info-value">Sabtu, 9 Mei 2026</div>
           </div>
           <div class="info-card">
             <span class="info-icon">⏰</span>
@@ -1728,7 +1856,6 @@
         <div class="section-label reveal">Lokasi Acara</div>
         <div class="location-inner">
           <div class="map-embed reveal">
-            <!-- src diisi dari Firebase -->
             <iframe
               id="mapIframe"
               src=""
@@ -1741,7 +1868,6 @@
           <div class="reveal">
             <div class="location-info">
               <h2>Rumah<br />Davin</h2>
-              <!-- alamat diisi dari Firebase -->
               <address class="location-address" id="locationAddress">
                 <em style="color: var(--gray-mid); font-size: 13px"
                   >Memuat lokasi...</em
@@ -1759,8 +1885,24 @@
     <!-- FOOTER -->
     <footer>
       <div class="footer-logo">MINSOULZ</div>
-      <div class="footer-tag">BBQ NIGHT · 12 MEI 2026 · PONTIANAK</div>
+      <div class="footer-tag">BBQ NIGHT · 9 MEI 2026 · PONTIANAK</div>
     </footer>
+
+    <!-- ===== MUSIC PLAYER (floating, pojok kanan bawah) ===== -->
+    <div id="music-player">
+      <!-- YouTube iframe tersembunyi -->
+      <div id="yt-player"></div>
+      <div class="music-bar">
+        <div class="music-album" id="musicAlbum">🔥</div>
+        <div class="music-info">
+          <div class="music-title" id="musicTitle">BBQ Night Vibes</div>
+          <div class="music-status" id="musicStatus">LOADING...</div>
+        </div>
+        <button class="music-btn" id="musicToggle" title="Play / Pause">
+          ▶
+        </button>
+      </div>
+    </div>
 
     <!-- ===== SCRIPTS ===== -->
     <script>
@@ -1774,9 +1916,8 @@
         mobileMenu.classList.remove("open");
       }
 
-      // Countdown
       function updateCountdown() {
-        const target = new Date("2026-05-12T12:00:00");
+        const target = new Date("2026-05-09T12:00:00");
         const diff = target - new Date();
         if (diff <= 0) {
           ["cd-days", "cd-hours", "cd-mins", "cd-secs"].forEach(
@@ -1826,27 +1967,142 @@
       );
       document.querySelectorAll(".reveal").forEach((r) => observer.observe(r));
 
-      // =====================================================
-      // ===== LOGIN VERSION — PAKSA RE-LOGIN SEMUA ORANG ====
-      // Naikkan angka CURRENT_VERSION setiap kali mau reset:
-      //   '2' → '3' → '4' → dst
-      // Semua yang sudah login akan otomatis dikeluarkan
-      // saat mereka buka/refresh halaman ini.
-      // =====================================================
+      // Login version
       const CURRENT_VERSION = "3";
       if (localStorage.getItem("bbq_login_version") !== CURRENT_VERSION) {
         localStorage.removeItem("bbq_username");
         localStorage.setItem("bbq_login_version", CURRENT_VERSION);
       }
 
-      // Name modal — cek localStorage
       let myName = localStorage.getItem("bbq_username") || "";
       if (myName) {
         document.getElementById("nameModal").style.display = "none";
       }
 
-      // ⚠️ allowedUsers SUDAH DIHAPUS dari sini
-      // Sekarang dicek langsung ke Firebase di bawah
+      // ===== YOUTUBE MUSIC PLAYER =====
+      // Ganti VIDEO_ID di bawah dengan YouTube video ID yang kamu mau
+      // Contoh: https://www.youtube.com/watch?v=jfKfPfyJRdk → ID-nya adalah "jfKfPfyJRdk"
+      // Playlist lofi/BBQ vibes yang cocok:
+      const PLAYLIST = [
+        { id: "jfKfPfyJRdk", title: "🎵🎵🎵" },
+        { id: "5qap5aO4i9A", title: "🎵🎵🎵" },
+        { id: "DWcJFNfaw9c", title: "🎵🎵🎵" },
+      ];
+
+      let ytPlayer = null;
+      let currentTrack = 0;
+      let playerReady = false;
+      let isPlaying = false;
+      let userInteracted = false;
+
+      // Load YouTube IFrame API
+      const ytScript = document.createElement("script");
+      ytScript.src = "https://www.youtube.com/iframe_api";
+      document.head.appendChild(ytScript);
+
+      window.onYouTubeIframeAPIReady = function () {
+        ytPlayer = new YT.Player("yt-player", {
+          height: "1",
+          width: "1",
+          videoId: PLAYLIST[0].id,
+          playerVars: {
+            autoplay: 1,
+            controls: 0,
+            loop: 0,
+            modestbranding: 1,
+            rel: 0,
+            playsinline: 1,
+          },
+          events: {
+            onReady: onPlayerReady,
+            onStateChange: onPlayerStateChange,
+          },
+        });
+      };
+
+      function onPlayerReady(event) {
+        playerReady = true;
+        ytPlayer.setVolume(40);
+        updateMusicUI();
+
+        // Coba autoplay — browser modern blokir tanpa interaksi user
+        // Kita coba dulu, kalau gagal tampilkan tombol play
+        try {
+          event.target.playVideo();
+          setTimeout(() => {
+            const state = ytPlayer.getPlayerState();
+            if (state === YT.PlayerState.PLAYING) {
+              isPlaying = true;
+              updateMusicUI();
+            } else {
+              // Autoplay diblokir — tunggu klik user
+              setStatus("KLIK ▶ UNTUK PLAY");
+            }
+          }, 1200);
+        } catch (e) {
+          setStatus("KLIK ▶ UNTUK PLAY");
+        }
+      }
+
+      function onPlayerStateChange(event) {
+        if (event.data === YT.PlayerState.PLAYING) {
+          isPlaying = true;
+          updateMusicUI();
+        } else if (
+          event.data === YT.PlayerState.PAUSED ||
+          event.data === YT.PlayerState.ENDED
+        ) {
+          if (event.data === YT.PlayerState.ENDED) {
+            // next track
+            currentTrack = (currentTrack + 1) % PLAYLIST.length;
+            ytPlayer.loadVideoById(PLAYLIST[currentTrack].id);
+            setTimeout(() => ytPlayer.playVideo(), 500);
+          } else {
+            isPlaying = false;
+            updateMusicUI();
+          }
+        }
+      }
+
+      function updateMusicUI() {
+        const album = document.getElementById("musicAlbum");
+        const title = document.getElementById("musicTitle");
+        const status = document.getElementById("musicStatus");
+        const btn = document.getElementById("musicToggle");
+        const hint = document.getElementById("musicHint");
+
+        title.textContent = PLAYLIST[currentTrack].title;
+
+        if (isPlaying) {
+          album.classList.add("playing");
+          status.textContent = "NOW PLAYING";
+          status.classList.add("active");
+          btn.textContent = "⏸";
+          hint.classList.add("visible");
+        } else {
+          album.classList.remove("playing");
+          status.textContent = playerReady ? "PAUSED" : "LOADING...";
+          status.classList.remove("active");
+          btn.textContent = "▶";
+        }
+      }
+
+      function setStatus(msg) {
+        document.getElementById("musicStatus").textContent = msg;
+      }
+
+      // Toggle play/pause
+      document.getElementById("musicToggle").addEventListener("click", () => {
+        if (!playerReady) return;
+        if (isPlaying) {
+          ytPlayer.pauseVideo();
+        } else {
+          ytPlayer.playVideo();
+        }
+      });
+
+      // Init UI
+      updateMusicUI();
     </script>
 
     <!-- FIREBASE -->
@@ -1883,8 +2139,6 @@
       const db = getDatabase(app);
       const storage = getStorage(app);
 
-      // ===== NAME SUBMIT — cek ke Firebase =====
-      // ===== NAME SUBMIT — cek nama + password ke Firebase =====
       document
         .getElementById("nameSubmit")
         .addEventListener("click", async () => {
@@ -1908,7 +2162,6 @@
           btn.textContent = "MENGECEK...";
 
           try {
-            // Cek nama
             const nameSnap = await get(ref(db, "config/allowedUsers/" + val));
             if (!nameSnap.exists() || nameSnap.val() !== true) {
               showToast("❌ Nama tidak terdaftar!");
@@ -1917,7 +2170,6 @@
               return;
             }
 
-            // Cek password
             const passSnap = await get(ref(db, "config/password"));
             if (
               !passSnap.exists() ||
@@ -1929,7 +2181,6 @@
               return;
             }
 
-            // Nama + password valid!
             myName = val;
             localStorage.setItem("bbq_username", myName);
             document.getElementById("nameModal").style.display = "none";
@@ -1950,7 +2201,6 @@
         showToast("✅ Checklist direset!");
       };
 
-      // Enter key di input
       document.getElementById("nameInput").addEventListener("keydown", (e) => {
         if (e.key === "Enter") document.getElementById("passInput").focus();
       });
@@ -1958,26 +2208,18 @@
         if (e.key === "Enter") document.getElementById("nameSubmit").click();
       });
 
-      // ===== LOAD LOKASI dari Firebase =====
       onValue(ref(db, "config/location"), (snap) => {
         const loc = snap.val();
         if (!loc) return;
-
-        // Isi alamat
         document.getElementById(
           "locationAddress"
         ).innerHTML = `<strong>${loc.address}</strong>${loc.city}<br>Indonesia`;
-
-        // Isi tombol maps
         const btn = document.getElementById("btnMaps");
         if (btn && loc.mapsUrl) btn.href = loc.mapsUrl;
-
-        // Isi iframe
         const iframe = document.getElementById("mapIframe");
         if (iframe && loc.mapsEmbed) iframe.src = loc.mapsEmbed;
       });
 
-      // ===== CHECKLIST DATA =====
       const checklistData = [
         {
           category: "🛒 Belanja Bahan Makanan",
@@ -2038,7 +2280,6 @@
         },
       ];
 
-      // ===== TIMELINE =====
       const timelineData = [
         { time: "12", title: "mKn", desc: "sini oi" },
         { time: "", title: "", desc: "" },
@@ -2064,7 +2305,6 @@
       }
       renderTimeline();
 
-      // ===== FLOATING AVATARS — foto dari Google Drive =====
       const avatarPhotos = [
         {
           name: "ALFRED",
@@ -2107,40 +2347,28 @@
       function renderFloatingAvatars() {
         const container = document.getElementById("floatingAvatars");
         container.innerHTML = "";
-
         avatarPhotos.forEach((person, i) => {
           const el = document.createElement("div");
           el.className = "avatar-bubble";
-
           const xPercent =
             5 + (i / avatarPhotos.length) * 85 + (Math.random() * 8 - 4);
           const dur = 7 + Math.random() * 6;
           const delay = i * 1.1 + Math.random() * 2;
-
           el.style.setProperty("--x", xPercent + "%");
           el.style.setProperty("--dur", dur + "s");
           el.style.setProperty("--delay", delay + "s");
           el.style.setProperty("--color", "#1a1a1a");
-
-          el.innerHTML = `
-            <img src="${person.url}" alt="${person.name}"
-              style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"
-              onerror="this.style.display='none';this.parentElement.textContent='${person.name.charAt(
-                0
-              )}';"
-            />
-          `;
-
-          // Tooltip nama saat hover
+          el.innerHTML = `<img src="${person.url}" alt="${
+            person.name
+          }" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;" onerror="this.style.display='none';this.parentElement.textContent='${person.name.charAt(
+            0
+          )}';" />`;
           el.title = person.name;
-
           container.appendChild(el);
         });
       }
-
       renderFloatingAvatars();
 
-      // ===== ONLINE PRESENCE =====
       function setupPresence() {
         const name = localStorage.getItem("bbq_username");
         if (!name) return;
@@ -2170,7 +2398,6 @@
           .join("");
       });
 
-      // ===== REALTIME CHECKLIST =====
       let checkStates = {};
 
       function renderChecklist(states) {
@@ -2213,7 +2440,6 @@
             el.addEventListener("click", () => {
               const state = checkStates[key];
               const alreadyChecked = state && state.checked;
-
               if (alreadyChecked && state.by !== myNameNow) {
                 showToast(
                   "❌ Diceklis oleh " +
@@ -2222,7 +2448,6 @@
                 );
                 return;
               }
-
               const newChecked = !alreadyChecked;
               const itemRef = ref(db, `checklist/${key}`);
               if (newChecked) {
@@ -2254,7 +2479,6 @@
         renderChecklist(snap.val());
       });
 
-      // ===== LIGHTBOX =====
       document
         .getElementById("lightboxClose")
         .addEventListener("click", () =>
