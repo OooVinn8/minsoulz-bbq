@@ -1,0 +1,1587 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Gallery — BBQ Night Minsoulz</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --black: #0a0a0a;
+        --white: #f5f5f0;
+        --gray-light: #e0dfd8;
+        --gray-mid: #9a9a90;
+        --gray-dark: #2a2a2a;
+        --green: #4caf50;
+        * {
+          --orange: var(--gray-mid);
+        }
+        .upload-btn-main {
+          background: var(--white);
+          color: var(--black);
+        }
+        .progress-fill {
+          background: var(--white);
+        }
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        background: var(--black);
+        color: var(--white);
+        font-family: "DM Sans", sans-serif;
+        overflow-x: hidden;
+        min-height: 100vh;
+      }
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 9997;
+      }
+
+      /* NAV */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        padding: 16px 5vw;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: rgba(10, 10, 10, 0.92);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      }
+      .nav-left {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+      .nav-back {
+        font-family: "Space Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        color: var(--gray-mid);
+        text-decoration: none;
+        text-transform: uppercase;
+        transition: color 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .nav-back:hover {
+        color: var(--white);
+      }
+      .nav-logo {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 22px;
+        color: var(--white);
+        letter-spacing: 0.08em;
+      }
+      .nav-logo span {
+        color: var(--orange);
+      }
+      .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+      .nav-user {
+        font-family: "Space Mono", monospace;
+        font-size: 9px;
+        letter-spacing: 0.15em;
+        color: var(--gray-mid);
+        padding: 6px 12px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .live-dot {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-family: "Space Mono", monospace;
+        font-size: 9px;
+        letter-spacing: 0.15em;
+        color: #4caf50;
+      }
+      .live-dot::before {
+        content: "";
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #4caf50;
+        animation: blink-dot 1.4s ease-in-out infinite;
+      }
+      @keyframes blink-dot {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.3;
+        }
+      }
+
+      /* HERO */
+      .gallery-hero {
+        padding: 120px 5vw 60px;
+        position: relative;
+        overflow: hidden;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      }
+      .hero-bg-word {
+        position: absolute;
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(100px, 22vw, 380px);
+        color: rgba(255, 255, 255, 0.025);
+        top: 50%;
+        right: -2vw;
+        transform: translateY(-50%);
+        user-select: none;
+        white-space: nowrap;
+        letter-spacing: -0.02em;
+      }
+      .hero-content {
+        position: relative;
+        z-index: 2;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+      .hero-eyebrow {
+        font-family: "Space Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.35em;
+        color: var(--orange);
+        text-transform: uppercase;
+        margin-bottom: 16px;
+        animation: fadeUp 0.6s ease both;
+      }
+      .hero-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(60px, 14vw, 180px);
+        line-height: 0.85;
+        animation: fadeUp 0.6s 0.1s ease both;
+        margin-bottom: 24px;
+      }
+      .hero-title .outline {
+        color: transparent;
+        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.4);
+      }
+      .hero-stats {
+        display: flex;
+        gap: 32px;
+        flex-wrap: wrap;
+        animation: fadeUp 0.6s 0.2s ease both;
+      }
+      .hero-stat {
+        font-family: "Space Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        color: var(--gray-mid);
+      }
+      .hero-stat strong {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 28px;
+        color: var(--white);
+        display: block;
+        letter-spacing: 0.05em;
+        line-height: 1;
+        margin-bottom: 4px;
+      }
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* TOOLBAR */
+      .toolbar {
+        position: sticky;
+        top: 57px;
+        z-index: 50;
+        background: rgba(10, 10, 10, 0.95);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        padding: 14px 5vw;
+      }
+      .toolbar-inner {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .filter-label {
+        font-family: "Space Mono", monospace;
+        font-size: 9px;
+        letter-spacing: 0.3em;
+        color: var(--gray-mid);
+        text-transform: uppercase;
+        margin-right: 4px;
+      }
+      .filter-btn {
+        padding: 7px 16px;
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        color: var(--gray-mid);
+        font-family: "Space Mono", monospace;
+        font-size: 9px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: all 0.2s;
+        white-space: nowrap;
+      }
+      .filter-btn:hover,
+      .filter-btn.active {
+        background: var(--white);
+        color: var(--black);
+        border-color: var(--white);
+      }
+      .toolbar-right {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .view-btn {
+        width: 34px;
+        height: 34px;
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        color: var(--gray-mid);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        transition: all 0.2s;
+      }
+      .view-btn.active,
+      .view-btn:hover {
+        background: rgba(255, 255, 255, 0.08);
+        color: var(--white);
+        border-color: rgba(255, 255, 255, 0.3);
+      }
+
+      /* UPLOAD STRIP */
+      .upload-strip {
+        padding: 20px 5vw;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      }
+      .upload-strip-inner {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .upload-btn-main {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 24px;
+        background: var(--orange);
+        color: var(--white);
+        border: none;
+        cursor: pointer;
+        font-family: "Space Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        transition: opacity 0.2s;
+        white-space: nowrap;
+      }
+      .upload-btn-main:hover {
+        opacity: 0.85;
+      }
+      .upload-hint {
+        font-family: "Space Mono", monospace;
+        font-size: 9px;
+        color: rgba(255, 255, 255, 0.2);
+        letter-spacing: 0.1em;
+      }
+
+      /* UPLOAD MODAL */
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.88);
+        z-index: 300;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(8px);
+        padding: 20px;
+      }
+      .modal-overlay.open {
+        display: flex;
+      }
+      .upload-modal {
+        background: #141414;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        width: 100%;
+        max-width: 560px;
+        animation: fadeUp 0.3s ease both;
+      }
+      .modal-header {
+        padding: 24px 28px 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .modal-header h2 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 32px;
+        color: var(--white);
+      }
+      .modal-close {
+        background: none;
+        border: none;
+        color: var(--gray-mid);
+        cursor: pointer;
+        font-family: "Space Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        padding: 4px;
+        transition: color 0.2s;
+      }
+      .modal-close:hover {
+        color: var(--white);
+      }
+      .modal-body {
+        padding: 24px 28px;
+      }
+      .drop-zone {
+        border: 2px dashed rgba(255, 255, 255, 0.12);
+        padding: 48px 24px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s;
+        margin-bottom: 16px;
+        position: relative;
+      }
+      .drop-zone:hover,
+      .drop-zone.drag-over {
+        border-color: var(--orange);
+        background: rgba(255, 85, 0, 0.04);
+      }
+      .drop-zone-icon {
+        font-size: 36px;
+        margin-bottom: 12px;
+      }
+      .drop-zone-text {
+        font-family: "Space Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        color: var(--gray-mid);
+        text-transform: uppercase;
+      }
+      .drop-zone-sub {
+        font-family: "Space Mono", monospace;
+        font-size: 9px;
+        color: rgba(255, 255, 255, 0.2);
+        margin-top: 6px;
+        letter-spacing: 0.1em;
+      }
+      .preview-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+        gap: 6px;
+        margin-bottom: 16px;
+      }
+      .preview-item {
+        position: relative;
+        aspect-ratio: 1;
+        overflow: hidden;
+        background: var(--gray-dark);
+      }
+      .preview-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .preview-remove {
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        width: 22px;
+        height: 22px;
+        background: rgba(0, 0, 0, 0.75);
+        color: #fff;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 11px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s;
+      }
+      .preview-remove:hover {
+        background: rgba(255, 60, 60, 0.8);
+      }
+      .progress-wrap {
+        margin-bottom: 16px;
+        display: none;
+      }
+      .progress-bar {
+        height: 2px;
+        background: rgba(255, 255, 255, 0.08);
+      }
+      .progress-fill {
+        height: 100%;
+        background: var(--orange);
+        width: 0%;
+        transition: width 0.3s;
+      }
+      .progress-text {
+        font-family: "Space Mono", monospace;
+        font-size: 9px;
+        color: var(--gray-mid);
+        letter-spacing: 0.1em;
+        margin-top: 8px;
+      }
+      .modal-submit {
+        width: 100%;
+        padding: 14px;
+        background: var(--white);
+        color: var(--black);
+        border: none;
+        cursor: pointer;
+        font-family: "Space Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        transition: opacity 0.2s;
+      }
+      .modal-submit:hover {
+        opacity: 0.85;
+      }
+      .modal-submit:disabled {
+        opacity: 0.35;
+        cursor: not-allowed;
+      }
+
+      /* GALLERY GRID */
+      .gallery-wrap {
+        padding: 24px 5vw 80px;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      /* Masonry */
+      .masonry-grid {
+        columns: 4;
+        column-gap: 6px;
+      }
+      @media (max-width: 1100px) {
+        .masonry-grid {
+          columns: 3;
+        }
+      }
+      @media (max-width: 700px) {
+        .masonry-grid {
+          columns: 2;
+        }
+      }
+      @media (max-width: 420px) {
+        .masonry-grid {
+          columns: 1;
+        }
+      }
+
+      .masonry-item {
+        break-inside: avoid;
+        margin-bottom: 6px;
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+        display: block;
+      }
+      .masonry-item img {
+        width: 100%;
+        display: block;
+        transition: transform 0.5s ease;
+      }
+      .masonry-item:hover img {
+        transform: scale(1.04);
+      }
+      .masonry-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to top,
+          rgba(0, 0, 0, 0.85) 0%,
+          transparent 55%
+        );
+        opacity: 0;
+        transition: opacity 0.3s;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 14px;
+      }
+      .masonry-item:hover .masonry-overlay {
+        opacity: 1;
+      }
+      .overlay-by {
+        font-family: "Space Mono", monospace;
+        font-size: 10px;
+        color: rgba(255, 255, 255, 0.85);
+        letter-spacing: 0.1em;
+        margin-bottom: 6px;
+      }
+      .overlay-time {
+        font-family: "Space Mono", monospace;
+        font-size: 9px;
+        color: rgba(255, 255, 255, 0.4);
+        letter-spacing: 0.08em;
+      }
+      .overlay-actions {
+        display: flex;
+        gap: 6px;
+        margin-top: 8px;
+      }
+      .overlay-del {
+        padding: 5px 12px;
+        background: rgba(255, 60, 60, 0.2);
+        border: 1px solid rgba(255, 60, 60, 0.35);
+        color: #ff8080;
+        font-family: "Space Mono", monospace;
+        font-size: 9px;
+        letter-spacing: 0.1em;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .overlay-del:hover {
+        background: rgba(255, 60, 60, 0.4);
+      }
+      .overlay-dl {
+        padding: 5px 12px;
+        background: rgba(60, 200, 60, 0.15);
+        border: 1px solid rgba(60, 200, 60, 0.3);
+        color: #80e880;
+        font-family: "Space Mono", monospace;
+        font-size: 9px;
+        letter-spacing: 0.1em;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .overlay-dl:hover {
+        background: rgba(60, 200, 60, 0.3);
+      }
+
+      /* Grid view */
+      .grid-view {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 6px;
+      }
+      .grid-item {
+        position: relative;
+        aspect-ratio: 1;
+        overflow: hidden;
+        cursor: pointer;
+      }
+      .grid-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.5s ease;
+      }
+      .grid-item:hover img {
+        transform: scale(1.04);
+      }
+      .grid-item .masonry-overlay {
+        opacity: 0;
+      }
+      .grid-item:hover .masonry-overlay {
+        opacity: 1;
+      }
+
+      /* Empty state */
+      .gallery-empty {
+        text-align: center;
+        padding: 100px 20px;
+      }
+      .gallery-empty-icon {
+        font-size: 48px;
+        margin-bottom: 16px;
+        opacity: 0.4;
+      }
+      .gallery-empty-text {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 36px;
+        color: rgba(255, 255, 255, 0.15);
+        margin-bottom: 8px;
+      }
+      .gallery-empty-sub {
+        font-family: "Space Mono", monospace;
+        font-size: 10px;
+        color: rgba(255, 255, 255, 0.2);
+        letter-spacing: 0.2em;
+      }
+
+      /* LIGHTBOX */
+      .lightbox {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.97);
+        z-index: 600;
+        display: none;
+        flex-direction: column;
+      }
+      .lightbox.open {
+        display: flex;
+      }
+      .lb-header {
+        padding: 16px 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        flex-shrink: 0;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .lb-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+      }
+      .lb-by {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 22px;
+        color: var(--white);
+      }
+      .lb-time {
+        font-family: "Space Mono", monospace;
+        font-size: 9px;
+        color: var(--gray-mid);
+        letter-spacing: 0.15em;
+      }
+      .lb-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      /* Download button — hijau */
+      .lb-download {
+        padding: 8px 18px;
+        background: transparent;
+        border: 1px solid rgba(80, 220, 80, 0.35);
+        color: #80ee80;
+        font-family: "Space Mono", monospace;
+        font-size: 9px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .lb-download:hover {
+        background: rgba(60, 200, 60, 0.15);
+        border-color: rgba(80, 220, 80, 0.6);
+      }
+
+      .lb-del {
+        padding: 8px 18px;
+        background: transparent;
+        border: 1px solid rgba(255, 100, 100, 0.3);
+        color: #ff8080;
+        font-family: "Space Mono", monospace;
+        font-size: 9px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .lb-del:hover {
+        background: rgba(255, 60, 60, 0.15);
+        border-color: rgba(255, 60, 60, 0.5);
+      }
+      .lb-close {
+        padding: 8px 18px;
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        color: var(--gray-mid);
+        font-family: "Space Mono", monospace;
+        font-size: 9px;
+        letter-spacing: 0.15em;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .lb-close:hover {
+        color: var(--white);
+        border-color: rgba(255, 255, 255, 0.3);
+      }
+      .lb-body {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        overflow: hidden;
+        position: relative;
+      }
+      .lb-body img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        display: block;
+      }
+      .lb-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: var(--white);
+        width: 44px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 18px;
+        transition: all 0.2s;
+        user-select: none;
+      }
+      .lb-nav:hover {
+        background: rgba(255, 255, 255, 0.12);
+      }
+      .lb-prev {
+        left: 12px;
+      }
+      .lb-next {
+        right: 12px;
+      }
+      .lb-counter {
+        position: absolute;
+        bottom: 16px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: "Space Mono", monospace;
+        font-size: 9px;
+        color: var(--gray-mid);
+        letter-spacing: 0.2em;
+      }
+
+      /* LOGIN MODAL */
+      .name-modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.9);
+        z-index: 500;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(6px);
+      }
+      .name-modal {
+        background: var(--white);
+        color: var(--black);
+        padding: 40px;
+        max-width: 380px;
+        width: 90%;
+        animation: fadeUp 0.4s ease both;
+      }
+      .name-modal h3 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 36px;
+        margin-bottom: 8px;
+      }
+      .name-modal p {
+        font-family: "Space Mono", monospace;
+        font-size: 11px;
+        color: rgba(0, 0, 0, 0.5);
+        margin-bottom: 24px;
+        line-height: 1.6;
+      }
+      .name-input {
+        width: 100%;
+        padding: 14px 16px;
+        border: 2px solid rgba(0, 0, 0, 0.15);
+        background: transparent;
+        font-family: "DM Sans", sans-serif;
+        font-size: 16px;
+        color: var(--black);
+        outline: none;
+        margin-bottom: 12px;
+        transition: border-color 0.2s;
+      }
+      .name-input:focus {
+        border-color: var(--black);
+      }
+      .name-btn {
+        width: 100%;
+        padding: 14px;
+        background: var(--black);
+        color: var(--white);
+        border: none;
+        cursor: pointer;
+        font-family: "Space Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        transition: opacity 0.2s;
+      }
+      .name-btn:hover {
+        opacity: 0.8;
+      }
+      .name-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      /* TOAST */
+      .toast {
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%) translateY(20px);
+        background: var(--black);
+        color: var(--white);
+        padding: 12px 24px;
+        font-family: "Space Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.15em;
+        z-index: 9999;
+        opacity: 0;
+        transition: all 0.3s;
+        border: 1px solid var(--gray-dark);
+        white-space: nowrap;
+      }
+      .toast.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+
+      /* LOADING */
+      .loading-wrap {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        padding: 80px 0;
+        font-family: "Space Mono", monospace;
+        font-size: 10px;
+        color: var(--gray-mid);
+        letter-spacing: 0.2em;
+      }
+      .spinner {
+        width: 18px;
+        height: 18px;
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-top-color: var(--white);
+        border-radius: 50%;
+        animation: spin 0.7s linear infinite;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Mobile: tombol download lebih besar agar mudah di-tap */
+      @media (max-width: 600px) {
+        .lb-download,
+        .lb-del,
+        .lb-close {
+          padding: 10px 14px;
+          font-size: 8px;
+        }
+        .lb-header {
+          padding: 12px 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- LOGIN MODAL -->
+    <div class="name-modal-overlay" id="nameModal">
+      <div class="name-modal">
+        <h3>Siapa kamu?</h3>
+        <p>Masukkan nama dan password untuk masuk ke galeri.</p>
+        <input
+          class="name-input"
+          id="nameInput"
+          type="text"
+          placeholder="Nama kamu..."
+          maxlength="20"
+          autocomplete="username"
+        />
+        <input
+          class="name-input"
+          id="passInput"
+          type="password"
+          placeholder="Password..."
+          maxlength="30"
+          style="margin-bottom: 12px"
+          autocomplete="current-password"
+        />
+        <button class="name-btn" id="nameSubmit">MASUK</button>
+      </div>
+    </div>
+
+    <!-- UPLOAD MODAL -->
+    <div class="modal-overlay" id="uploadModal">
+      <div class="upload-modal">
+        <div class="modal-header">
+          <h2>Upload Foto</h2>
+          <button class="modal-close" onclick="closeUploadModal()">
+            ✕ TUTUP
+          </button>
+        </div>
+        <div class="modal-body">
+          <div
+            class="drop-zone"
+            id="dropZone"
+            onclick="document.getElementById('fileInput').click()"
+            ondragover="onDragOver(event)"
+            ondragleave="onDragLeave(event)"
+            ondrop="onDrop(event)"
+          >
+            <div class="drop-zone-icon">📷</div>
+            <div class="drop-zone-text">Klik atau drag foto ke sini</div>
+            <div class="drop-zone-sub">JPG, PNG, WEBP — maks 10MB per foto</div>
+            <input
+              type="file"
+              id="fileInput"
+              accept="image/*"
+              multiple
+              style="display: none"
+              onchange="onFileSelect(event)"
+            />
+          </div>
+          <div class="preview-grid" id="previewGrid"></div>
+          <div class="progress-wrap" id="progressWrap">
+            <div class="progress-bar">
+              <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text" id="progressText">Mengupload...</div>
+          </div>
+          <button
+            class="modal-submit"
+            id="submitBtn"
+            onclick="doUpload()"
+            disabled
+          >
+            ⬆ UPLOAD FOTO
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- LIGHTBOX -->
+    <div class="lightbox" id="lightbox">
+      <div class="lb-header">
+        <div class="lb-meta">
+          <div class="lb-by" id="lbBy">—</div>
+          <div class="lb-time" id="lbTime">—</div>
+        </div>
+        <div class="lb-actions">
+          <button
+            class="lb-download"
+            id="lbDownload"
+            onclick="downloadLbPhoto()"
+          >
+            ⬇ SIMPAN
+          </button>
+          <button class="lb-del" id="lbDel" onclick="deleteLbPhoto()">
+            🗑 HAPUS
+          </button>
+          <button class="lb-close" onclick="closeLightbox()">✕ TUTUP</button>
+        </div>
+      </div>
+      <div class="lb-body">
+        <button class="lb-nav lb-prev" onclick="lbNav(-1)">‹</button>
+        <img id="lbImg" src="" alt="" />
+        <button class="lb-nav lb-next" onclick="lbNav(1)">›</button>
+        <div class="lb-counter" id="lbCounter"></div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <!-- NAV -->
+    <nav>
+      <div class="nav-left">
+        <a class="nav-back" href="index.html">← Kembali</a>
+        <div class="nav-logo">MINSOULZ <span>/ GALLERY</span></div>
+      </div>
+      <div class="nav-right">
+        <div class="live-dot">LIVE</div>
+        <div class="nav-user" id="navUser">—</div>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <div class="gallery-hero">
+      <div class="hero-bg-word">MEMORIES</div>
+      <div class="hero-content">
+        <div class="hero-eyebrow">BBQ Night · 8 Mei 2026 · Pontianak</div>
+        <h1 class="hero-title">
+          <span style="display: block">GALERI</span>
+          <span class="outline" style="display: block">FOTO</span>
+        </h1>
+        <div class="hero-stats">
+          <div class="hero-stat"><strong id="statTotal">0</strong>foto</div>
+          <div class="hero-stat"><strong id="statMembers">0</strong>member</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- UPLOAD STRIP -->
+    <div class="upload-strip">
+      <div class="upload-strip-inner">
+        <button class="upload-btn-main" onclick="openUploadModal()">
+          Upload Foto
+        </button>
+        <span class="upload-hint"
+          >Drag & drop atau pilih dari galeri HP · JPG, PNG, WEBP</span
+        >
+      </div>
+    </div>
+
+    <!-- TOOLBAR -->
+    <div class="toolbar">
+      <div class="toolbar-inner">
+        <span class="filter-label">Filter</span>
+        <button class="filter-btn active" onclick="setFilter('ALL', this)">
+          Semua
+        </button>
+        <div id="memberFilters" style="display: contents"></div>
+        <div class="toolbar-right">
+          <button
+            class="view-btn active"
+            id="masonryBtn"
+            onclick="setView('masonry')"
+            title="Masonry"
+          >
+            ⊞
+          </button>
+          <button
+            class="view-btn"
+            id="gridBtn"
+            onclick="setView('grid')"
+            title="Grid"
+          >
+            ▦
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- GALLERY -->
+    <div class="gallery-wrap">
+      <div id="loadingWrap" class="loading-wrap">
+        <div class="spinner"></div>
+        <span>Memuat galeri...</span>
+      </div>
+      <div id="galleryContainer" style="display: none"></div>
+    </div>
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+      import {
+        getDatabase,
+        ref,
+        onValue,
+        set,
+        get,
+        onDisconnect,
+      } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyCsfOGvVR7FtihQ51Iqaw1h5iJf0WFkU3Y",
+        authDomain: "bbq-minsoulz.firebaseapp.com",
+        databaseURL:
+          "https://bbq-minsoulz-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "bbq-minsoulz",
+        storageBucket: "bbq-minsoulz.firebasestorage.app",
+        messagingSenderId: "788013415717",
+        appId: "1:788013415717:web:21cf137065741bbe95aecc",
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const db = getDatabase(app);
+      window._db = db;
+      window._ref = ref;
+      window._set = set;
+
+      // LOGIN
+      const CURRENT_VERSION = "3";
+      if (localStorage.getItem("bbq_login_version") !== CURRENT_VERSION) {
+        localStorage.removeItem("bbq_username");
+        localStorage.setItem("bbq_login_version", CURRENT_VERSION);
+      }
+      let myName = localStorage.getItem("bbq_username") || "";
+      if (myName) {
+        document.getElementById("nameModal").style.display = "none";
+        document.getElementById("navUser").textContent = myName;
+        setupPresence();
+      }
+
+      document
+        .getElementById("nameSubmit")
+        .addEventListener("click", async () => {
+          const val = document
+            .getElementById("nameInput")
+            .value.trim()
+            .toUpperCase();
+          const pass = document.getElementById("passInput").value.trim();
+          if (!val || !pass) {
+            showToast("Isi nama dan password!");
+            return;
+          }
+          const btn = document.getElementById("nameSubmit");
+          btn.disabled = true;
+          btn.textContent = "MENGECEK...";
+          try {
+            const ns = await get(ref(db, "config/allowedUsers/" + val));
+            if (!ns.exists() || ns.val() !== true) {
+              showToast("❌ Nama tidak terdaftar!");
+              btn.disabled = false;
+              btn.textContent = "MASUK";
+              return;
+            }
+            const ps = await get(ref(db, "config/password"));
+            if (!ps.exists() || ps.val().toUpperCase() !== pass.toUpperCase()) {
+              showToast("❌ Password salah!");
+              btn.disabled = false;
+              btn.textContent = "MASUK";
+              return;
+            }
+            myName = val;
+            localStorage.setItem("bbq_username", myName);
+            document.getElementById("nameModal").style.display = "none";
+            document.getElementById("navUser").textContent = myName;
+            showToast("Halo " + myName + "! 🔥");
+            setupPresence();
+          } catch {
+            showToast("❌ Gagal cek, coba lagi.");
+            btn.disabled = false;
+            btn.textContent = "MASUK";
+          }
+        });
+      document.getElementById("nameInput").addEventListener("keydown", (e) => {
+        if (e.key === "Enter") document.getElementById("passInput").focus();
+      });
+      document.getElementById("passInput").addEventListener("keydown", (e) => {
+        if (e.key === "Enter") document.getElementById("nameSubmit").click();
+      });
+
+      function setupPresence() {
+        const name = localStorage.getItem("bbq_username");
+        if (!name) return;
+        const uid = name + "_gallery_" + Math.random().toString(36).slice(2, 6);
+        const presRef = ref(db, "presence/" + uid);
+        set(presRef, { name, online: true, ts: Date.now() });
+        onDisconnect(presRef).remove();
+      }
+
+      // PHOTOS
+      let allPhotos = [];
+      let currentFilter = "ALL";
+      let currentView = "masonry";
+      let lbIndex = 0;
+      let filteredPhotos = [];
+
+      onValue(ref(db, "photos"), (snap) => {
+        document.getElementById("loadingWrap").style.display = "none";
+        document.getElementById("galleryContainer").style.display = "block";
+        const data = snap.val();
+        allPhotos = data
+          ? Object.entries(data)
+              .map(([id, v]) => ({ id, ...v }))
+              .sort((a, b) => b.ts - a.ts)
+          : [];
+        updateStats();
+        updateMemberFilters();
+        renderGallery();
+      });
+
+      window.setFilter = function (filter, btn) {
+        currentFilter = filter;
+        document
+          .querySelectorAll(".filter-btn")
+          .forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        renderGallery();
+      };
+
+      window.setView = function (view) {
+        currentView = view;
+        document
+          .getElementById("masonryBtn")
+          .classList.toggle("active", view === "masonry");
+        document
+          .getElementById("gridBtn")
+          .classList.toggle("active", view === "grid");
+        renderGallery();
+      };
+
+      function updateStats() {
+        document.getElementById("statTotal").textContent = allPhotos.length;
+        const members = new Set(allPhotos.map((p) => p.by));
+        document.getElementById("statMembers").textContent = members.size;
+      }
+
+      function updateMemberFilters() {
+        const members = [...new Set(allPhotos.map((p) => p.by))].sort();
+        const container = document.getElementById("memberFilters");
+        container.innerHTML = "";
+        members.forEach((name) => {
+          const btn = document.createElement("button");
+          btn.className = "filter-btn";
+          btn.textContent = name;
+          btn.onclick = () => window.setFilter(name, btn);
+          container.appendChild(btn);
+        });
+      }
+
+      function renderGallery() {
+        const myN = localStorage.getItem("bbq_username") || "";
+        filteredPhotos =
+          currentFilter === "ALL"
+            ? allPhotos
+            : allPhotos.filter((p) => p.by === currentFilter);
+        const container = document.getElementById("galleryContainer");
+
+        if (!filteredPhotos.length) {
+          container.innerHTML = `<div class="gallery-empty">
+        <div class="gallery-empty-text">Belum Ada Foto</div>
+        <div class="gallery-empty-sub">Jadilah yang pertama upload!</div>
+      </div>`;
+          return;
+        }
+
+        const wrapClass =
+          currentView === "masonry" ? "masonry-grid" : "grid-view";
+        const itemClass =
+          currentView === "masonry" ? "masonry-item" : "grid-item";
+
+        container.innerHTML = `<div class="${wrapClass}" id="photoGrid"></div>`;
+        const grid = document.getElementById("photoGrid");
+
+        filteredPhotos.forEach((photo, idx) => {
+          const el = document.createElement("div");
+          el.className = itemClass;
+          const dateStr = new Date(photo.ts).toLocaleDateString("id-ID", {
+            day: "numeric",
+            month: "short",
+            hour: "2-digit",
+            minute: "2-digit",
+          });
+          el.innerHTML = `
+        <img src="${photo.url}" alt="Foto oleh ${photo.by}" loading="lazy"/>
+        <div class="masonry-overlay">
+          <div class="overlay-by">${photo.by}${
+            photo.by === myN ? " (kamu)" : ""
+          }</div>
+          <div class="overlay-time">${dateStr}</div>
+          <div class="overlay-actions">
+            <button class="overlay-dl" onclick="event.stopPropagation();downloadPhoto('${
+              photo.url
+            }','${photo.by}')">⬇ Simpan</button>
+            <button class="overlay-del" onclick="event.stopPropagation();deletePhoto('${
+              photo.id
+            }')">🗑 Hapus</button>
+          </div>
+        </div>
+      `;
+          el.addEventListener("click", (e) => {
+            if (
+              e.target.closest(".overlay-del") ||
+              e.target.closest(".overlay-dl")
+            )
+              return;
+            openLightbox(idx);
+          });
+          grid.appendChild(el);
+        });
+      }
+
+      // ─── DOWNLOAD ─────────────────────────────────────────────────────────────
+      // Fungsi utama download: fetch blob → buat link → klik
+      // Fallback untuk iOS: buka tab baru (user long-press → simpan ke Foto)
+      window.downloadPhoto = async function (url, byName) {
+        try {
+          // Tambahkan fl_attachment di Cloudinary URL agar browser langsung download
+          let dlUrl = url;
+          if (url.includes("cloudinary.com")) {
+            dlUrl = url.replace("/upload/", "/upload/fl_attachment/");
+          }
+          const res = await fetch(dlUrl);
+          if (!res.ok) throw new Error("fetch failed");
+          const blob = await res.blob();
+          const objectUrl = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = objectUrl;
+          a.download = `bbq-minsoulz-${byName}-${Date.now()}.jpg`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(objectUrl);
+          showToast("📥 Foto disimpan!");
+        } catch {
+          // iOS / CORS fallback: buka gambar di tab baru
+          window.open(url, "_blank");
+          showToast("💡 Tahan foto lalu pilih 'Simpan ke Foto'");
+        }
+      };
+
+      // LIGHTBOX
+      window.openLightbox = function (idx) {
+        lbIndex = idx;
+        showLbPhoto();
+        document.getElementById("lightbox").classList.add("open");
+      };
+
+      function showLbPhoto() {
+        const photo = filteredPhotos[lbIndex];
+        const myN = localStorage.getItem("bbq_username") || "";
+        document.getElementById("lbImg").src = photo.url;
+        document.getElementById("lbBy").textContent =
+          photo.by + (photo.by === myN ? " (kamu)" : "");
+        document.getElementById("lbTime").textContent = new Date(
+          photo.ts
+        ).toLocaleDateString("id-ID", {
+          weekday: "long",
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+        document.getElementById("lbCounter").textContent = `${lbIndex + 1} / ${
+          filteredPhotos.length
+        }`;
+        window._currentLbPhoto = photo;
+      }
+
+      window.lbNav = function (dir) {
+        lbIndex =
+          (lbIndex + dir + filteredPhotos.length) % filteredPhotos.length;
+        showLbPhoto();
+      };
+
+      window.closeLightbox = function () {
+        document.getElementById("lightbox").classList.remove("open");
+      };
+
+      // Download dari lightbox
+      window.downloadLbPhoto = async function () {
+        const photo = window._currentLbPhoto;
+        if (!photo) return;
+        await window.downloadPhoto(photo.url, photo.by);
+      };
+
+      window.deleteLbPhoto = async function () {
+        const photo = window._currentLbPhoto;
+        if (!photo) return;
+        if (!confirm(`Hapus foto ini?`)) return;
+        await set(ref(db, `photos/${photo.id}`), null);
+        showToast("🗑 Foto dihapus!");
+        closeLightbox();
+      };
+
+      window.deletePhoto = async function (id) {
+        if (!confirm("Hapus foto ini?")) return;
+        await set(ref(db, `photos/${id}`), null);
+        showToast("🗑 Foto dihapus!");
+      };
+
+      document.getElementById("lightbox").addEventListener("click", (e) => {
+        if (e.target === e.currentTarget) closeLightbox();
+      });
+      document.addEventListener("keydown", (e) => {
+        if (!document.getElementById("lightbox").classList.contains("open"))
+          return;
+        if (e.key === "ArrowLeft") lbNav(-1);
+        if (e.key === "ArrowRight") lbNav(1);
+        if (e.key === "Escape") closeLightbox();
+      });
+    </script>
+
+    <script>
+      // UPLOAD
+      let selectedFiles = [];
+      const CLOUD_NAME = "djexofrcq";
+      const UPLOAD_PRESET = "bbq_minsoulz";
+
+      window.openUploadModal = function () {
+        const name = localStorage.getItem("bbq_username") || "";
+        if (!name) {
+          showToast("Login dulu ya!");
+          return;
+        }
+        document.getElementById("uploadModal").classList.add("open");
+      };
+      window.closeUploadModal = function () {
+        document.getElementById("uploadModal").classList.remove("open");
+        selectedFiles = [];
+        document.getElementById("previewGrid").innerHTML = "";
+        document.getElementById("submitBtn").disabled = true;
+        document.getElementById("progressWrap").style.display = "none";
+        document.getElementById("fileInput").value = "";
+      };
+
+      window.onDragOver = function (e) {
+        e.preventDefault();
+        document.getElementById("dropZone").classList.add("drag-over");
+      };
+      window.onDragLeave = function (e) {
+        document.getElementById("dropZone").classList.remove("drag-over");
+      };
+      window.onDrop = function (e) {
+        e.preventDefault();
+        document.getElementById("dropZone").classList.remove("drag-over");
+        const files = Array.from(e.dataTransfer.files).filter((f) =>
+          f.type.startsWith("image/")
+        );
+        addFiles(files);
+      };
+      window.onFileSelect = function (e) {
+        addFiles(Array.from(e.target.files));
+      };
+
+      function addFiles(files) {
+        selectedFiles = [...selectedFiles, ...files].slice(0, 10);
+        renderPreviews();
+        document.getElementById("submitBtn").disabled =
+          selectedFiles.length === 0;
+      }
+
+      function renderPreviews() {
+        const grid = document.getElementById("previewGrid");
+        grid.innerHTML = "";
+        selectedFiles.forEach((file, i) => {
+          const url = URL.createObjectURL(file);
+          const div = document.createElement("div");
+          div.className = "preview-item";
+          div.innerHTML = `<img src="${url}"/><button class="preview-remove" onclick="removeFile(${i})">✕</button>`;
+          grid.appendChild(div);
+        });
+      }
+
+      window.removeFile = function (i) {
+        selectedFiles.splice(i, 1);
+        renderPreviews();
+        document.getElementById("submitBtn").disabled =
+          selectedFiles.length === 0;
+      };
+
+      window.doUpload = async function () {
+        const name = localStorage.getItem("bbq_username") || "";
+        if (!name || !selectedFiles.length) return;
+        const btn = document.getElementById("submitBtn");
+        const progressWrap = document.getElementById("progressWrap");
+        const fill = document.getElementById("progressFill");
+        const text = document.getElementById("progressText");
+        btn.disabled = true;
+        progressWrap.style.display = "block";
+        let uploaded = 0;
+        for (const file of selectedFiles) {
+          if (file.size > 10 * 1024 * 1024) {
+            showToast(`❌ ${file.name} terlalu besar`);
+            continue;
+          }
+          const formData = new FormData();
+          formData.append("file", file);
+          formData.append("upload_preset", UPLOAD_PRESET);
+          formData.append("folder", "bbq_minsoulz");
+          try {
+            const res = await new Promise((resolve, reject) => {
+              const xhr = new XMLHttpRequest();
+              xhr.open(
+                "POST",
+                `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`
+              );
+              xhr.upload.onprogress = (e) => {
+                if (e.lengthComputable) {
+                  const pct = Math.round(
+                    ((uploaded + e.loaded / e.total) / selectedFiles.length) *
+                      100
+                  );
+                  fill.style.width = pct + "%";
+                  text.textContent = `Mengupload foto ${uploaded + 1}/${
+                    selectedFiles.length
+                  }... ${Math.round((e.loaded / e.total) * 100)}%`;
+                }
+              };
+              xhr.onload = () =>
+                xhr.status === 200
+                  ? resolve(JSON.parse(xhr.responseText))
+                  : reject();
+              xhr.onerror = reject;
+              xhr.send(formData);
+            });
+            if (window._db && window._ref && window._set) {
+              const photoRef = window._ref(
+                window._db,
+                "photos/" +
+                  Date.now() +
+                  "_" +
+                  Math.random().toString(36).slice(2, 6)
+              );
+              await window._set(photoRef, {
+                url: res.secure_url,
+                by: name,
+                ts: Date.now(),
+              });
+            }
+            uploaded++;
+          } catch {
+            showToast("❌ Gagal upload " + file.name);
+          }
+        }
+        fill.style.width = "100%";
+        text.textContent = `✅ ${uploaded} foto berhasil diupload!`;
+        showToast(`✅ ${uploaded} foto diupload ke galeri! 🔥`);
+        setTimeout(closeUploadModal, 1500);
+        btn.disabled = false;
+      };
+
+      function showToast(msg) {
+        const t = document.getElementById("toast");
+        t.textContent = msg;
+        t.classList.add("show");
+        setTimeout(() => t.classList.remove("show"), 3000);
+      }
+
+      // close upload modal clicking outside
+      document.getElementById("uploadModal").addEventListener("click", (e) => {
+        if (e.target === e.currentTarget) closeUploadModal();
+      });
+    </script>
+  </body>
+</html>

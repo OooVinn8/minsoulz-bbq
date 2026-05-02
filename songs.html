@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Request Lagu — BBQ Night Minsoulz</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --black: #0a0a0a;
+        --white: #f5f5f0;
+        --gray-light: #e0dfd8;
+        --gray-mid: #9a9a90;
+        --gray-dark: #2a2a2a;
+        --orange: #ff5500;
+
+        * {
+          --orange: var(--gray-mid);
+        }
+        .upload-btn-main {
+          background: var(--white);
+          color: var(--black);
+        }
+        .progress-fill {
+          background: var(--white);
+        }
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        background: var(--black);
+        color: var(--white);
+        font-family: "DM Sans", sans-serif;
+        overflow-x: hidden;
+        min-height: 100vh;
+      }
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 9997;
+      }
+
+      /* NAV */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        padding: 16px 5vw;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: rgba(10, 10, 10, 0.92);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      }
+      .nav-left {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+      .nav-back {
+        font-family: "Space Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        color: var(--gray-mid);
+        text-decoration: none;
+        text-transform: uppercase;
+        transition: color 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .nav-back:hover {
+        color: var(--white);
+      }
+      .nav-logo {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 22px;
+        color: var(--white);
+        letter-spacing: 0.08em;
+      }
+      .nav-logo span {
+        color: var(--orange);
+      }
+      .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+      .nav-user {
+        font-family: "Space Mono", monospace;
+        font-size: 9px;
+        letter-spacing: 0.15em;
+        color: var(--gray-mid);
+        padding: 6px 12px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .live-dot {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-family: "Space Mono", monospace;
+        font-size: 9px;
+        letter-spacing: 0.15em;
+        color: #4caf50;
+      }
+      .live-dot::before {
+        content: "";
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #4caf50;
+        animation: blink 1.4s ease-in-out infinite;
+      }
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.3;
+        }
+      }
+
+      /* HERO */
+      .hero {
+        padding: 120px 5vw 60px;
+        position: relative;
+        overflow: hidden;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      }
+      .hero-bg-word {
+        position: absolute;
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(100px, 20vw, 320px);
+        color: rgba(255, 255, 255, 0.025);
+        top: 50%;
+        right: -2vw;
+        transform: translateY(-50%);
+        user-select: none;
+        white-space: nowrap;
+      }
+      .hero-content {
+        position: relative;
+        z-index: 2;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+      .hero-eyebrow {
+        font-family: "Space Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.35em;
+        color: var(--orange);
+        text-transform: uppercase;
+        margin-bottom: 16px;
+        animation: fadeUp 0.6s ease both;
+      }
+      .hero-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(60px, 14vw, 180px);
+        line-height: 0.85;
+        margin-bottom: 24px;
+        animation: fadeUp 0.6s 0.1s ease both;
+      }
+      .hero-title .outline {
+        color: transparent;
+        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.35);
+      }
+      .hero-stats {
+        display: flex;
+        gap: 32px;
+        flex-wrap: wrap;
+        animation: fadeUp 0.6s 0.2s ease both;
+      }
+      .hero-stat {
+        font-family: "Space Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        color: var(--gray-mid);
+      }
+      .hero-stat strong {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 28px;
+        color: var(--white);
+        display: block;
+        line-height: 1;
+        margin-bottom: 4px;
+      }
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* MAIN LAYOUT */
+      .main {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 48px 5vw 80px;
+        display: grid;
+        grid-template-columns: 380px 1fr;
+        gap: 48px;
+        align-items: start;
+      }
+      @media (max-width: 900px) {
+        .main {
+          grid-template-columns: 1fr;
+          gap: 40px;
+        }
+      }
+
+      /* FORM PANEL */
+      .form-panel {
+        position: sticky;
+        top: 80px;
+        background: #111;
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        padding: 32px;
+      }
+      .form-panel-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 32px;
+        color: var(--white);
+        margin-bottom: 6px;
+      }
+      .form-panel-sub {
+        font-family: "Space Mono", monospace;
+        font-size: 9px;
+        color: var(--gray-mid);
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        margin-bottom: 28px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      }
+      .form-group {
+        margin-bottom: 12px;
+      }
+      .form-label {
+        font-family: "Space Mono", monospace;
+        font-size: 9px;
+        letter-spacing: 0.25em;
+        color: var(--gray-mid);
+        text-transform: uppercase;
+        display: block;
+        margin-bottom: 8px;
+      }
+      .form-input {
+        width: 100%;
+        padding: 14px 16px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: var(--white);
+        font-family: "DM Sans", sans-serif;
+        font-size: 14px;
+        outline: none;
+        transition: border-color 0.2s;
+      }
+      .form-input:focus {
+        border-color: rgba(255, 255, 255, 0.3);
+      }
+      .form-input::placeholder {
+        color: var(--gray-mid);
+      }
+      .form-submit {
+        width: 100%;
+        padding: 15px;
+        background: var(--white);
+        color: var(--black);
+        border: none;
+        cursor: pointer;
+        font-family: "Space Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        transition: opacity 0.2s;
+        margin-top: 8px;
+      }
+      .form-submit:hover {
+        opacity: 0.85;
+      }
+      .form-submit:disabled {
+        opacity: 0.35;
+        cursor: not-allowed;
+      }
+
+      /* LIST PANEL */
+      .list-panel-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+      .list-panel-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 36px;
+        color: var(--white);
+      }
+      .list-controls {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+      .sort-btn {
+        padding: 7px 14px;
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: var(--gray-mid);
+        font-family: "Space Mono", monospace;
+        font-size: 9px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .sort-btn.active,
+      .sort-btn:hover {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.3);
+        color: var(--white);
+      }
+
+      /* SONG ITEMS */
+      .song-list {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+      }
+      .song-item {
+        background: var(--gray-dark);
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 18px 20px;
+        transition: background 0.2s;
+        animation: fadeUp 0.4s ease both;
+        position: relative;
+      }
+      .song-item:hover {
+        background: #303030;
+      }
+      .song-num {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 26px;
+        color: rgba(255, 255, 255, 0.15);
+        min-width: 36px;
+        line-height: 1;
+        flex-shrink: 0;
+      }
+      .song-detail {
+        flex: 1;
+        min-width: 0;
+      }
+      .song-title {
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--white);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-bottom: 4px;
+      }
+      .song-meta {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .song-by {
+        font-family: "Space Mono", monospace;
+        font-size: 9px;
+        color: var(--gray-mid);
+        letter-spacing: 0.1em;
+      }
+      .song-artist {
+        font-family: "Space Mono", monospace;
+        font-size: 9px;
+        color: rgba(255, 255, 255, 0.3);
+        letter-spacing: 0.1em;
+      }
+      .song-artist::before {
+        content: "·";
+        margin-right: 10px;
+      }
+      .song-time {
+        font-family: "Space Mono", monospace;
+        font-size: 9px;
+        color: rgba(255, 255, 255, 0.2);
+        letter-spacing: 0.08em;
+      }
+      .song-actions {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-shrink: 0;
+      }
+      .btn-yt {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 7px 14px;
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        color: var(--gray-mid);
+        font-family: "Space Mono", monospace;
+        font-size: 9px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        cursor: pointer;
+        text-decoration: none;
+        transition: all 0.2s;
+        white-space: nowrap;
+      }
+      .btn-yt:hover {
+        background: rgba(255, 0, 0, 0.12);
+        border-color: rgba(255, 60, 60, 0.4);
+        color: #ff8080;
+      }
+      .btn-yt-icon {
+        font-size: 12px;
+      }
+      .btn-del {
+        width: 34px;
+        height: 34px;
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: rgba(255, 255, 255, 0.25);
+        cursor: pointer;
+        font-size: 13px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s;
+        flex-shrink: 0;
+      }
+      .btn-del:hover {
+        background: rgba(255, 60, 60, 0.12);
+        border-color: rgba(255, 60, 60, 0.35);
+        color: #ff6b6b;
+      }
+
+      /* EMPTY */
+      .song-empty {
+        text-align: center;
+        padding: 80px 20px;
+      }
+      .song-empty-icon {
+        font-size: 40px;
+        margin-bottom: 16px;
+        opacity: 0.3;
+      }
+      .song-empty-text {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 28px;
+        color: rgba(255, 255, 255, 0.12);
+        margin-bottom: 8px;
+      }
+      .song-empty-sub {
+        font-family: "Space Mono", monospace;
+        font-size: 10px;
+        color: rgba(255, 255, 255, 0.15);
+        letter-spacing: 0.2em;
+      }
+
+      /* LOGIN MODAL */
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.9);
+        z-index: 500;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(6px);
+      }
+      .modal-box {
+        background: var(--white);
+        color: var(--black);
+        padding: 40px;
+        max-width: 380px;
+        width: 90%;
+        animation: fadeUp 0.4s ease both;
+      }
+      .modal-box h3 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 36px;
+        margin-bottom: 8px;
+      }
+      .modal-box p {
+        font-family: "Space Mono", monospace;
+        font-size: 11px;
+        color: rgba(0, 0, 0, 0.5);
+        margin-bottom: 24px;
+        line-height: 1.6;
+      }
+      .modal-input {
+        width: 100%;
+        padding: 14px 16px;
+        border: 2px solid rgba(0, 0, 0, 0.15);
+        background: transparent;
+        font-family: "DM Sans", sans-serif;
+        font-size: 16px;
+        color: var(--black);
+        outline: none;
+        margin-bottom: 12px;
+        transition: border-color 0.2s;
+      }
+      .modal-input:focus {
+        border-color: var(--black);
+      }
+      .modal-btn {
+        width: 100%;
+        padding: 14px;
+        background: var(--black);
+        color: var(--white);
+        border: none;
+        cursor: pointer;
+        font-family: "Space Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        transition: opacity 0.2s;
+      }
+      .modal-btn:hover {
+        opacity: 0.8;
+      }
+      .modal-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      /* TOAST */
+      .toast {
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%) translateY(20px);
+        background: var(--black);
+        color: var(--white);
+        padding: 12px 24px;
+        font-family: "Space Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.15em;
+        z-index: 9999;
+        opacity: 0;
+        transition: all 0.3s;
+        border: 1px solid var(--gray-dark);
+        white-space: nowrap;
+      }
+      .toast.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+
+      /* DIVIDER */
+      .section-divider {
+        height: 1px;
+        background: rgba(255, 255, 255, 0.06);
+        margin: 0 5vw;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- LOGIN MODAL -->
+    <div class="modal-overlay" id="loginModal">
+      <div class="modal-box">
+        <h3>Siapa kamu?</h3>
+        <p>Masukkan nama dan password untuk masuk.</p>
+        <input
+          class="modal-input"
+          id="nameInput"
+          type="text"
+          placeholder="Nama kamu..."
+          maxlength="20"
+          autocomplete="username"
+        />
+        <input
+          class="modal-input"
+          id="passInput"
+          type="password"
+          placeholder="Password..."
+          maxlength="30"
+          style="margin-bottom: 12px"
+          autocomplete="current-password"
+        />
+        <button class="modal-btn" id="loginBtn">MASUK</button>
+      </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <!-- NAV -->
+    <nav>
+      <div class="nav-left">
+        <a class="nav-back" href="index.html">← Kembali</a>
+        <div class="nav-logo">MINSOULZ <span>/ LAGU</span></div>
+      </div>
+      <div class="nav-right">
+        <div class="live-dot">LIVE</div>
+        <div class="nav-user" id="navUser">—</div>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-bg-word">PLAYLIST</div>
+      <div class="hero-content">
+        <div class="hero-eyebrow">BBQ Night · 8 Mei 2026 · Pontianak</div>
+        <h1 class="hero-title">
+          <span style="display: block">REQUEST</span>
+          <span class="outline" style="display: block">LAGU</span>
+        </h1>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <strong id="statTotal">0</strong>lagu direquest
+          </div>
+          <div class="hero-stat">
+            <strong id="statBy">0</strong>member request
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN -->
+    <div class="main">
+      <!-- FORM -->
+      <div class="form-panel">
+        <div class="form-panel-title">+ Request Lagu</div>
+        <div class="form-panel-sub">Mau dengerin lagu apa malem ini?</div>
+        <div class="form-group">
+          <label class="form-label">Judul Lagu *</label>
+          <input
+            class="form-input"
+            id="songTitle"
+            type="text"
+            placeholder="Judul lagu..."
+            maxlength="80"
+          />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Artis / Penyanyi</label>
+          <input
+            class="form-input"
+            id="songArtist"
+            type="text"
+            placeholder="Nama artis..."
+            maxlength="60"
+          />
+        </div>
+        <button class="form-submit" id="submitBtn">+ REQUEST LAGU</button>
+      </div>
+
+      <!-- LIST -->
+      <div>
+        <div class="list-panel-header">
+          <div class="list-panel-title">Daftar Request</div>
+          <div class="list-controls">
+            <button
+              class="sort-btn active"
+              id="sortNew"
+              onclick="setSort('new', this)"
+            >
+              Terbaru
+            </button>
+            <button
+              class="sort-btn"
+              id="sortName"
+              onclick="setSort('name', this)"
+            >
+              A–Z
+            </button>
+          </div>
+        </div>
+        <div class="song-list" id="songList">
+          <div class="song-empty">
+            <div class="song-empty-icon">🎵</div>
+            <div class="song-empty-text">Belum Ada Request</div>
+            <div class="song-empty-sub">Jadilah yang pertama!</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+      import {
+        getDatabase,
+        ref,
+        onValue,
+        set,
+        get,
+        push,
+        onDisconnect,
+      } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyCsfOGvVR7FtihQ51Iqaw1h5iJf0WFkU3Y",
+        authDomain: "bbq-minsoulz.firebaseapp.com",
+        databaseURL:
+          "https://bbq-minsoulz-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "bbq-minsoulz",
+        storageBucket: "bbq-minsoulz.firebasestorage.app",
+        messagingSenderId: "788013415717",
+        appId: "1:788013415717:web:21cf137065741bbe95aecc",
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const db = getDatabase(app);
+
+      // LOGIN
+      const CURRENT_VERSION = "3";
+      if (localStorage.getItem("bbq_login_version") !== CURRENT_VERSION) {
+        localStorage.removeItem("bbq_username");
+        localStorage.setItem("bbq_login_version", CURRENT_VERSION);
+      }
+      let myName = localStorage.getItem("bbq_username") || "";
+      if (myName) {
+        document.getElementById("loginModal").style.display = "none";
+        document.getElementById("navUser").textContent = myName;
+        setupPresence();
+      }
+
+      document
+        .getElementById("loginBtn")
+        .addEventListener("click", async () => {
+          const val = document
+            .getElementById("nameInput")
+            .value.trim()
+            .toUpperCase();
+          const pass = document.getElementById("passInput").value.trim();
+          if (!val || !pass) {
+            showToast("Isi nama dan password!");
+            return;
+          }
+          const btn = document.getElementById("loginBtn");
+          btn.disabled = true;
+          btn.textContent = "MENGECEK...";
+          try {
+            const ns = await get(ref(db, "config/allowedUsers/" + val));
+            if (!ns.exists() || ns.val() !== true) {
+              showToast("❌ Nama tidak terdaftar!");
+              btn.disabled = false;
+              btn.textContent = "MASUK";
+              return;
+            }
+            const ps = await get(ref(db, "config/password"));
+            if (!ps.exists() || ps.val().toUpperCase() !== pass.toUpperCase()) {
+              showToast("❌ Password salah!");
+              btn.disabled = false;
+              btn.textContent = "MASUK";
+              return;
+            }
+            myName = val;
+            localStorage.setItem("bbq_username", myName);
+            document.getElementById("loginModal").style.display = "none";
+            document.getElementById("navUser").textContent = myName;
+            showToast("Halo " + myName + "! 🔥");
+            setupPresence();
+          } catch {
+            showToast("❌ Gagal cek, coba lagi.");
+            btn.disabled = false;
+            btn.textContent = "MASUK";
+          }
+        });
+      document.getElementById("nameInput").addEventListener("keydown", (e) => {
+        if (e.key === "Enter") document.getElementById("passInput").focus();
+      });
+      document.getElementById("passInput").addEventListener("keydown", (e) => {
+        if (e.key === "Enter") document.getElementById("loginBtn").click();
+      });
+
+      function setupPresence() {
+        const name = localStorage.getItem("bbq_username");
+        if (!name) return;
+        const uid = name + "_songs_" + Math.random().toString(36).slice(2, 6);
+        const presRef = ref(db, "presence/" + uid);
+        set(presRef, { name, online: true, ts: Date.now() });
+        onDisconnect(presRef).remove();
+      }
+
+      // SUBMIT
+      document
+        .getElementById("submitBtn")
+        .addEventListener("click", async () => {
+          const name = myName || localStorage.getItem("bbq_username") || "";
+          if (!name) {
+            showToast("Login dulu ya!");
+            return;
+          }
+          const titleEl = document.getElementById("songTitle");
+          const artistEl = document.getElementById("songArtist");
+          const title = titleEl.value.trim();
+          const artist = artistEl.value.trim();
+          if (!title) {
+            showToast("Judul lagu tidak boleh kosong!");
+            titleEl.focus();
+            return;
+          }
+          const btn = document.getElementById("submitBtn");
+          btn.disabled = true;
+          btn.textContent = "MENYIMPAN...";
+          try {
+            await push(ref(db, "songs"), {
+              title,
+              artist: artist || "",
+              by: name,
+              ts: Date.now(),
+              votes: 0,
+              voters: {},
+            });
+            titleEl.value = "";
+            artistEl.value = "";
+            showToast("🎵 " + title + " berhasil direquest!");
+          } catch {
+            showToast("❌ Gagal request, coba lagi!");
+          }
+          btn.disabled = false;
+          btn.textContent = "+ REQUEST LAGU";
+        });
+      document.getElementById("songTitle").addEventListener("keydown", (e) => {
+        if (e.key === "Enter") document.getElementById("songArtist").focus();
+      });
+      document.getElementById("songArtist").addEventListener("keydown", (e) => {
+        if (e.key === "Enter") document.getElementById("submitBtn").click();
+      });
+
+      // SORT
+      let currentSort = "new";
+      let allSongs = [];
+      window.setSort = function (sort, btn) {
+        currentSort = sort;
+        document
+          .querySelectorAll(".sort-btn")
+          .forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        renderSongs();
+      };
+
+      // SONGS LISTENER
+      onValue(ref(db, "songs"), (snap) => {
+        const data = snap.val();
+        allSongs = data
+          ? Object.entries(data).map(([id, v]) => ({ id, ...v }))
+          : [];
+        updateStats();
+        renderSongs();
+      });
+
+      function updateStats() {
+        document.getElementById("statTotal").textContent = allSongs.length;
+        const bySet = new Set(allSongs.map((s) => s.by));
+        document.getElementById("statBy").textContent = bySet.size;
+      }
+
+      function renderSongs() {
+        const name = localStorage.getItem("bbq_username") || "";
+        const list = document.getElementById("songList");
+
+        if (!allSongs.length) {
+          list.innerHTML = `<div class="song-empty">
+        <div class="song-empty-icon">🎵</div>
+        <div class="song-empty-text">Belum Ada Request</div>
+        <div class="song-empty-sub">Jadilah yang pertama!</div>
+      </div>`;
+          return;
+        }
+
+        let sorted = [...allSongs];
+        if (currentSort === "new") sorted.sort((a, b) => b.ts - a.ts);
+        else if (currentSort === "name")
+          sorted.sort((a, b) => a.title.localeCompare(b.title));
+
+        list.innerHTML = "";
+        sorted.forEach((song, idx) => {
+          const canDelete = name === "DAVIN" || song.by === name;
+          const dateStr = new Date(song.ts).toLocaleDateString("id-ID", {
+            day: "numeric",
+            month: "short",
+            hour: "2-digit",
+            minute: "2-digit",
+          });
+          const ytQuery = encodeURIComponent(
+            (song.title + " " + (song.artist || "")).trim()
+          );
+          const ytUrl = `https://www.youtube.com/results?search_query=${ytQuery}`;
+
+          const el = document.createElement("div");
+          el.className = "song-item";
+          el.style.animationDelay = idx * 0.04 + "s";
+          el.innerHTML = `
+        <div class="song-num">${String(idx + 1).padStart(2, "0")}</div>
+        <div class="song-detail">
+          <div class="song-title">${song.title}</div>
+          <div class="song-meta">
+            <span class="song-by">${song.by}</span>
+            ${
+              song.artist
+                ? `<span class="song-artist">${song.artist}</span>`
+                : ""
+            }
+            <span class="song-time">${dateStr}</span>
+          </div>
+        </div>
+        <div class="song-actions">
+          <a class="btn-yt" href="${ytUrl}" target="_blank" rel="noopener" title="Cari di YouTube">
+            <span class="btn-yt-icon">▶</span> YouTube
+          </a>
+          ${
+            canDelete
+              ? `<button class="btn-del" title="Hapus lagu">🗑</button>`
+              : ""
+          }
+        </div>
+      `;
+
+          if (canDelete) {
+            el.querySelector(".btn-del").addEventListener("click", async () => {
+              if (!confirm(`Hapus "${song.title}"?`)) return;
+              await set(ref(db, `songs/${song.id}`), null);
+              showToast("🗑 Lagu dihapus!");
+            });
+          }
+
+          list.appendChild(el);
+        });
+      }
+    </script>
+
+    <script>
+      function showToast(msg) {
+        const t = document.getElementById("toast");
+        t.textContent = msg;
+        t.classList.add("show");
+        setTimeout(() => t.classList.remove("show"), 3000);
+      }
+    </script>
+  </body>
+</html>

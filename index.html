@@ -2,12 +2,13 @@
 <html lang="id">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <title>BBQ Night – Minsoulz</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap"
       rel="stylesheet"
     />
+    <link rel="icon" type="image/png" href="favicon.png" />
     <style>
       :root {
         --black: #0a0a0a;
@@ -17,7 +18,6 @@
         --gray-dark: #2a2a2a;
         --orange: #ff5500;
       }
-
       *,
       *::before,
       *::after {
@@ -42,8 +42,6 @@
         pointer-events: none;
         z-index: 9997;
       }
-
-      /* NAV */
       nav {
         position: fixed;
         top: 0;
@@ -66,7 +64,7 @@
       }
       .nav-links {
         display: flex;
-        gap: 24px;
+        gap: 20px;
         list-style: none;
       }
       .nav-links a {
@@ -93,7 +91,6 @@
         width: 24px;
         height: 1.5px;
         background: var(--white);
-        transition: all 0.3s;
       }
       .mobile-menu {
         display: none;
@@ -107,7 +104,6 @@
         padding: 20px 5vw;
         border-bottom: 1px solid rgba(255, 255, 255, 0.06);
         flex-direction: column;
-        gap: 0;
       }
       .mobile-menu.open {
         display: flex;
@@ -121,12 +117,7 @@
         text-transform: uppercase;
         padding: 14px 0;
         border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        transition: color 0.2s;
       }
-      .mobile-menu a:hover {
-        color: var(--white);
-      }
-
       .live-dot {
         display: inline-flex;
         align-items: center;
@@ -153,8 +144,7 @@
           opacity: 0.3;
         }
       }
-
-      @media (max-width: 640px) {
+      @media (max-width: 700px) {
         .nav-links {
           display: none;
         }
@@ -162,8 +152,6 @@
           display: flex;
         }
       }
-
-      /* HERO */
       #hero {
         min-height: 100vh;
         display: flex;
@@ -180,7 +168,6 @@
         font-family: "Bebas Neue", sans-serif;
         font-size: clamp(150px, 30vw, 800px);
         color: rgba(255, 255, 255, 0.03);
-        letter-spacing: -0.02em;
         user-select: none;
         white-space: nowrap;
         top: 50%;
@@ -224,7 +211,6 @@
       .hero-title {
         font-family: "Bebas Neue", sans-serif;
         line-height: 0.85;
-        letter-spacing: -0.02em;
         position: relative;
         z-index: 2;
         animation: fadeUp 0.8s 0.2s ease both;
@@ -232,7 +218,7 @@
       .hero-title .bbq {
         display: block;
         font-size: clamp(90px, 22vw, 260px);
-        color: #ffffff;
+        color: #fff;
         animation: glowPulse 2.5s ease-in-out infinite;
       }
       .hero-title .night {
@@ -272,8 +258,6 @@
           transform: translateY(0);
         }
       }
-
-      /* FLOATING AVATARS */
       .floating-avatars {
         position: absolute;
         inset: 0;
@@ -298,7 +282,6 @@
         bottom: -80px;
         left: var(--x);
         background: var(--color);
-        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
         overflow: hidden;
       }
       @keyframes floatUp {
@@ -318,8 +301,6 @@
           transform: translateY(-110vh) scale(0.95);
         }
       }
-
-      /* SECTIONS */
       .section-wrap {
         padding: 80px 5vw;
         max-width: 1200px;
@@ -348,8 +329,6 @@
       .section-label.dark::after {
         background: rgba(0, 0, 0, 0.15);
       }
-
-      /* INFO CARDS */
       .info-row {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
@@ -414,8 +393,6 @@
         color: var(--gray-mid);
         margin-top: 4px;
       }
-
-      /* COUNTDOWN */
       #countdown-section {
         background: var(--white);
         color: var(--black);
@@ -457,8 +434,6 @@
         text-transform: uppercase;
         margin-top: 6px;
       }
-
-      /* MENU */
       .menu-row {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
@@ -467,11 +442,6 @@
       @media (max-width: 700px) {
         .menu-row {
           grid-template-columns: repeat(2, 1fr);
-        }
-      }
-      @media (max-width: 400px) {
-        .menu-row {
-          grid-template-columns: 1fr;
         }
       }
       .menu-cat {
@@ -504,7 +474,6 @@
         font-size: 30px;
         color: var(--white);
         margin-bottom: 20px;
-        letter-spacing: 0.02em;
       }
       .cat-items {
         list-style: none;
@@ -526,8 +495,6 @@
         color: var(--gray-mid);
         font-size: 11px;
       }
-
-      /* BUDGET */
       #budget {
         background: var(--gray-dark);
         padding: 80px 5vw;
@@ -555,7 +522,6 @@
       .budget-right {
         display: flex;
         flex-direction: column;
-        gap: 0;
       }
       .budget-row {
         display: flex;
@@ -563,7 +529,6 @@
         align-items: center;
         padding: 16px 0;
         border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        font-size: 14px;
       }
       .budget-row .b-label {
         color: var(--gray-mid);
@@ -577,7 +542,6 @@
       }
       .budget-total {
         background: var(--white);
-        color: var(--black);
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -597,8 +561,6 @@
         color: var(--black);
         padding: 20px 24px;
       }
-
-      /* BRING */
       .bring-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -621,7 +583,6 @@
         margin-top: 2px;
       }
       .bring-text h4 {
-        font-family: "DM Sans", sans-serif;
         font-size: 15px;
         font-weight: 600;
         color: var(--white);
@@ -632,8 +593,6 @@
         color: var(--gray-mid);
         line-height: 1.5;
       }
-
-      /* TIMELINE */
       .timeline-wrap {
         position: relative;
         margin-top: 20px;
@@ -685,10 +644,7 @@
         font-size: 13px;
         color: var(--gray-mid);
         margin-top: 4px;
-        max-width: 400px;
       }
-
-      /* CHECKLIST */
       #checklist {
         background: var(--white);
         color: var(--black);
@@ -707,8 +663,6 @@
         font-family: "Space Mono", monospace;
         line-height: 1.6;
       }
-
-      /* Name modal */
       .name-modal-overlay {
         position: fixed;
         inset: 0;
@@ -774,8 +728,6 @@
         opacity: 0.5;
         cursor: not-allowed;
       }
-
-      /* Online bar */
       .online-bar {
         display: flex;
         align-items: center;
@@ -805,7 +757,6 @@
       .online-avatar.me {
         background: var(--orange);
       }
-
       .checklist-categories {
         display: flex;
         flex-direction: column;
@@ -870,7 +821,6 @@
       }
       .check-label {
         font-size: 13px;
-        font-family: "DM Sans", sans-serif;
         flex: 1;
       }
       .check-by {
@@ -879,7 +829,6 @@
         color: rgba(255, 255, 255, 0.5);
         margin-top: 2px;
         display: block;
-        letter-spacing: 0.05em;
       }
       .check-item:not(.checked) .check-by {
         color: rgba(0, 0, 0, 0.3);
@@ -906,8 +855,6 @@
         border-radius: 2px;
         transition: width 0.4s ease;
       }
-
-      /* LOCATION */
       #location {
         background: var(--gray-dark);
         padding: 80px 5vw;
@@ -929,7 +876,6 @@
         width: 100%;
         aspect-ratio: 4/3;
         border: 1px solid rgba(255, 255, 255, 0.1);
-        display: block;
       }
       .map-embed iframe {
         width: 100%;
@@ -974,8 +920,6 @@
       .btn-maps:hover {
         opacity: 0.8;
       }
-
-      /* FOOTER */
       footer {
         border-top: 1px solid var(--gray-dark);
         padding: 40px 5vw;
@@ -996,7 +940,6 @@
         color: var(--gray-mid);
         letter-spacing: 0.2em;
       }
-
       .divider {
         height: 1px;
         background: var(--gray-dark);
@@ -1010,8 +953,6 @@
         opacity: 1;
         transform: translateY(0);
       }
-
-      /* Toast */
       .toast {
         position: fixed;
         bottom: 24px;
@@ -1033,8 +974,6 @@
         opacity: 1;
         transform: translateX(-50%) translateY(0);
       }
-
-      /* MUSIC PLAYER */
       #music-player {
         position: fixed;
         bottom: 24px;
@@ -1056,7 +995,6 @@
         border-radius: 2px;
         animation: fadeUp 1s 0.8s ease both;
         max-width: 260px;
-        transition: all 0.3s;
       }
       .music-album {
         width: 36px;
@@ -1128,7 +1066,6 @@
         font-family: "Space Mono", monospace;
         font-size: 9px;
         color: var(--gray-mid);
-        letter-spacing: 0.1em;
         text-align: right;
         opacity: 0;
         transition: opacity 0.3s;
@@ -1136,17 +1073,6 @@
       .music-hint.visible {
         opacity: 1;
       }
-      @media (max-width: 480px) {
-        #music-player {
-          bottom: 16px;
-          right: 16px;
-        }
-        .music-bar {
-          max-width: 220px;
-        }
-      }
-
-      /* LOADING */
       .loading-items {
         display: flex;
         align-items: center;
@@ -1169,8 +1095,6 @@
           transform: rotate(360deg);
         }
       }
-
-      /* LIGHTBOX */
       .lightbox {
         position: fixed;
         inset: 0;
@@ -1216,11 +1140,453 @@
         letter-spacing: 0.15em;
         text-align: center;
       }
-      
+
+      /* SONG REQUEST */
+      #song-request {
+        background: var(--black);
+        padding: 80px 5vw;
+      }
+      .song-request-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: start;
+      }
+      @media (max-width: 700px) {
+        .song-request-inner {
+          grid-template-columns: 1fr;
+          gap: 40px;
+        }
+      }
+      .song-form {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .song-input {
+        width: 100%;
+        padding: 14px 18px;
+        background: var(--gray-dark);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: var(--white);
+        font-family: "DM Sans", sans-serif;
+        font-size: 14px;
+        outline: none;
+        transition: border-color 0.2s;
+      }
+      .song-input:focus {
+        border-color: rgba(255, 255, 255, 0.3);
+      }
+      .song-input::placeholder {
+        color: var(--gray-mid);
+      }
+      .song-submit {
+        padding: 14px 24px;
+        background: var(--white);
+        color: var(--black);
+        border: none;
+        cursor: pointer;
+        font-family: "Space Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        transition: opacity 0.2s;
+        align-self: flex-start;
+      }
+      .song-submit:hover {
+        opacity: 0.8;
+      }
+      .song-submit:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+      .song-list {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        max-height: 460px;
+        overflow-y: auto;
+      }
+      .song-list::-webkit-scrollbar {
+        width: 3px;
+      }
+      .song-list::-webkit-scrollbar-thumb {
+        background: var(--gray-dark);
+      }
+      .song-item {
+        background: var(--gray-dark);
+        padding: 16px 20px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        transition: background 0.2s;
+        animation: fadeUp 0.4s ease both;
+      }
+      .song-item:hover {
+        background: #333;
+      }
+      .song-num {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 22px;
+        color: var(--white);
+        min-width: 32px;
+        line-height: 1;
+      }
+      .song-detail {
+        flex: 1;
+        min-width: 0;
+      }
+      .song-title-text {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--white);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .song-requester {
+        font-family: "Space Mono", monospace;
+        font-size: 10px;
+        color: var(--gray-mid);
+        margin-top: 3px;
+      }
+      .song-votes {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+      }
+
+      .song-empty {
+        font-family: "Space Mono", monospace;
+        font-size: 11px;
+        color: var(--gray-mid);
+        letter-spacing: 0.15em;
+        padding: 30px 0;
+        text-align: center;
+      }
+      .song-request-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(36px, 7vw, 80px);
+        line-height: 0.9;
+        margin-bottom: 24px;
+      }
+      .song-request-desc {
+        font-family: "Space Mono", monospace;
+        font-size: 11px;
+        color: var(--gray-mid);
+        line-height: 1.8;
+        margin-bottom: 32px;
+      }
+
+      /* PHOTOBOOTH */
+      #photobooth {
+        background: #0d0d0d;
+        padding: 80px 5vw;
+        position: relative;
+        overflow: hidden;
+      }
+      #photobooth::before {
+        content: "GALLERY";
+        position: absolute;
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(80px, 18vw, 280px);
+        color: rgba(255, 255, 255, 0.02);
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        white-space: nowrap;
+        pointer-events: none;
+      }
+      .photobooth-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 2;
+      }
+      .photobooth-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        align-items: start;
+      }
+      @media (max-width: 800px) {
+        .photobooth-layout {
+          grid-template-columns: 1fr;
+        }
+      }
+      .cam-area {
+        position: relative;
+        background: #000;
+        aspect-ratio: 4/3;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+      }
+      #camVideo {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transform: scaleX(-1);
+      }
+      #capturedImg {
+        display: none;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .cam-frame-overlay {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 5;
+      }
+      .cam-countdown {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 120px;
+        color: #fff;
+        text-shadow: 0 0 40px rgba(255, 85, 0, 0.8);
+        z-index: 10;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s;
+      }
+      .cam-countdown.visible {
+        opacity: 1;
+      }
+      .cam-controls {
+        display: flex;
+        gap: 10px;
+        margin-top: 12px;
+        flex-wrap: wrap;
+      }
+      .cam-btn {
+        padding: 12px 20px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: transparent;
+        color: var(--white);
+        font-family: "Space Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: all 0.2s;
+        flex: 1;
+        min-width: 100px;
+      }
+      .cam-btn:hover {
+        background: rgba(255, 255, 255, 0.08);
+      }
+      .cam-btn.primary {
+        background: var(--white);
+        color: var(--black);
+        border-color: var(--white);
+      }
+      .cam-btn.primary:hover {
+        opacity: 0.85;
+      }
+      .cam-btn:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+      }
+      .frame-selector {
+        margin-top: 20px;
+      }
+      .frame-selector-label {
+        font-family: "Space Mono", monospace;
+        font-size: 9px;
+        letter-spacing: 0.3em;
+        color: var(--gray-mid);
+        text-transform: uppercase;
+        margin-bottom: 10px;
+      }
+      .frame-options {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .frame-opt {
+        padding: 8px 14px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: transparent;
+        color: var(--gray-mid);
+        font-family: "Space Mono", monospace;
+        font-size: 9px;
+        letter-spacing: 0.1em;
+        cursor: pointer;
+        transition: all 0.2s;
+        text-transform: uppercase;
+      }
+      .frame-opt.active,
+      .frame-opt:hover {
+        border-color: var(--white);
+        color: var(--white);
+        background: rgba(255, 255, 255, 0.06);
+      }
+      .pb-gallery-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(28px, 5vw, 48px);
+        margin-bottom: 8px;
+        color: var(--white);
+      }
+      .pb-gallery-sub {
+        font-family: "Space Mono", monospace;
+        font-size: 10px;
+        color: var(--gray-mid);
+        letter-spacing: 0.15em;
+        margin-bottom: 24px;
+        line-height: 1.7;
+      }
+      .pb-gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 4px;
+        max-height: 480px;
+        overflow-y: auto;
+      }
+      .pb-gallery-grid::-webkit-scrollbar {
+        width: 3px;
+      }
+      .pb-gallery-grid::-webkit-scrollbar-thumb {
+        background: var(--gray-dark);
+      }
+      .pb-photo-item {
+        position: relative;
+        aspect-ratio: 4/3;
+        overflow: hidden;
+        cursor: pointer;
+      }
+      .pb-photo-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+        display: block;
+      }
+      .pb-photo-item:hover img {
+        transform: scale(1.06);
+      }
+      .pb-photo-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to top,
+          rgba(0, 0, 0, 0.8) 0%,
+          transparent 50%
+        );
+        opacity: 0;
+        transition: opacity 0.3s;
+        display: flex;
+        align-items: flex-end;
+        padding: 8px;
+      }
+      .pb-photo-item:hover .pb-photo-overlay {
+        opacity: 1;
+      }
+      .pb-photo-by {
+        font-family: "Space Mono", monospace;
+        font-size: 9px;
+        color: rgba(255, 255, 255, 0.8);
+      }
+      .pb-empty {
+        font-family: "Space Mono", monospace;
+        font-size: 11px;
+        color: var(--gray-mid);
+        letter-spacing: 0.15em;
+        padding: 40px 0;
+        text-align: center;
+        grid-column: 1/-1;
+      }
+      .pb-upload-progress {
+        margin-top: 10px;
+        display: none;
+      }
+      .pb-progress-bar {
+        height: 2px;
+        background: var(--gray-dark);
+        border-radius: 1px;
+        overflow: hidden;
+      }
+      .pb-progress-fill {
+        height: 100%;
+        background: var(--white);
+        border-radius: 1px;
+        width: 0%;
+        transition: width 0.3s;
+      }
+      .pb-progress-text {
+        font-family: "Space Mono", monospace;
+        font-size: 9px;
+        color: var(--gray-mid);
+        letter-spacing: 0.1em;
+        margin-top: 6px;
+      }
+
+      .song-delete-btn {
+        background: none;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: var(--gray-mid);
+        cursor: pointer;
+        font-size: 14px;
+        padding: 6px 10px;
+        transition: all 0.2s;
+        border-radius: 2px;
+        margin-left: 4px;
+        flex-shrink: 0;
+      }
+      .song-delete-btn:hover {
+        background: rgba(255, 60, 60, 0.15);
+        border-color: rgba(255, 60, 60, 0.4);
+        color: #ff6b6b;
+      }
+
+      .pb-photo-overlay {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        padding: 8px;
+      }
+      .pb-delete-btn {
+        background: rgba(0, 0, 0, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: #fff;
+        cursor: pointer;
+        font-size: 13px;
+        padding: 4px 8px;
+        border-radius: 2px;
+        transition: all 0.2s;
+        flex-shrink: 0;
+      }
+      .pb-delete-btn:hover {
+        background: rgba(255, 60, 60, 0.5);
+        border-color: rgba(255, 60, 60, 0.6);
+      }
+
+      .timeline-wrap {
+        position: relative;
+        margin-top: 20px;
+        padding-left: 30px;
+        max-height: 400px;
+        overflow-y: auto;
+        padding-right: 16px;
+      }
+
+      .timeline-wrap::-webkit-scrollbar {
+        width: 3px;
+      }
+      .timeline-wrap::-webkit-scrollbar-thumb {
+        background: var(--gray-dark);
+      }
     </style>
   </head>
   <body>
-    <!-- NAME MODAL -->
     <div class="name-modal-overlay" id="nameModal">
       <div class="name-modal">
         <h3>Siapa kamu?</h3>
@@ -1248,23 +1614,17 @@
       </div>
     </div>
 
-    <!-- LIGHTBOX -->
-    <div class="lightbox" id="lightbox">
-      <button class="lightbox-close" id="lightboxClose">✕ TUTUP</button>
-      <img id="lightboxImg" src="" alt="Foto BBQ" />
-      <div class="lightbox-info" id="lightboxInfo"></div>
-    </div>
-
-    <!-- TOAST -->
     <div class="toast" id="toast"></div>
+    <canvas id="camCanvas" style="display: none"></canvas>
 
-    <!-- NAV -->
     <nav>
       <div class="nav-logo">MINSOULZ</div>
       <ul class="nav-links">
         <li><a href="#info">Info</a></li>
         <li><a href="#menu">Menu</a></li>
         <li><a href="#checklist">Checklist</a></li>
+        <li><a href="#song-request">Request</a></li>
+        <li><a href="#photobooth">Galeri</a></li>
         <li><a href="#location">Lokasi</a></li>
         <li><span class="live-dot" id="liveIndicator">LIVE</span></li>
       </ul>
@@ -1276,10 +1636,11 @@
       <a href="#info" onclick="closeMobile()">Info</a>
       <a href="#menu" onclick="closeMobile()">Menu</a>
       <a href="#checklist" onclick="closeMobile()">Checklist</a>
+      <a href="#song-request" onclick="closeMobile()">Request Lagu</a>
+      <a href="#photobooth" onclick="closeMobile()">Galeri</a>
       <a href="#location" onclick="closeMobile()">Lokasi</a>
     </div>
 
-    <!-- HERO -->
     <section id="hero">
       <div class="hero-bg-text">MINSOULZ</div>
       <div class="flame-ring"></div>
@@ -1292,7 +1653,6 @@
       <p class="hero-sub">Jumat, 8 Mei 2026</p>
     </section>
 
-    <!-- INFO -->
     <div id="info" style="background: var(--black)">
       <div class="section-wrap" style="padding-bottom: 0">
         <div class="section-label reveal">Event Details</div>
@@ -1332,12 +1692,11 @@
     <div style="height: 80px; background: var(--black)"></div>
     <div class="divider"></div>
 
-    <!-- COUNTDOWN -->
     <div id="countdown-section">
       <div style="max-width: 1200px; margin: 0 auto">
         <div class="section-label dark reveal">Mundur ke Hari H</div>
         <p class="countdown-title reveal">Hitung Mundur Acara</p>
-        <div class="countdown-grid reveal" id="countdown">
+        <div class="countdown-grid reveal">
           <div class="countdown-block">
             <span class="countdown-num" id="cd-days">--</span
             ><span class="countdown-unit">Hari</span>
@@ -1358,7 +1717,6 @@
       </div>
     </div>
 
-    <!-- MENU -->
     <div id="menu">
       <div class="section-wrap">
         <div class="section-label reveal">Menu Makanan</div>
@@ -1398,7 +1756,6 @@
 
     <div class="divider"></div>
 
-    <!-- BUDGET -->
     <div id="budget">
       <div class="budget-inner">
         <div class="budget-left reveal">
@@ -1421,7 +1778,6 @@
       </div>
     </div>
 
-    <!-- BRING LIST -->
     <div id="bring">
       <div class="section-wrap">
         <div class="section-label reveal">Bawa Apa?</div>
@@ -1475,7 +1831,6 @@
     <div class="divider"></div>
     <div class="divider"></div>
 
-    <!-- TIMELINE -->
     <div id="timeline">
       <div class="section-wrap">
         <div class="section-label reveal">Timeline Acara</div>
@@ -1485,14 +1840,13 @@
 
     <div class="divider"></div>
 
-    <!-- REALTIME CHECKLIST -->
     <div id="checklist">
       <div style="max-width: 1200px; margin: 0 auto">
         <div class="section-label dark reveal">Persiapan Bareng — Realtime</div>
-        <p class="checklist-title reveal">Checklist Belanja & Peralatan 📋</p>
+        <p class="checklist-title reveal">Checklist Belanja & Peralatan</p>
         <p class="checklist-sub reveal">
-          Checklist ini realtime — pas kamu centang, semua langsung tau! ✓<br />
-          Siapa yang centang juga keliatan biar makin semangat.
+          Checklist ini realtime — pas kamu centang, semua langsung tau! ✓<br />Siapa
+          yang centang juga keliatan biar makin semangat.
         </p>
         <button
           onclick="resetChecklist()"
@@ -1507,7 +1861,6 @@
             text-transform: uppercase;
             cursor: pointer;
             margin-bottom: 24px;
-            transition: all 0.2s;
           "
           onmouseover="this.style.borderColor='black';this.style.color='black'"
           onmouseout="this.style.borderColor='rgba(0,0,0,0.15)';this.style.color='rgba(0,0,0,0.4)'"
@@ -1544,7 +1897,175 @@
       </div>
     </div>
 
-    <!-- LOCATION -->
+    <div id="song-request">
+      <div style="max-width: 1200px; margin: 0 auto; padding: 80px 5vw">
+        <div class="section-label reveal" style="color: var(--gray-mid)">
+          Request Lagu
+        </div>
+        <div
+          style="
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 60px 20px;
+            position: relative;
+          "
+        >
+          <div
+            style="
+              font-family: 'Bebas Neue', sans-serif;
+              font-size: clamp(60px, 14vw, 160px);
+              line-height: 0.85;
+              margin-bottom: 24px;
+              color: var(--white);
+            "
+          >
+            REQUEST<br /><span
+              style="
+                color: transparent;
+                -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
+              "
+              >LAGU</span
+            >
+          </div>
+          <p
+            style="
+              font-family: 'Space Mono', monospace;
+              font-size: 10px;
+              color: var(--gray-mid);
+              letter-spacing: 0.2em;
+              line-height: 1.8;
+              margin-bottom: 36px;
+              max-width: 420px;
+            "
+          >
+            Request lagu buat malem ini.<br />Langsung ada link YouTube-nya
+            juga!
+          </p>
+          <a
+            href="songs.html"
+            style="
+              display: inline-flex;
+              align-items: center;
+              gap: 12px;
+              padding: 16px 36px;
+              background: var(--white);
+              color: var(--black);
+              font-family: 'Space Mono', monospace;
+              font-size: 11px;
+              letter-spacing: 0.25em;
+              text-transform: uppercase;
+              text-decoration: none;
+              transition: opacity 0.2s;
+            "
+            onmouseover="this.style.opacity='.8'"
+            onmouseout="this.style.opacity='1'"
+          >
+            BUKA REQUEST LAGU
+          </a>
+          <div
+            id="songPreviewCount"
+            style="
+              margin-top: 20px;
+              font-family: 'Space Mono', monospace;
+              font-size: 9px;
+              color: rgba(255, 255, 255, 0.2);
+              letter-spacing: 0.2em;
+            "
+          ></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div id="photobooth">
+      <div class="photobooth-inner">
+        <div class="section-label reveal" style="color: var(--gray-mid)">
+          Galeri Foto — BBQ Night
+        </div>
+        <div
+          style="
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 60px 20px;
+            position: relative;
+            z-index: 2;
+          "
+        >
+          <div
+            style="
+              font-family: 'Bebas Neue', sans-serif;
+              font-size: clamp(60px, 14vw, 160px);
+              line-height: 0.85;
+              margin-bottom: 24px;
+              color: var(--white);
+            "
+          >
+            GALERI<br /><span
+              style="
+                color: transparent;
+                -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
+              "
+              >FOTO</span
+            >
+          </div>
+          <p
+            style="
+              font-family: 'Space Mono', monospace;
+              font-size: 10px;
+              color: var(--gray-mid);
+              letter-spacing: 0.2em;
+              line-height: 1.8;
+              margin-bottom: 36px;
+              max-width: 420px;
+            "
+          >
+            Semua foto BBQ Night Minsoulz ada di sini.<br />Upload, lihat, dan
+            hapus foto bareng-bareng realtime.
+          </p>
+          <a
+            href="gallery.html"
+            style="
+              display: inline-flex;
+              align-items: center;
+              gap: 12px;
+              padding: 16px 36px;
+              background: var(--white);
+              color: var(--black);
+              font-family: 'Space Mono', monospace;
+              font-size: 11px;
+              letter-spacing: 0.25em;
+              text-transform: uppercase;
+              text-decoration: none;
+              transition: opacity 0.2s;
+            "
+            onmouseover="this.style.opacity='.8'"
+            onmouseout="this.style.opacity='1'"
+          >
+            BUKA GALERI FOTO
+          </a>
+          <div
+            id="photoPreviewCount"
+            style="
+              margin-top: 20px;
+              font-family: 'Space Mono', monospace;
+              font-size: 9px;
+              color: rgba(255, 255, 255, 0.2);
+              letter-spacing: 0.2em;
+            "
+          >
+            Memuat...
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div id="location">
       <div style="max-width: 1200px; margin: 0 auto; padding: 0">
         <div class="section-label reveal">Lokasi Acara</div>
@@ -1568,7 +2089,7 @@
                 >
               </address>
               <a class="btn-maps" id="btnMaps" href="#" target="_blank"
-                >🗺️ &nbsp; Buka di Google Maps</a
+                >Buka di Google Maps</a
               >
             </div>
           </div>
@@ -1576,13 +2097,11 @@
       </div>
     </div>
 
-    <!-- FOOTER -->
     <footer>
       <div class="footer-logo">MINSOULZ</div>
       <div class="footer-tag">BBQ NIGHT · 8 MEI 2026 · PONTIANAK</div>
     </footer>
 
-    <!-- MUSIC PLAYER -->
     <div id="music-player">
       <div class="music-hint" id="musicHint">🎵 VIBE MODE ON</div>
       <div class="music-bar">
@@ -1597,9 +2116,7 @@
       </div>
     </div>
 
-    <!-- ===== SCRIPTS ===== -->
     <script>
-      // Mobile menu
       const hamburger = document.getElementById("hamburger");
       const mobileMenu = document.getElementById("mobileMenu");
       hamburger.addEventListener("click", () =>
@@ -1609,7 +2126,6 @@
         mobileMenu.classList.remove("open");
       }
 
-      // Countdown
       function updateCountdown() {
         const target = new Date("2026-05-08T12:00:00");
         const diff = target - new Date();
@@ -1643,7 +2159,6 @@
       updateCountdown();
       setInterval(updateCountdown, 1000);
 
-      // Toast
       function showToast(msg) {
         const t = document.getElementById("toast");
         t.textContent = msg;
@@ -1651,7 +2166,6 @@
         setTimeout(() => t.classList.remove("show"), 3000);
       }
 
-      // Reveal on scroll
       const observer = new IntersectionObserver(
         (entries) =>
           entries.forEach((e) => {
@@ -1661,7 +2175,6 @@
       );
       document.querySelectorAll(".reveal").forEach((r) => observer.observe(r));
 
-      // Login version
       const CURRENT_VERSION = "3";
       if (localStorage.getItem("bbq_login_version") !== CURRENT_VERSION) {
         localStorage.removeItem("bbq_username");
@@ -1670,45 +2183,36 @@
       let myName = localStorage.getItem("bbq_username") || "";
       if (myName) document.getElementById("nameModal").style.display = "none";
 
-      // ===== MP3 MUSIC PLAYER =====
-      // 🎵 Ganti src di bawah dengan path file MP3 kamu
       const PLAYLIST = [
         { src: "music/bbq-night.mp3", title: "BBQ Night Vibes 🔥" },
-        // { src: "music/lagu2.mp3", title: "Lagu 2" },
       ];
-
       const audio = new Audio();
       audio.volume = 0.5;
-      let currentTrack = 0;
-      let isPlaying = false;
-
-      function loadTrack(index) {
-        audio.src = PLAYLIST[index].src;
+      let currentTrack = 0,
+        isPlaying = false;
+      function loadTrack(i) {
+        audio.src = PLAYLIST[i].src;
         audio.load();
-        document.getElementById("musicTitle").textContent =
-          PLAYLIST[index].title;
+        document.getElementById("musicTitle").textContent = PLAYLIST[i].title;
       }
-
       function updateMusicUI() {
-        const album = document.getElementById("musicAlbum");
-        const status = document.getElementById("musicStatus");
-        const btn = document.getElementById("musicToggle");
-        const hint = document.getElementById("musicHint");
+        const al = document.getElementById("musicAlbum"),
+          st = document.getElementById("musicStatus"),
+          bt = document.getElementById("musicToggle"),
+          hi = document.getElementById("musicHint");
         if (isPlaying) {
-          album.classList.add("playing");
-          status.textContent = "NOW PLAYING";
-          status.classList.add("active");
-          btn.textContent = "⏸";
-          hint.classList.add("visible");
+          al.classList.add("playing");
+          st.textContent = "NOW PLAYING";
+          st.classList.add("active");
+          bt.textContent = "⏸";
+          hi.classList.add("visible");
         } else {
-          album.classList.remove("playing");
-          status.textContent = "PAUSED";
-          status.classList.remove("active");
-          btn.textContent = "▶";
+          al.classList.remove("playing");
+          st.textContent = "PAUSED";
+          st.classList.remove("active");
+          bt.textContent = "▶";
         }
       }
-
-      // Auto next track
       audio.addEventListener("ended", () => {
         currentTrack = (currentTrack + 1) % PLAYLIST.length;
         loadTrack(currentTrack);
@@ -1720,8 +2224,6 @@
           })
           .catch(() => {});
       });
-
-      // Tombol play/pause
       document.getElementById("musicToggle").addEventListener("click", () => {
         if (isPlaying) {
           audio.pause();
@@ -1737,13 +2239,10 @@
             .catch(() => showToast("Gagal memutar lagu 😢"));
         }
       });
-
-      // Load lagu pertama saat halaman dibuka
       loadTrack(0);
       updateMusicUI();
     </script>
 
-    <!-- FIREBASE -->
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
       import {
@@ -1752,14 +2251,9 @@
         onValue,
         set,
         get,
+        push,
         onDisconnect,
       } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-      import {
-        getStorage,
-        ref as sRef,
-        uploadBytesResumable,
-        getDownloadURL,
-      } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
 
       const firebaseConfig = {
         apiKey: "AIzaSyCsfOGvVR7FtihQ51Iqaw1h5iJf0WFkU3Y",
@@ -1772,10 +2266,11 @@
         appId: "1:788013415717:web:21cf137065741bbe95aecc",
         measurementId: "G-9KL5JDPCMV",
       };
-
       const app = initializeApp(firebaseConfig);
       const db = getDatabase(app);
-      const storage = getStorage(app);
+      window._fbDb = db;
+      window._fbRef = ref;
+      window._fbSet = set;
 
       document
         .getElementById("nameSubmit")
@@ -1793,24 +2288,19 @@
             showToast("Masukkan password dulu ya!");
             return;
           }
-
           const btn = document.getElementById("nameSubmit");
           btn.disabled = true;
           btn.textContent = "MENGECEK...";
-
           try {
-            const nameSnap = await get(ref(db, "config/allowedUsers/" + val));
-            if (!nameSnap.exists() || nameSnap.val() !== true) {
+            const ns = await get(ref(db, "config/allowedUsers/" + val));
+            if (!ns.exists() || ns.val() !== true) {
               showToast("❌ Nama tidak terdaftar!");
               btn.disabled = false;
               btn.textContent = "MASUK";
               return;
             }
-            const passSnap = await get(ref(db, "config/password"));
-            if (
-              !passSnap.exists() ||
-              passSnap.val().toUpperCase() !== pass.toUpperCase()
-            ) {
+            const ps = await get(ref(db, "config/password"));
+            if (!ps.exists() || ps.val().toUpperCase() !== pass.toUpperCase()) {
               showToast("❌ Password salah!");
               btn.disabled = false;
               btn.textContent = "MASUK";
@@ -1825,13 +2315,11 @@
             showToast("❌ Gagal cek, coba lagi.");
             btn.disabled = false;
             btn.textContent = "MASUK";
-            console.error(err);
           }
         });
 
       window.resetChecklist = async () => {
-        if (!confirm("Reset semua checklist? Semua centang akan hilang."))
-          return;
+        if (!confirm("Reset semua checklist?")) return;
         await set(ref(db, "checklist"), null);
         showToast("✅ Checklist direset!");
       };
@@ -1853,6 +2341,160 @@
         if (btn && loc.mapsUrl) btn.href = loc.mapsUrl;
         const iframe = document.getElementById("mapIframe");
         if (iframe && loc.mapsEmbed) iframe.src = loc.mapsEmbed;
+      });
+
+      const timelineData = [
+        {
+          time: "14:00",
+          title: "Kumpul dulu",
+          desc: "Ngumpul semua, bagi-bagi tugas siapa belanja siapa yang setup.",
+        },
+        {
+          time: "14:30",
+          title: "Mode Belanja",
+          desc: "Beli daging, arang, bumbu, minuman, dan keperluan lainnya.",
+        },
+        {
+          time: "15:30",
+          title: "Marinasi daging",
+          desc: "Bumbu diolesin, rendam minimal 1 jam. Sambil nunggu ya rebahan dulu.",
+        },
+        {
+          time: "16:30",
+          title: "Istirahat",
+          desc: "Santai dulu, ngobrol, main kartu, tidur siang juga boleh.",
+        },
+        {
+          time: "17:30",
+          title: "Setup panggangan",
+          desc: "Nyalain arang, susun meja, beresin area bakar-bakaran.",
+        },
+        {
+          time: "18:00",
+          title: "Bakar-bakaran!",
+          desc: "Api udah panas, daging masuk. Ini dia acara utamanya — jangan lupa difoto.",
+        },
+        {
+          time: "19:30",
+          title: "Makan-makan",
+          desc: "Duduk, makan, ngobrol. Foto dulu sebelum langsung dihabisin ya.",
+        },
+        {
+          time: "20:30",
+          title: "Foto-foto",
+          desc: "Perut kenyang, saatnya foto bareng. Upload ke gallery Minsoulz!",
+        },
+        {
+          time: "21:15",
+          title: "Beres-beres",
+          desc: "Gotong royong beresin semuanya. Cepet kalau rame yang bantu.",
+        },
+        {
+          time: "22:00",
+          title: "Pulang",
+          desc: "Sampai jumpa di BBQ berikutnya. Jangan lupa share fotonya!",
+        },
+      ];
+      function renderTimeline() {
+        const c = document.getElementById("timelineList");
+        c.innerHTML = "";
+        timelineData.forEach((item) => {
+          if (!item.title) return;
+          const el = document.createElement("div");
+          el.className = "timeline-item";
+          el.innerHTML = `<div class="timeline-dot"></div><div class="timeline-time">${item.time}</div><div class="timeline-title">${item.title}</div><div class="timeline-desc">${item.desc}</div>`;
+          c.appendChild(el);
+        });
+      }
+      renderTimeline();
+
+      const avatarPhotos = [
+        {
+          name: "ALFRED",
+          url: "https://drive.google.com/thumbnail?id=1hgKfpGjin5CJUqpcGIyHhkBwStGMzUbz&sz=w200",
+        },
+        {
+          name: "ANDREW",
+          url: "https://drive.google.com/thumbnail?id=1-ueScLPlgwazUaGW4qeWHk8bYW2bhAeh&sz=w200",
+        },
+        {
+          name: "DAVIN",
+          url: "https://drive.google.com/thumbnail?id=1g0d6YjZPGSTwaqc1wCHno0mZRF25WZuq&sz=w200",
+        },
+        {
+          name: "DEDI",
+          url: "https://drive.google.com/thumbnail?id=1bbU8V0zy0zYaNyfoE5viQeVrKlZSdbNB&sz=w200",
+        },
+        {
+          name: "GRACE",
+          url: "https://drive.google.com/thumbnail?id=1EtinKaSa_Opr6dCIQ8Bd6TkG3mUpmqgH&sz=w200",
+        },
+        {
+          name: "KARIN",
+          url: "https://drive.google.com/thumbnail?id=1-3qN1SrJDBoARUcSR9j87K-ePGlynVN6&sz=w200",
+        },
+        {
+          name: "SHIRLENE",
+          url: "https://drive.google.com/thumbnail?id=1HhhJ9UNjnqILAdJs_27Dk1Ekv5D0inUw&sz=w200",
+        },
+        {
+          name: "VINCENT",
+          url: "https://drive.google.com/thumbnail?id=1vnT_fWKE0a8S_hCyjwk3bQfSJGuNPVa3&sz=w200",
+        },
+        {
+          name: "VELLICIA",
+          url: "https://drive.google.com/thumbnail?id=1XpdJi1raeUDndZv_HNN0FOh3jarKoAEs&sz=w200",
+        },
+      ];
+      function renderFloatingAvatars() {
+        const c = document.getElementById("floatingAvatars");
+        c.innerHTML = "";
+        avatarPhotos.forEach((p, i) => {
+          const el = document.createElement("div");
+          el.className = "avatar-bubble";
+          const x =
+            5 + (i / avatarPhotos.length) * 85 + (Math.random() * 8 - 4);
+          el.style.setProperty("--x", x + "%");
+          el.style.setProperty("--dur", 4 + Math.random() * 6 + "s");
+          el.style.setProperty("--delay", i * 1.1 + Math.random() * 2 + "s");
+          el.style.setProperty("--color", "#1a1a1a");
+          el.innerHTML = `<img src="${p.url}" alt="${
+            p.name
+          }" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;" onerror="this.style.display='none';this.parentElement.textContent='${p.name.charAt(
+            0
+          )}'"/>`;
+          c.appendChild(el);
+        });
+      }
+      renderFloatingAvatars();
+
+      function setupPresence() {
+        const name = localStorage.getItem("bbq_username");
+        if (!name) return;
+        const uid = name + "_" + Math.random().toString(36).slice(2, 6);
+        const presRef = ref(db, "presence/" + uid);
+        set(presRef, { name, online: true, ts: Date.now() });
+        onDisconnect(presRef).remove();
+      }
+      setupPresence();
+
+      onValue(ref(db, "presence"), (snap) => {
+        const data = snap.val() || {};
+        const myN = localStorage.getItem("bbq_username") || "";
+        const el = document.getElementById("onlineAvatars");
+        const users = Object.values(data).filter((u) => u.online);
+        if (!users.length) {
+          el.textContent = "—";
+          return;
+        }
+        el.innerHTML = users
+          .map(
+            (u) =>
+              `<span class="online-avatar${u.name === myN ? " me" : ""}">${
+                u.name
+              }</span>`
+          )
+          .join("");
       });
 
       const checklistData = [
@@ -1914,127 +2556,11 @@
           ],
         },
       ];
-
-      const timelineData = [
-        { time: "12:00", title: "Kumpul", desc: "sini oi" },
-        { time: "", title: "", desc: "" },
-        { time: "", title: "", desc: "" },
-        { time: "", title: "", desc: "" },
-        { time: "", title: "", desc: "" },
-      ];
-
-      function renderTimeline() {
-        const container = document.getElementById("timelineList");
-        container.innerHTML = "";
-        timelineData.forEach((item) => {
-          if (!item.title && !item.time) return;
-          const el = document.createElement("div");
-          el.className = "timeline-item";
-          el.innerHTML = `<div class="timeline-dot"></div><div class="timeline-time">${item.time}</div><div class="timeline-title">${item.title}</div><div class="timeline-desc">${item.desc}</div>`;
-          container.appendChild(el);
-        });
-      }
-      renderTimeline();
-
-      const avatarPhotos = [
-        {
-          name: "ALFRED",
-          url: "https://drive.google.com/thumbnail?id=1hgKfpGjin5CJUqpcGIyHhkBwStGMzUbz&sz=w200",
-        },
-        {
-          name: "ANDREW",
-          url: "https://drive.google.com/thumbnail?id=1-ueScLPlgwazUaGW4qeWHk8bYW2bhAeh&sz=w200",
-        },
-        {
-          name: "DAVIN",
-          url: "https://drive.google.com/thumbnail?id=1g0d6YjZPGSTwaqc1wCHno0mZRF25WZuq&sz=w200",
-        },
-        {
-          name: "DEDI",
-          url: "https://drive.google.com/thumbnail?id=1bbU8V0zy0zYaNyfoE5viQeVrKlZSdbNB&sz=w200",
-        },
-        {
-          name: "GRACE",
-          url: "https://drive.google.com/thumbnail?id=1EtinKaSa_Opr6dCIQ8Bd6TkG3mUpmqgH&sz=w200",
-        },
-        {
-          name: "KARIN",
-          url: "https://drive.google.com/thumbnail?id=1-3qN1SrJDBoARUcSR9j87K-ePGlynVN6&sz=w200",
-        },
-        {
-          name: "SHIRLENE",
-          url: "https://drive.google.com/thumbnail?id=1HhhJ9UNjnqILAdJs_27Dk1Ekv5D0inUw&sz=w200",
-        },
-        {
-          name: "VINCENT",
-          url: "https://drive.google.com/thumbnail?id=1vnT_fWKE0a8S_hCyjwk3bQfSJGuNPVa3&sz=w200",
-        },
-        {
-          name: "VELLICIA",
-          url: "https://drive.google.com/thumbnail?id=1XpdJi1raeUDndZv_HNN0FOh3jarKoAEs&sz=w200",
-        },
-      ];
-
-      function renderFloatingAvatars() {
-        const container = document.getElementById("floatingAvatars");
-        container.innerHTML = "";
-        avatarPhotos.forEach((person, i) => {
-          const el = document.createElement("div");
-          el.className = "avatar-bubble";
-          const xPercent =
-            5 + (i / avatarPhotos.length) * 85 + (Math.random() * 8 - 4);
-          const dur = 7 + Math.random() * 6;
-          const delay = i * 1.1 + Math.random() * 2;
-          el.style.setProperty("--x", xPercent + "%");
-          el.style.setProperty("--dur", dur + "s");
-          el.style.setProperty("--delay", delay + "s");
-          el.style.setProperty("--color", "#1a1a1a");
-          el.innerHTML = `<img src="${person.url}" alt="${
-            person.name
-          }" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;" onerror="this.style.display='none';this.parentElement.textContent='${person.name.charAt(
-            0
-          )}';" />`;
-          el.title = person.name;
-          container.appendChild(el);
-        });
-      }
-      renderFloatingAvatars();
-
-      function setupPresence() {
-        const name = localStorage.getItem("bbq_username");
-        if (!name) return;
-        const uid = name + "_" + Math.random().toString(36).slice(2, 6);
-        const presRef = ref(db, "presence/" + uid);
-        set(presRef, { name, online: true, ts: Date.now() });
-        onDisconnect(presRef).remove();
-      }
-      setupPresence();
-
-      onValue(ref(db, "presence"), (snap) => {
-        const data = snap.val() || {};
-        const myNameNow = localStorage.getItem("bbq_username") || "";
-        const avatarsEl = document.getElementById("onlineAvatars");
-        const users = Object.values(data).filter((u) => u.online);
-        if (users.length === 0) {
-          avatarsEl.textContent = "—";
-          return;
-        }
-        avatarsEl.innerHTML = users
-          .map(
-            (u) =>
-              `<span class="online-avatar${
-                u.name === myNameNow ? " me" : ""
-              }">${u.name}</span>`
-          )
-          .join("");
-      });
-
       let checkStates = {};
       function renderChecklist(states) {
         checkStates = states || {};
         const container = document.getElementById("checklistCategories");
-        const myNameNow =
-          myName || localStorage.getItem("bbq_username") || "???";
+        const myN = myName || localStorage.getItem("bbq_username") || "???";
         container.innerHTML = "";
         let total = 0,
           done = 0;
@@ -2060,27 +2586,21 @@
                 : ""
             }</div>`;
             el.addEventListener("click", () => {
-              const state = checkStates[key];
-              const alreadyChecked = state && state.checked;
-              const owner = state?.by;
-
-              if (alreadyChecked) {
-                if (owner && owner !== myNameNow) {
-                  showToast(
-                    "❌ Dicentang oleh " +
-                      owner +
-                      ", cuma dia yang bisa uncheck!"
-                  );
-                  return;
-                }
+              const st = checkStates[key];
+              const ac = st && st.checked;
+              const ow = st?.by;
+              if (ac && ow && ow !== myN) {
+                showToast(
+                  "❌ Dicentang oleh " + ow + ", cuma dia yang bisa uncheck!"
+                );
+                return;
               }
-              const newChecked = !alreadyChecked;
-              const itemRef = ref(db, `checklist/${key}`);
-              if (newChecked) {
-                set(itemRef, { checked: true, by: myNameNow, ts: Date.now() });
-                showToast("✅ " + item + " dicatat oleh " + myNameNow);
+              const ir = ref(db, `checklist/${key}`);
+              if (!ac) {
+                set(ir, { checked: true, by: myN, ts: Date.now() });
+                showToast("✅ " + item + " dicatat oleh " + myN);
               } else {
-                set(itemRef, { checked: false, by: null, ts: Date.now() });
+                set(ir, { checked: false, by: null, ts: Date.now() });
               }
             });
             grid.appendChild(el);
@@ -2095,12 +2615,157 @@
           ? (done / total) * 100 + "%"
           : "0%";
       }
-
       onValue(ref(db, "checklist"), (snap) => {
         document.getElementById("checklistLoading").style.display = "none";
         document.getElementById("checklistCategories").style.display = "flex";
         document.getElementById("checkProgress").style.display = "flex";
         renderChecklist(snap.val());
+      });
+
+      // SONG REQUEST
+      document
+        .getElementById("songSubmitBtn")
+        .addEventListener("click", async () => {
+          const titleEl = document.getElementById("songTitleInput");
+          const artistEl = document.getElementById("songArtistInput");
+          const title = titleEl.value.trim();
+          const artist = artistEl.value.trim();
+          const name = myName || localStorage.getItem("bbq_username") || "";
+          if (!name) {
+            showToast("Login dulu ya!");
+            return;
+          }
+          if (!title) {
+            showToast("Judul lagu tidak boleh kosong!");
+            titleEl.focus();
+            return;
+          }
+          const btn = document.getElementById("songSubmitBtn");
+          btn.disabled = true;
+          btn.textContent = "MENYIMPAN...";
+          try {
+            await push(ref(db, "songs"), {
+              title,
+              artist: artist || "—",
+              by: name,
+              ts: Date.now(),
+              votes: 0,
+              voters: {},
+            });
+            titleEl.value = "";
+            artistEl.value = "";
+            showToast("🎵 Request berhasil! " + title);
+          } catch (e) {
+            showToast("❌ Gagal request, coba lagi!");
+          }
+          btn.disabled = false;
+          btn.textContent = "+ REQUEST LAGU";
+        });
+      document
+        .getElementById("songTitleInput")
+        .addEventListener("keydown", (e) => {
+          if (e.key === "Enter")
+            document.getElementById("songArtistInput").focus();
+        });
+      document
+        .getElementById("songArtistInput")
+        .addEventListener("keydown", (e) => {
+          if (e.key === "Enter")
+            document.getElementById("songSubmitBtn").click();
+        });
+
+      onValue(ref(db, "songs"), (snap) => {
+        const data = snap.val();
+        const list = document.getElementById("songList");
+        const name = localStorage.getItem("bbq_username") || "";
+        if (!data) {
+          list.innerHTML =
+            '<div class="song-empty">Belum ada request. Jadilah yang pertama! 🎤</div>';
+          return;
+        }
+        const songs = Object.entries(data).map(([id, v]) => ({ id, ...v }));
+        songs.sort((a, b) => (b.votes || 0) - (a.votes || 0));
+        list.innerHTML = "";
+        songs.forEach((song, idx) => {
+          const hasVoted = song.voters && song.voters[name];
+          const canDelete = name === "DAVIN" || song.by === name;
+          const el = document.createElement("div");
+          el.className = "song-item";
+          el.innerHTML = `
+      <div class="song-num">${idx + 1}</div>
+      <div class="song-detail">
+        <div class="song-title-text">${song.title}</div>
+        <div class="song-requester">by ${song.by}${
+            song.artist && song.artist !== "—" ? " · " + song.artist : ""
+          }</div>
+      </div>
+
+      ${
+        canDelete
+          ? `<button class="song-delete-btn" data-id="${song.id}" title="Hapus lagu">🗑</button>`
+          : ""
+      }
+    `;
+
+          if (canDelete) {
+            el.querySelector(".song-delete-btn").addEventListener(
+              "click",
+              async () => {
+                if (!confirm(`Hapus "${song.title}"?`)) return;
+                await set(ref(db, `songs/${song.id}`), null);
+                showToast("🗑 Lagu dihapus!");
+              }
+            );
+          }
+          list.appendChild(el);
+        });
+      });
+      // GALLERY
+      onValue(ref(db, "photos"), (snap) => {
+        const data = snap.val();
+        const gallery = document.getElementById("pbGallery");
+        const myN = localStorage.getItem("bbq_username") || "";
+        if (!data) {
+          gallery.innerHTML =
+            '<div class="pb-empty">Belum ada foto. Ayo upload! 📸</div>';
+          return;
+        }
+        const photos = Object.entries(data).map(([id, v]) => ({ id, ...v }));
+        photos.sort((a, b) => b.ts - a.ts);
+        gallery.innerHTML = "";
+        photos.forEach((photo) => {
+          const el = document.createElement("div");
+          el.className = "pb-photo-item";
+          el.innerHTML = `
+      <img src="${photo.url}" alt="BBQ Photo by ${photo.by}" loading="lazy"/>
+      <div class="pb-photo-overlay">
+        <span class="pb-photo-by">${photo.by}${
+            photo.by === myN ? " (kamu)" : ""
+          }</span>
+        <button class="pb-delete-btn" data-id="${
+          photo.id
+        }" title="Hapus foto">🗑</button>
+      </div>
+    `;
+          el.addEventListener("click", (e) => {
+            if (e.target.closest(".pb-delete-btn")) return;
+            document.getElementById("lightboxImg").src = photo.url;
+            document.getElementById(
+              "lightboxInfo"
+            ).textContent = `${photo.by} · BBQ Night 8 Mei 2026`;
+            document.getElementById("lightbox").classList.add("open");
+          });
+          el.querySelector(".pb-delete-btn").addEventListener(
+            "click",
+            async (e) => {
+              e.stopPropagation();
+              if (!confirm("Hapus foto ini?")) return;
+              await set(ref(db, `photos/${photo.id}`), null);
+              showToast("🗑 Foto dihapus!");
+            }
+          );
+          gallery.appendChild(el);
+        });
       });
 
       document
