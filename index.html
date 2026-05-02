@@ -1626,6 +1626,9 @@
         <li><a href="#song-request">Request</a></li>
         <li><a href="#photobooth">Galeri</a></li>
         <li><a href="#location">Lokasi</a></li>
+        <li id="adminNavLink" style="display: none">
+          <a href="notify.html">Notifikasi</a>
+        </li>
         <li><span class="live-dot" id="liveIndicator">LIVE</span></li>
       </ul>
       <div class="hamburger" id="hamburger">
@@ -1639,6 +1642,13 @@
       <a href="#song-request" onclick="closeMobile()">Request Lagu</a>
       <a href="#photobooth" onclick="closeMobile()">Galeri</a>
       <a href="#location" onclick="closeMobile()">Lokasi</a>
+      <a
+        href="notify.html"
+        id="adminMobileLink"
+        style="display: none"
+        onclick="closeMobile()"
+        >Kirim Notifikasi</a
+      >
     </div>
 
     <section id="hero">
@@ -1650,7 +1660,7 @@
         <span class="bbq">BBQ</span>
         <span class="outline night">NIGHT</span>
       </h1>
-      <p class="hero-sub">Jumat, 8 Mei 2026</p>
+      <p class="hero-sub">Sabtu, 9 Mei 2026</p>
     </section>
 
     <div id="info" style="background: var(--black)">
@@ -1660,7 +1670,7 @@
           <div class="info-card">
             <span class="info-icon">📅</span>
             <div class="info-label">Tanggal</div>
-            <div class="info-value">Jumat, 8 Mei 2026</div>
+            <div class="info-value">Sabtu, 9 Mei 2026</div>
           </div>
           <div class="info-card">
             <span class="info-icon">⏰</span>
@@ -2125,7 +2135,7 @@
       }
 
       function updateCountdown() {
-        const target = new Date("2026-05-08T12:00:00");
+        const target = new Date("2026-05-09T14:00:00");
         const diff = target - new Date();
         if (diff <= 0) {
           ["cd-days", "cd-hours", "cd-mins", "cd-secs"].forEach(
@@ -2340,6 +2350,14 @@
         const iframe = document.getElementById("mapIframe");
         if (iframe && loc.mapsEmbed) iframe.src = loc.mapsEmbed;
       });
+
+      const ADMINS = ["DAVIN", "VINCENT", "VELLICIA"];
+      if (ADMINS.includes(myName)) {
+        const nl = document.getElementById("adminNavLink");
+        const ml = document.getElementById("adminMobileLink");
+        if (nl) nl.style.display = "block";
+        if (ml) ml.style.display = "block";
+      }
 
       const timelineData = [
         {
