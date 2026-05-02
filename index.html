@@ -1629,6 +1629,26 @@
         <li id="adminNavLink" style="display: none">
           <a href="notify.html">Notifikasi</a>
         </li>
+        <li>
+          <button
+            onclick="logout()"
+            style="
+              background: none;
+              border: none;
+              cursor: pointer;
+              font-family: 'Space Mono', monospace;
+              font-size: 10px;
+              letter-spacing: 0.2em;
+              color: var(--gray-mid);
+              text-transform: uppercase;
+              transition: color 0.2s;
+            "
+            onmouseover="this.style.color='white'"
+            onmouseout="this.style.color='var(--gray-mid)'"
+          >
+            LOGOUT
+          </button>
+        </li>
         <li><span class="live-dot" id="liveIndicator">LIVE</span></li>
       </ul>
       <div class="hamburger" id="hamburger">
@@ -1642,6 +1662,7 @@
       <a href="#song-request" onclick="closeMobile()">Request Lagu</a>
       <a href="#photobooth" onclick="closeMobile()">Galeri</a>
       <a href="#location" onclick="closeMobile()">Lokasi</a>
+
       <a
         href="notify.html"
         id="adminMobileLink"
@@ -1649,6 +1670,8 @@
         onclick="closeMobile()"
         >Kirim Notifikasi</a
       >
+
+      <a href="#" onclick="logout(); return false;" style="color: #ff4444;">LOGOUT</a>
     </div>
 
     <section id="hero">
@@ -1877,6 +1900,7 @@
         >
           ↺ Reset Semua Checklist
         </button>
+
         <div class="online-bar reveal" id="onlineBar">
           <div class="live-dot">ONLINE SEKARANG</div>
           <div class="online-avatars" id="onlineAvatars">—</div>
@@ -2125,6 +2149,11 @@
     </div>
 
     <script>
+      function logout() {
+        if (!confirm("Logout?")) return;
+        localStorage.removeItem("bbq_username");
+        location.reload();
+      }
       const hamburger = document.getElementById("hamburger");
       const mobileMenu = document.getElementById("mobileMenu");
       hamburger.addEventListener("click", () =>
