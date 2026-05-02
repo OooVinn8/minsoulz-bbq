@@ -1626,9 +1626,6 @@
         <li><a href="#song-request">Request</a></li>
         <li><a href="#photobooth">Galeri</a></li>
         <li><a href="#location">Lokasi</a></li>
-        <li id="adminNavLink" style="display: none">
-          <a href="notify.html">Notifikasi</a>
-        </li>
         <li>
           <button
             onclick="logout()"
@@ -1662,16 +1659,9 @@
       <a href="#song-request" onclick="closeMobile()">Request Lagu</a>
       <a href="#photobooth" onclick="closeMobile()">Galeri</a>
       <a href="#location" onclick="closeMobile()">Lokasi</a>
-
-      <a
-        href="notify.html"
-        id="adminMobileLink"
-        style="display: none"
-        onclick="closeMobile()"
-        >Kirim Notifikasi</a
+      <a href="#" onclick="logout(); return false;" style="color: #ff4444"
+        >LOGOUT</a
       >
-
-      <a href="#" onclick="logout(); return false;" style="color: #ff4444;">LOGOUT</a>
     </div>
 
     <section id="hero">
@@ -2521,40 +2511,6 @@
         set(presRef, { name, online: true, ts: Date.now() });
         onDisconnect(presRef).remove();
       }
-      async function setupFCM() {
-        const username = localStorage.getItem("bbq_username");
-        if (!username) return;
-        if (!("serviceWorker" in navigator)) return;
-        try {
-          const { getMessaging, getToken } = await import(
-            "https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging.js"
-          );
-          const messaging = getMessaging(app);
-          const sw = await navigator.serviceWorker.register(
-            "/firebase-messaging-sw.js"
-          );
-          if (Notification.permission !== "granted") {
-            await Notification.requestPermission();
-          }
-          if (Notification.permission === "granted") {
-            const token = await getToken(messaging, {
-              vapidKey:
-                "BFKQFF44IB3i-I1Y9rOe84XiRhGLNcOuzhD9JWjjri7mJ7ecrxRJ_0k2UiqZ7HPyNsv6p-HV8za6lYnZoOAhaHM",
-              serviceWorkerRegistration: sw,
-            });
-            if (token) {
-              await set(ref(db, "fcm_tokens/" + username), {
-                token,
-                ts: Date.now(),
-              });
-            }
-          }
-        } catch (e) {
-          console.error("FCM error:", e);
-        }
-      }
-      setupPresence();
-      setupFCM();
 
       onValue(ref(db, "presence"), (snap) => {
         const data = snap.val() || {};
