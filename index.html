@@ -597,6 +597,9 @@
         position: relative;
         margin-top: 20px;
         padding-left: 30px;
+        max-height: 400px;
+        overflow-y: auto;
+        padding-right: 16px;
       }
       .timeline-wrap::before {
         content: "";
@@ -605,6 +608,12 @@
         top: 0;
         bottom: 0;
         width: 2px;
+        background: var(--gray-dark);
+      }
+      .timeline-wrap::-webkit-scrollbar {
+        width: 3px;
+      }
+      .timeline-wrap::-webkit-scrollbar-thumb {
         background: var(--gray-dark);
       }
       .timeline-item {
@@ -1140,80 +1149,50 @@
         letter-spacing: 0.15em;
         text-align: center;
       }
-
-      /* SONG REQUEST */
       #song-request {
         background: var(--black);
         padding: 80px 5vw;
       }
-      .song-request-inner {
+      #photobooth {
+        background: #0d0d0d;
+        padding: 80px 5vw;
+        position: relative;
+        overflow: hidden;
+      }
+      #photobooth::before {
+        content: "GALLERY";
+        position: absolute;
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(80px, 18vw, 280px);
+        color: rgba(255, 255, 255, 0.02);
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        white-space: nowrap;
+        pointer-events: none;
+      }
+      .photobooth-inner {
         max-width: 1200px;
         margin: 0 auto;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 60px;
-        align-items: start;
+        position: relative;
+        z-index: 2;
       }
-      @media (max-width: 700px) {
-        .song-request-inner {
-          grid-template-columns: 1fr;
-          gap: 40px;
-        }
-      }
-      .song-form {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-      }
-      .song-input {
-        width: 100%;
-        padding: 14px 18px;
-        background: var(--gray-dark);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        color: var(--white);
-        font-family: "DM Sans", sans-serif;
-        font-size: 14px;
-        outline: none;
-        transition: border-color 0.2s;
-      }
-      .song-input:focus {
-        border-color: rgba(255, 255, 255, 0.3);
-      }
-      .song-input::placeholder {
+      .song-delete-btn {
+        background: none;
+        border: 1px solid rgba(255, 255, 255, 0.1);
         color: var(--gray-mid);
-      }
-      .song-submit {
-        padding: 14px 24px;
-        background: var(--white);
-        color: var(--black);
-        border: none;
         cursor: pointer;
-        font-family: "Space Mono", monospace;
-        font-size: 11px;
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
-        transition: opacity 0.2s;
-        align-self: flex-start;
+        font-size: 14px;
+        padding: 6px 10px;
+        transition: all 0.2s;
+        border-radius: 2px;
+        margin-left: 4px;
+        flex-shrink: 0;
       }
-      .song-submit:hover {
-        opacity: 0.8;
-      }
-      .song-submit:disabled {
-        opacity: 0.4;
-        cursor: not-allowed;
-      }
-      .song-list {
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
-        max-height: 460px;
-        overflow-y: auto;
-      }
-      .song-list::-webkit-scrollbar {
-        width: 3px;
-      }
-      .song-list::-webkit-scrollbar-thumb {
-        background: var(--gray-dark);
+      .song-delete-btn:hover {
+        background: rgba(255, 60, 60, 0.15);
+        border-color: rgba(255, 60, 60, 0.4);
+        color: #ff6b6b;
       }
       .song-item {
         background: var(--gray-dark);
@@ -1252,13 +1231,6 @@
         color: var(--gray-mid);
         margin-top: 3px;
       }
-      .song-votes {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 2px;
-      }
-
       .song-empty {
         font-family: "Space Mono", monospace;
         font-size: 11px;
@@ -1266,196 +1238,6 @@
         letter-spacing: 0.15em;
         padding: 30px 0;
         text-align: center;
-      }
-      .song-request-title {
-        font-family: "Bebas Neue", sans-serif;
-        font-size: clamp(36px, 7vw, 80px);
-        line-height: 0.9;
-        margin-bottom: 24px;
-      }
-      .song-request-desc {
-        font-family: "Space Mono", monospace;
-        font-size: 11px;
-        color: var(--gray-mid);
-        line-height: 1.8;
-        margin-bottom: 32px;
-      }
-
-      /* PHOTOBOOTH */
-      #photobooth {
-        background: #0d0d0d;
-        padding: 80px 5vw;
-        position: relative;
-        overflow: hidden;
-      }
-      #photobooth::before {
-        content: "GALLERY";
-        position: absolute;
-        font-family: "Bebas Neue", sans-serif;
-        font-size: clamp(80px, 18vw, 280px);
-        color: rgba(255, 255, 255, 0.02);
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        white-space: nowrap;
-        pointer-events: none;
-      }
-      .photobooth-inner {
-        max-width: 1200px;
-        margin: 0 auto;
-        position: relative;
-        z-index: 2;
-      }
-      .photobooth-layout {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 40px;
-        align-items: start;
-      }
-      @media (max-width: 800px) {
-        .photobooth-layout {
-          grid-template-columns: 1fr;
-        }
-      }
-      .cam-area {
-        position: relative;
-        background: #000;
-        aspect-ratio: 4/3;
-        overflow: hidden;
-        border: 1px solid rgba(255, 255, 255, 0.06);
-      }
-      #camVideo {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-        transform: scaleX(-1);
-      }
-      #capturedImg {
-        display: none;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-      .cam-frame-overlay {
-        position: absolute;
-        inset: 0;
-        pointer-events: none;
-        z-index: 5;
-      }
-      .cam-countdown {
-        position: absolute;
-        inset: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-family: "Bebas Neue", sans-serif;
-        font-size: 120px;
-        color: #fff;
-        text-shadow: 0 0 40px rgba(255, 85, 0, 0.8);
-        z-index: 10;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.2s;
-      }
-      .cam-countdown.visible {
-        opacity: 1;
-      }
-      .cam-controls {
-        display: flex;
-        gap: 10px;
-        margin-top: 12px;
-        flex-wrap: wrap;
-      }
-      .cam-btn {
-        padding: 12px 20px;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        background: transparent;
-        color: var(--white);
-        font-family: "Space Mono", monospace;
-        font-size: 10px;
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
-        cursor: pointer;
-        transition: all 0.2s;
-        flex: 1;
-        min-width: 100px;
-      }
-      .cam-btn:hover {
-        background: rgba(255, 255, 255, 0.08);
-      }
-      .cam-btn.primary {
-        background: var(--white);
-        color: var(--black);
-        border-color: var(--white);
-      }
-      .cam-btn.primary:hover {
-        opacity: 0.85;
-      }
-      .cam-btn:disabled {
-        opacity: 0.3;
-        cursor: not-allowed;
-      }
-      .frame-selector {
-        margin-top: 20px;
-      }
-      .frame-selector-label {
-        font-family: "Space Mono", monospace;
-        font-size: 9px;
-        letter-spacing: 0.3em;
-        color: var(--gray-mid);
-        text-transform: uppercase;
-        margin-bottom: 10px;
-      }
-      .frame-options {
-        display: flex;
-        gap: 8px;
-        flex-wrap: wrap;
-      }
-      .frame-opt {
-        padding: 8px 14px;
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        background: transparent;
-        color: var(--gray-mid);
-        font-family: "Space Mono", monospace;
-        font-size: 9px;
-        letter-spacing: 0.1em;
-        cursor: pointer;
-        transition: all 0.2s;
-        text-transform: uppercase;
-      }
-      .frame-opt.active,
-      .frame-opt:hover {
-        border-color: var(--white);
-        color: var(--white);
-        background: rgba(255, 255, 255, 0.06);
-      }
-      .pb-gallery-title {
-        font-family: "Bebas Neue", sans-serif;
-        font-size: clamp(28px, 5vw, 48px);
-        margin-bottom: 8px;
-        color: var(--white);
-      }
-      .pb-gallery-sub {
-        font-family: "Space Mono", monospace;
-        font-size: 10px;
-        color: var(--gray-mid);
-        letter-spacing: 0.15em;
-        margin-bottom: 24px;
-        line-height: 1.7;
-      }
-      .pb-gallery-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-        gap: 4px;
-        max-height: 480px;
-        overflow-y: auto;
-      }
-      .pb-gallery-grid::-webkit-scrollbar {
-        width: 3px;
-      }
-      .pb-gallery-grid::-webkit-scrollbar-thumb {
-        background: var(--gray-dark);
       }
       .pb-photo-item {
         position: relative;
@@ -1485,6 +1267,7 @@
         transition: opacity 0.3s;
         display: flex;
         align-items: flex-end;
+        justify-content: space-between;
         padding: 8px;
       }
       .pb-photo-item:hover .pb-photo-overlay {
@@ -1494,64 +1277,6 @@
         font-family: "Space Mono", monospace;
         font-size: 9px;
         color: rgba(255, 255, 255, 0.8);
-      }
-      .pb-empty {
-        font-family: "Space Mono", monospace;
-        font-size: 11px;
-        color: var(--gray-mid);
-        letter-spacing: 0.15em;
-        padding: 40px 0;
-        text-align: center;
-        grid-column: 1/-1;
-      }
-      .pb-upload-progress {
-        margin-top: 10px;
-        display: none;
-      }
-      .pb-progress-bar {
-        height: 2px;
-        background: var(--gray-dark);
-        border-radius: 1px;
-        overflow: hidden;
-      }
-      .pb-progress-fill {
-        height: 100%;
-        background: var(--white);
-        border-radius: 1px;
-        width: 0%;
-        transition: width 0.3s;
-      }
-      .pb-progress-text {
-        font-family: "Space Mono", monospace;
-        font-size: 9px;
-        color: var(--gray-mid);
-        letter-spacing: 0.1em;
-        margin-top: 6px;
-      }
-
-      .song-delete-btn {
-        background: none;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        color: var(--gray-mid);
-        cursor: pointer;
-        font-size: 14px;
-        padding: 6px 10px;
-        transition: all 0.2s;
-        border-radius: 2px;
-        margin-left: 4px;
-        flex-shrink: 0;
-      }
-      .song-delete-btn:hover {
-        background: rgba(255, 60, 60, 0.15);
-        border-color: rgba(255, 60, 60, 0.4);
-        color: #ff6b6b;
-      }
-
-      .pb-photo-overlay {
-        display: flex;
-        align-items: flex-end;
-        justify-content: space-between;
-        padding: 8px;
       }
       .pb-delete-btn {
         background: rgba(0, 0, 0, 0.6);
@@ -1568,20 +1293,26 @@
         background: rgba(255, 60, 60, 0.5);
         border-color: rgba(255, 60, 60, 0.6);
       }
-
-      .timeline-wrap {
-        position: relative;
-        margin-top: 20px;
-        padding-left: 30px;
-        max-height: 400px;
-        overflow-y: auto;
-        padding-right: 16px;
+      .pb-empty {
+        font-family: "Space Mono", monospace;
+        font-size: 11px;
+        color: var(--gray-mid);
+        letter-spacing: 0.15em;
+        padding: 40px 0;
+        text-align: center;
+        grid-column: 1/-1;
       }
-
-      .timeline-wrap::-webkit-scrollbar {
+      .pb-gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 4px;
+        max-height: 480px;
+        overflow-y: auto;
+      }
+      .pb-gallery-grid::-webkit-scrollbar {
         width: 3px;
       }
-      .timeline-wrap::-webkit-scrollbar-thumb {
+      .pb-gallery-grid::-webkit-scrollbar-thumb {
         background: var(--gray-dark);
       }
     </style>
@@ -1652,6 +1383,7 @@
         <span></span><span></span><span></span>
       </div>
     </nav>
+
     <div class="mobile-menu" id="mobileMenu">
       <a href="#info" onclick="closeMobile()">Info</a>
       <a href="#menu" onclick="closeMobile()">Menu</a>
@@ -1721,20 +1453,20 @@
         <p class="countdown-title reveal">Hitung Mundur Acara</p>
         <div class="countdown-grid reveal">
           <div class="countdown-block">
-            <span class="countdown-num" id="cd-days">--</span
-            ><span class="countdown-unit">Hari</span>
+            <span class="countdown-num" id="cd-days">--</span>
+            <span class="countdown-unit">Hari</span>
           </div>
           <div class="countdown-block">
-            <span class="countdown-num" id="cd-hours">--</span
-            ><span class="countdown-unit">Jam</span>
+            <span class="countdown-num" id="cd-hours">--</span>
+            <span class="countdown-unit">Jam</span>
           </div>
           <div class="countdown-block">
-            <span class="countdown-num" id="cd-mins">--</span
-            ><span class="countdown-unit">Menit</span>
+            <span class="countdown-num" id="cd-mins">--</span>
+            <span class="countdown-unit">Menit</span>
           </div>
           <div class="countdown-block">
-            <span class="countdown-num" id="cd-secs">--</span
-            ><span class="countdown-unit">Detik</span>
+            <span class="countdown-num" id="cd-secs">--</span>
+            <span class="countdown-unit">Detik</span>
           </div>
         </div>
       </div>
@@ -1786,16 +1518,16 @@
         </div>
         <div class="budget-right reveal">
           <div class="budget-row">
-            <span class="b-label">Budget / Orang</span
-            ><span class="b-val">Rp 50.000</span>
+            <span class="b-label">Budget / Orang</span>
+            <span class="b-val">Rp 50.000</span>
           </div>
           <div class="budget-row">
-            <span class="b-label">Jumlah Peserta</span
-            ><span class="b-val">9 Orang</span>
+            <span class="b-label">Jumlah Peserta</span>
+            <span class="b-val">9 Orang</span>
           </div>
           <div class="budget-total">
-            <span class="b-label">TOTAL BUDGET</span
-            ><span class="b-val">Rp 450.000</span>
+            <span class="b-label">TOTAL BUDGET</span>
+            <span class="b-val">Rp 450.000</span>
           </div>
         </div>
       </div>
@@ -1868,8 +1600,8 @@
         <div class="section-label dark reveal">Persiapan Bareng — Realtime</div>
         <p class="checklist-title reveal">Checklist Belanja & Peralatan</p>
         <p class="checklist-sub reveal">
-          Checklist ini realtime — pas kamu centang, semua langsung tau! ✓<br />Siapa
-          yang centang juga keliatan biar makin semangat.
+          Checklist ini realtime — pas kamu centang, semua langsung tau! ✓<br />
+          Siapa yang centang juga keliatan biar makin semangat.
         </p>
         <button
           onclick="resetChecklist()"
@@ -1946,7 +1678,8 @@
               color: var(--white);
             "
           >
-            REQUEST<br /><span
+            REQUEST<br />
+            <span
               style="
                 color: transparent;
                 -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
@@ -2031,7 +1764,8 @@
               color: var(--white);
             "
           >
-            GALERI<br /><span
+            GALERI<br />
+            <span
               style="
                 color: transparent;
                 -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
@@ -2121,7 +1855,7 @@
 
     <footer>
       <div class="footer-logo">MINSOULZ</div>
-      <div class="footer-tag">BBQ NIGHT · 8 MEI 2026 · PONTIANAK</div>
+      <div class="footer-tag">BBQ NIGHT · 9 MEI 2026 · PONTIANAK</div>
     </footer>
 
     <div id="music-player">
@@ -2370,14 +2104,6 @@
         if (iframe && loc.mapsEmbed) iframe.src = loc.mapsEmbed;
       });
 
-      const ADMINS = ["DAVIN", "VINCENT", "VELLICIA"];
-      if (ADMINS.includes(myName)) {
-        const nl = document.getElementById("adminNavLink");
-        const ml = document.getElementById("adminMobileLink");
-        if (nl) nl.style.display = "block";
-        if (ml) ml.style.display = "block";
-      }
-
       const timelineData = [
         {
           time: "14:00",
@@ -2511,6 +2237,7 @@
         set(presRef, { name, online: true, ts: Date.now() });
         onDisconnect(presRef).remove();
       }
+      if (myName) setupPresence();
 
       onValue(ref(db, "presence"), (snap) => {
         const data = snap.val() || {};
@@ -2590,58 +2317,83 @@
           ],
         },
       ];
+
       let checkStates = {};
+
       function renderChecklist(states) {
         checkStates = states || {};
         const container = document.getElementById("checklistCategories");
-        const myN = myName || localStorage.getItem("bbq_username") || "???";
         container.innerHTML = "";
         let total = 0,
           done = 0;
+
         checklistData.forEach((cat, ci) => {
           const catDiv = document.createElement("div");
           const title = document.createElement("div");
           title.className = "checklist-cat-title";
           title.textContent = cat.category;
           catDiv.appendChild(title);
+
           const grid = document.createElement("div");
           grid.className = "checklist-grid";
+
           cat.items.forEach((item, ii) => {
             const key = `${ci}_${ii}`;
             const state = checkStates[key];
             const checked = state && state.checked;
             total++;
             if (checked) done++;
+
             const el = document.createElement("div");
             el.className = "check-item" + (checked ? " checked" : "");
-            el.innerHTML = `<div class="check-box"><span class="check-tick">✓</span></div><div style="flex:1"><span class="check-label">${item}</span>${
-              checked
-                ? `<span class="check-by">✓ ${state.by || "?"}</span>`
-                : ""
-            }</div>`;
+            el.innerHTML = `
+              <div class="check-box"><span class="check-tick">✓</span></div>
+              <div style="flex:1">
+                <span class="check-label">${item}</span>
+                ${
+                  checked
+                    ? `<span class="check-by">✓ ${state.by || "?"}</span>`
+                    : ""
+                }
+              </div>
+            `;
+
             el.addEventListener("click", () => {
+              // ✅ FIX: Selalu baca myName terbaru di sini, bukan dari closure lama
+              const currentUser =
+                myName || localStorage.getItem("bbq_username") || "";
+              if (!currentUser) {
+                showToast("Login dulu ya!");
+                return;
+              }
+
               const st = checkStates[key];
               const ac = st && st.checked;
               const ow = st?.by;
-              if (ac && ow && ow !== myN) {
+
+              if (ac && ow && ow !== currentUser) {
                 showToast(
                   "❌ Dicentang oleh " + ow + ", cuma dia yang bisa uncheck!"
                 );
                 return;
               }
+
               const ir = ref(db, `checklist/${key}`);
               if (!ac) {
-                set(ir, { checked: true, by: myN, ts: Date.now() });
-                showToast("✅ " + item + " dicatat oleh " + myN);
+                set(ir, { checked: true, by: currentUser, ts: Date.now() });
+                showToast("✅ " + item + " dicatat oleh " + currentUser);
               } else {
                 set(ir, { checked: false, by: null, ts: Date.now() });
               }
             });
+
             grid.appendChild(el);
           });
+
           catDiv.appendChild(grid);
           container.appendChild(catDiv);
         });
+
         document.getElementById(
           "checkCount"
         ).textContent = `${done} / ${total} item siap`;
@@ -2649,6 +2401,7 @@
           ? (done / total) * 100 + "%"
           : "0%";
       }
+
       onValue(ref(db, "checklist"), (snap) => {
         document.getElementById("checklistLoading").style.display = "none";
         document.getElementById("checklistCategories").style.display = "flex";
@@ -2656,160 +2409,28 @@
         renderChecklist(snap.val());
       });
 
-      // SONG REQUEST
-      document
-        .getElementById("songSubmitBtn")
-        .addEventListener("click", async () => {
-          const titleEl = document.getElementById("songTitleInput");
-          const artistEl = document.getElementById("songArtistInput");
-          const title = titleEl.value.trim();
-          const artist = artistEl.value.trim();
-          const name = myName || localStorage.getItem("bbq_username") || "";
-          if (!name) {
-            showToast("Login dulu ya!");
-            return;
-          }
-          if (!title) {
-            showToast("Judul lagu tidak boleh kosong!");
-            titleEl.focus();
-            return;
-          }
-          const btn = document.getElementById("songSubmitBtn");
-          btn.disabled = true;
-          btn.textContent = "MENYIMPAN...";
-          try {
-            await push(ref(db, "songs"), {
-              title,
-              artist: artist || "—",
-              by: name,
-              ts: Date.now(),
-              votes: 0,
-              voters: {},
-            });
-            titleEl.value = "";
-            artistEl.value = "";
-            showToast("🎵 Request berhasil! " + title);
-          } catch (e) {
-            showToast("❌ Gagal request, coba lagi!");
-          }
-          btn.disabled = false;
-          btn.textContent = "+ REQUEST LAGU";
-        });
-      document
-        .getElementById("songTitleInput")
-        .addEventListener("keydown", (e) => {
-          if (e.key === "Enter")
-            document.getElementById("songArtistInput").focus();
-        });
-      document
-        .getElementById("songArtistInput")
-        .addEventListener("keydown", (e) => {
-          if (e.key === "Enter")
-            document.getElementById("songSubmitBtn").click();
-        });
-
+      // SONG LIST preview di halaman utama
       onValue(ref(db, "songs"), (snap) => {
         const data = snap.val();
-        const list = document.getElementById("songList");
-        const name = localStorage.getItem("bbq_username") || "";
+        const countEl = document.getElementById("songPreviewCount");
         if (!data) {
-          list.innerHTML =
-            '<div class="song-empty">Belum ada request. Jadilah yang pertama! 🎤</div>';
+          if (countEl) countEl.textContent = "Belum ada request";
           return;
         }
-        const songs = Object.entries(data).map(([id, v]) => ({ id, ...v }));
-        songs.sort((a, b) => (b.votes || 0) - (a.votes || 0));
-        list.innerHTML = "";
-        songs.forEach((song, idx) => {
-          const hasVoted = song.voters && song.voters[name];
-          const canDelete = name === "DAVIN" || song.by === name;
-          const el = document.createElement("div");
-          el.className = "song-item";
-          el.innerHTML = `
-      <div class="song-num">${idx + 1}</div>
-      <div class="song-detail">
-        <div class="song-title-text">${song.title}</div>
-        <div class="song-requester">by ${song.by}${
-            song.artist && song.artist !== "—" ? " · " + song.artist : ""
-          }</div>
-      </div>
-
-      ${
-        canDelete
-          ? `<button class="song-delete-btn" data-id="${song.id}" title="Hapus lagu">🗑</button>`
-          : ""
-      }
-    `;
-
-          if (canDelete) {
-            el.querySelector(".song-delete-btn").addEventListener(
-              "click",
-              async () => {
-                if (!confirm(`Hapus "${song.title}"?`)) return;
-                await set(ref(db, `songs/${song.id}`), null);
-                showToast("🗑 Lagu dihapus!");
-              }
-            );
-          }
-          list.appendChild(el);
-        });
+        const count = Object.keys(data).length;
+        if (countEl) countEl.textContent = count + " lagu sudah di-request";
       });
-      // GALLERY
+
+      // PHOTO preview count di halaman utama
       onValue(ref(db, "photos"), (snap) => {
         const data = snap.val();
-        const gallery = document.getElementById("pbGallery");
-        const myN = localStorage.getItem("bbq_username") || "";
+        const countEl = document.getElementById("photoPreviewCount");
         if (!data) {
-          gallery.innerHTML =
-            '<div class="pb-empty">Belum ada foto. Ayo upload! 📸</div>';
+          if (countEl) countEl.textContent = "Belum ada foto";
           return;
         }
-        const photos = Object.entries(data).map(([id, v]) => ({ id, ...v }));
-        photos.sort((a, b) => b.ts - a.ts);
-        gallery.innerHTML = "";
-        photos.forEach((photo) => {
-          const el = document.createElement("div");
-          el.className = "pb-photo-item";
-          el.innerHTML = `
-      <img src="${photo.url}" alt="BBQ Photo by ${photo.by}" loading="lazy"/>
-      <div class="pb-photo-overlay">
-        <span class="pb-photo-by">${photo.by}${
-            photo.by === myN ? " (kamu)" : ""
-          }</span>
-        <button class="pb-delete-btn" data-id="${
-          photo.id
-        }" title="Hapus foto">🗑</button>
-      </div>
-    `;
-          el.addEventListener("click", (e) => {
-            if (e.target.closest(".pb-delete-btn")) return;
-            document.getElementById("lightboxImg").src = photo.url;
-            document.getElementById(
-              "lightboxInfo"
-            ).textContent = `${photo.by} · BBQ Night 8 Mei 2026`;
-            document.getElementById("lightbox").classList.add("open");
-          });
-          el.querySelector(".pb-delete-btn").addEventListener(
-            "click",
-            async (e) => {
-              e.stopPropagation();
-              if (!confirm("Hapus foto ini?")) return;
-              await set(ref(db, `photos/${photo.id}`), null);
-              showToast("🗑 Foto dihapus!");
-            }
-          );
-          gallery.appendChild(el);
-        });
-      });
-
-      document
-        .getElementById("lightboxClose")
-        .addEventListener("click", () =>
-          document.getElementById("lightbox").classList.remove("open")
-        );
-      document.getElementById("lightbox").addEventListener("click", (e) => {
-        if (e.target === e.currentTarget)
-          e.currentTarget.classList.remove("open");
+        const count = Object.keys(data).length;
+        if (countEl) countEl.textContent = count + " foto tersimpan";
       });
     </script>
   </body>
