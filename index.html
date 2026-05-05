@@ -1315,6 +1315,112 @@
       .pb-gallery-grid::-webkit-scrollbar-thumb {
         background: var(--gray-dark);
       }
+
+      .info-icon {
+        width: 48px;
+        height: 48px;
+        background-image: url("path/to/your-sprite.png");
+        background-size: 500% auto; /* 5 ikon dalam 1 baris */
+        background-repeat: no-repeat;
+      }
+      .icon-calendar {
+        background-position: 0% center;
+      }
+      .icon-time {
+        background-position: 25% center;
+      }
+      .icon-location {
+        background-position: 50% center;
+      }
+      .icon-team {
+        background-position: 75% center;
+      }
+      .icon-rupiah {
+        background-position: 100% center;
+      }
+
+      .logout-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 9998;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(8px);
+  animation: fadeIn 0.2s ease;
+}
+.logout-overlay.open {
+  display: flex;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.logout-modal {
+  background: var(--white);
+  color: var(--black);
+  padding: 44px 40px 36px;
+  max-width: 340px;
+  width: 90%;
+  text-align: center;
+  animation: fadeUp 0.3s ease both;
+  position: relative;
+}
+.logout-icon {
+  font-size: 36px;
+  margin-bottom: 16px;
+  display: block;
+}
+.logout-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 42px;
+  letter-spacing: 0.05em;
+  margin-bottom: 10px;
+  line-height: 1;
+}
+.logout-sub {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: rgba(0, 0, 0, 0.45);
+  line-height: 1.8;
+  letter-spacing: 0.05em;
+  margin-bottom: 32px;
+}
+.logout-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.logout-btn-cancel {
+  padding: 13px;
+  background: transparent;
+  border: 1.5px solid rgba(0, 0, 0, 0.15);
+  color: rgba(0, 0, 0, 0.5);
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.logout-btn-cancel:hover {
+  border-color: var(--black);
+  color: var(--black);
+}
+.logout-btn-confirm {
+  padding: 13px;
+  background: var(--black);
+  border: 1.5px solid var(--black);
+  color: var(--white);
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.logout-btn-confirm:hover {
+  opacity: 0.75;
+}
     </style>
   </head>
   <body>
@@ -1346,6 +1452,17 @@
     </div>
 
     <div class="toast" id="toast"></div>
+    <div class="logout-overlay" id="logoutOverlay">
+  <div class="logout-modal">
+    <div class="logout-icon">👋</div>
+    <h3 class="logout-title">LOGOUT?</h3>
+    <p class="logout-sub">Kamu yakin mau keluar dari<br>BBQ Night Minsoulz?</p>
+    <div class="logout-actions">
+      <button class="logout-btn-cancel" onclick="closeLogout()">BATAL</button>
+      <button class="logout-btn-confirm" onclick="confirmLogout()">YA, LOGOUT</button>
+    </div>
+  </div>
+</div>
     <canvas id="camCanvas" style="display: none"></canvas>
 
     <nav>
@@ -1354,6 +1471,7 @@
         <li><a href="#info">Info</a></li>
         <li><a href="#menu">Menu</a></li>
         <li><a href="#checklist">Checklist</a></li>
+        <li><a href="calculator.html">Kalkulator</a></li>
         <li><a href="#song-request">Request</a></li>
         <li><a href="#photobooth">Galeri</a></li>
         <li><a href="#location">Lokasi</a></li>
@@ -1388,6 +1506,7 @@
       <a href="#info" onclick="closeMobile()">Info</a>
       <a href="#menu" onclick="closeMobile()">Menu</a>
       <a href="#checklist" onclick="closeMobile()">Checklist</a>
+      <a href="calculator.html" onclick="closeMobile()">Kalkulator</a>
       <a href="#song-request" onclick="closeMobile()">Request Lagu</a>
       <a href="#photobooth" onclick="closeMobile()">Galeri</a>
       <a href="#location" onclick="closeMobile()">Lokasi</a>
@@ -1413,34 +1532,33 @@
         <div class="section-label reveal">Event Details</div>
         <div class="info-row reveal">
           <div class="info-card">
-            <span class="info-icon">📅</span>
-            <div class="info-label">Tanggal</div>
-            <div class="info-value">Sabtu, 9 Mei 2026</div>
-          </div>
-          <div class="info-card">
-            <span class="info-icon">⏰</span>
-            <div class="info-label">Jam</div>
-            <div class="info-value">TBA</div>
-            <div class="info-sub">Akan diumumkan segera</div>
-          </div>
-          <div class="info-card">
-            <span class="info-icon">📍</span>
-            <div class="info-label">Lokasi</div>
-            <div class="info-value">Rumah Davin</div>
-            <div class="info-sub">Jl. Meranti, Gang Meranti 15 No.1</div>
-          </div>
-          <div class="info-card">
-            <span class="info-icon">👥</span>
-            <div class="info-label">Peserta</div>
-            <div class="info-value">9 Orang</div>
-            <div class="info-sub">Minsoulz</div>
-          </div>
-          <div class="info-card">
-            <span class="info-icon">💰</span>
-            <div class="info-label">Budget / Orang</div>
-            <div class="info-value">Rp 50.000</div>
-          </div>
-        </div>
+  <img src="images/calendar.png" alt="calendar" width="32" height="32" style="margin-bottom: 4px;" />
+  <div class="info-label">Tanggal</div>
+  <div class="info-value">Sabtu, 9 Mei 2026</div>
+</div>
+<div class="info-card">
+  <img src="images/time.png" alt="time" width="32" height="32" style="margin-bottom: 4px;" />
+  <div class="info-label">Jam</div>
+  <div class="info-value">TBA</div>
+  <div class="info-sub">Akan diumumkan segera</div>
+</div>
+<div class="info-card">
+  <img src="images/location.png" alt="location" width="32" height="32" style="margin-bottom: 4px;" />
+  <div class="info-label">Lokasi</div>
+  <div class="info-value">Rumah Davin</div>
+  <div class="info-sub">Jl. Meranti, Gang Meranti 15 No.1</div>
+</div>
+<div class="info-card">
+  <img src="images/team.png" alt="team" width="32" height="32" style="margin-bottom: 4px;" />
+  <div class="info-label">Peserta</div>
+  <div class="info-value">9 Orang</div>
+  <div class="info-sub">Minsoulz</div>
+</div>
+<div class="info-card">
+  <img src="images/rupiah.png" alt="rupiah" width="32" height="32" style="margin-bottom: 4px;" />
+  <div class="info-label">Budget / Orang</div>
+  <div class="info-value">Rp 50.000</div>
+</div>
       </div>
     </div>
 
@@ -1622,6 +1740,29 @@
         >
           ↺ Reset Semua Checklist
         </button>
+
+        <a href="calculator.html"
+          style="
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 24px;
+            background: var(--black);
+            color: var(--white);
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            text-decoration: none;
+            margin-left: 8px;
+            margin-bottom: 24px;
+            transition: opacity 0.2s;
+          "
+          onmouseover="this.style.opacity='.7'"
+          onmouseout="this.style.opacity='1'"
+        >
+          🧮 Kalkulator
+        </a>
 
         <div class="online-bar reveal" id="onlineBar">
           <div class="live-dot">ONLINE SEKARANG</div>
@@ -1874,10 +2015,20 @@
 
     <script>
       function logout() {
-        if (!confirm("Logout?")) return;
-        localStorage.removeItem("bbq_username");
-        location.reload();
-      }
+  document.getElementById('logoutOverlay').classList.add('open');
+}
+function closeLogout() {
+  document.getElementById('logoutOverlay').classList.remove('open');
+}
+function confirmLogout() {
+  localStorage.removeItem('bbq_username');
+  location.reload();
+}
+
+// Tutup kalau klik di luar modal
+document.getElementById('logoutOverlay').addEventListener('click', function(e) {
+  if (e.target === this) closeLogout();
+});
       const hamburger = document.getElementById("hamburger");
       const mobileMenu = document.getElementById("mobileMenu");
       hamburger.addEventListener("click", () =>
@@ -1948,7 +2099,7 @@
         { src: "music/bbq-night.mp3", title: "BBQ Night Vibes 🔥" },
       ];
       const audio = new Audio();
-      audio.volume = 0.5;
+      audio.volume = 0.02;
       let currentTrack = 0,
         isPlaying = false;
       function loadTrack(i) {
@@ -2001,6 +2152,13 @@
         }
       });
       loadTrack(0);
+      audio
+        .play()
+        .then(() => {
+          isPlaying = true;
+          updateMusicUI();
+        })
+        .catch(() => {});
       updateMusicUI();
     </script>
 
@@ -2071,6 +2229,13 @@
             localStorage.setItem("bbq_username", myName);
             document.getElementById("nameModal").style.display = "none";
             showToast("Halo " + myName + "! 🔥");
+            audio
+              .play()
+              .then(() => {
+                isPlaying = true;
+                updateMusicUI();
+              })
+              .catch(() => {});
             setupPresence();
           } catch (err) {
             showToast("❌ Gagal cek, coba lagi.");
@@ -2260,7 +2425,7 @@
 
       const checklistData = [
         {
-          category: "🛒 Belanja Bahan Makanan",
+          category: "Belanja Bahan Makanan",
           items: [
             "Ayam",
             "Sosis",
@@ -2273,7 +2438,7 @@
           ],
         },
         {
-          category: "🥤 Belanja Minuman",
+          category: "Belanja Minuman",
           items: [
             "Soda / minuman bersoda",
             "Air mineral / galon",
@@ -2283,7 +2448,7 @@
           ],
         },
         {
-          category: "🔥 Perlengkapan Bakar",
+          category: "Perlengkapan Bakar",
           items: [
             "Panggangan / grill",
             "Arang",
@@ -2295,7 +2460,7 @@
           ],
         },
         {
-          category: "🍽️ Perlengkapan Makan & Masak",
+          category: "Perlengkapan Makan & Masak",
           items: [
             "Piring",
             "Sendok & Garpu",
@@ -2306,7 +2471,7 @@
           ],
         },
         {
-          category: "🎉 Hiburan & Dokumentasi",
+          category: "Hiburan & Dokumentasi",
           items: [
             "Speaker bluetooth",
             "Playlist lagu sudah disiapkan",
