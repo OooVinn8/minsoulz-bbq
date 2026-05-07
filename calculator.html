@@ -52,11 +52,11 @@
         left: 0;
         right: 0;
         z-index: 100;
-        padding: 16px 5vw;
+        padding: 12px 4vw;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background: rgba(10, 10, 10, 0.92);
+        background: rgba(10, 10, 10, 0.95);
         backdrop-filter: blur(12px);
         border-bottom: 1px solid rgba(255, 255, 255, 0.06);
       }
@@ -65,24 +65,34 @@
         font-size: 22px;
         letter-spacing: 0.08em;
       }
-      .nav-back {
-        font-family: "Space Mono", monospace;
-        font-size: 10px;
-        letter-spacing: 0.2em;
-        color: var(--gray-mid);
-        text-decoration: none;
-        text-transform: uppercase;
-        transition: color 0.2s;
+      .nav-tabs {
         display: flex;
-        align-items: center;
-        gap: 8px;
+        gap: 3px;
+        flex-wrap: wrap;
       }
-      .nav-back:hover {
+      .nav-tab {
+        font-family: "Space Mono", monospace;
+        font-size: 8px;
+        letter-spacing: 0.18em;
+        color: var(--gray-mid);
+        text-transform: uppercase;
+        padding: 7px 11px;
+        cursor: pointer;
+        border: 1px solid transparent;
+        background: none;
+        transition: all 0.2s;
+      }
+      .nav-tab.active {
+        color: var(--white);
+        border-color: rgba(255, 255, 255, 0.15);
+        background: rgba(255, 255, 255, 0.04);
+      }
+      .nav-tab:hover {
         color: var(--white);
       }
 
       .page-hero {
-        padding: 120px 5vw 48px;
+        padding: 110px 5vw 40px;
         max-width: 1200px;
         margin: 0 auto;
       }
@@ -96,7 +106,7 @@
       }
       .hero-title {
         font-family: "Bebas Neue", sans-serif;
-        font-size: clamp(64px, 13vw, 150px);
+        font-size: clamp(60px, 12vw, 140px);
         line-height: 0.85;
         margin-bottom: 32px;
       }
@@ -105,7 +115,14 @@
         -webkit-text-stroke: 1px rgba(255, 255, 255, 0.35);
       }
 
-      /* BUDGET BANNER */
+      .tab-content {
+        display: none;
+      }
+      .tab-content.active {
+        display: block;
+      }
+
+      /* ===== BUDGET BANNER ===== */
       .budget-banner {
         background: var(--gray-dark);
         border: 1px solid rgba(255, 255, 255, 0.06);
@@ -117,11 +134,6 @@
         gap: 16px;
         margin-bottom: 3px;
         animation: fadeUp 0.5s ease both;
-      }
-      .budget-banner-left {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
       }
       .budget-banner-label {
         font-family: "Space Mono", monospace;
@@ -135,17 +147,12 @@
         align-items: center;
         gap: 16px;
         flex-wrap: wrap;
-      }
-      .budget-stat {
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
+        margin-top: 4px;
       }
       .budget-stat-val {
         font-family: "Bebas Neue", sans-serif;
         font-size: 36px;
         line-height: 1;
-        color: var(--white);
       }
       .budget-stat-label {
         font-family: "Space Mono", monospace;
@@ -170,19 +177,10 @@
         cursor: pointer;
         text-transform: uppercase;
         transition: all 0.2s;
-        display: flex;
-        align-items: center;
-        gap: 6px;
       }
       .budget-edit-btn:hover {
         border-color: var(--white);
         color: var(--white);
-      }
-      .budget-edit-row {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        flex-wrap: wrap;
       }
       .budget-input {
         background: rgba(255, 255, 255, 0.06);
@@ -193,10 +191,6 @@
         padding: 8px 14px;
         width: 140px;
         outline: none;
-        transition: border-color 0.2s;
-      }
-      .budget-input:focus {
-        border-color: rgba(255, 255, 255, 0.4);
       }
       .budget-save-btn {
         background: var(--white);
@@ -214,18 +208,11 @@
         opacity: 0.8;
       }
 
+      /* ===== MAIN WRAP ===== */
       .main-wrap {
         max-width: 1200px;
         margin: 0 auto;
         padding: 0 5vw 100px;
-      }
-
-      /* INPUT */
-      .input-section {
-        background: var(--gray-dark);
-        padding: 28px;
-        margin-bottom: 3px;
-        animation: fadeUp 0.5s 0.1s ease both;
       }
       .section-label {
         font-family: "Space Mono", monospace;
@@ -244,30 +231,6 @@
         height: 1px;
         background: rgba(255, 255, 255, 0.06);
       }
-
-      .input-grid {
-        display: grid;
-        grid-template-columns: 180px 1fr 160px auto;
-        gap: 8px;
-        align-items: end;
-      }
-      @media (max-width: 760px) {
-        .input-grid {
-          grid-template-columns: 1fr 1fr;
-        }
-        .input-grid .btn-add {
-          grid-column: 2;
-        }
-      }
-      @media (max-width: 480px) {
-        .input-grid {
-          grid-template-columns: 1fr;
-        }
-        .input-grid .btn-add {
-          grid-column: 1;
-        }
-      }
-
       .field-label {
         font-family: "Space Mono", monospace;
         font-size: 9px;
@@ -297,6 +260,106 @@
         background: #1a1a1a;
       }
 
+      /* ===== INPUT SECTION ===== */
+      .input-section {
+        background: var(--gray-dark);
+        padding: 28px;
+        margin-bottom: 3px;
+        animation: fadeUp 0.5s 0.1s ease both;
+      }
+      .input-grid {
+        display: grid;
+        grid-template-columns: 160px 1fr 140px auto;
+        gap: 8px;
+        align-items: end;
+        margin-bottom: 14px;
+      }
+      @media (max-width: 760px) {
+        .input-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .input-grid .btn-add {
+          grid-column: 2;
+        }
+      }
+      @media (max-width: 480px) {
+        .input-grid {
+          grid-template-columns: 1fr;
+        }
+        .input-grid .btn-add {
+          grid-column: 1;
+        }
+      }
+
+      /* PHOTO UPLOAD ZONE for expense */
+      .photo-upload-zone {
+        border: 1.5px dashed rgba(255, 255, 255, 0.12);
+        padding: 14px 18px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        cursor: pointer;
+        transition: all 0.2s;
+        background: rgba(255, 255, 255, 0.02);
+      }
+      .photo-upload-zone:hover {
+        border-color: rgba(255, 255, 255, 0.3);
+        background: rgba(255, 255, 255, 0.05);
+      }
+      .photo-upload-zone.has-photo {
+        border-color: rgba(34, 197, 94, 0.35);
+        background: rgba(34, 197, 94, 0.04);
+      }
+      .photo-upload-zone.required-empty {
+        border-color: rgba(239, 68, 68, 0.4);
+        background: rgba(239, 68, 68, 0.04);
+      }
+      .puz-icon {
+        font-size: 20px;
+        flex-shrink: 0;
+      }
+      .puz-text {
+        flex: 1;
+      }
+      .puz-title {
+        font-family: "Space Mono", monospace;
+        font-size: 9px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--white);
+      }
+      .puz-sub {
+        font-family: "Space Mono", monospace;
+        font-size: 8px;
+        letter-spacing: 0.1em;
+        color: var(--gray-mid);
+        margin-top: 3px;
+      }
+      .puz-preview {
+        width: 52px;
+        height: 52px;
+        object-fit: cover;
+        border-radius: 2px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .puz-badge {
+        font-family: "Space Mono", monospace;
+        font-size: 8px;
+        letter-spacing: 0.15em;
+        color: var(--green);
+        background: rgba(34, 197, 94, 0.1);
+        padding: 3px 8px;
+        border-radius: 2px;
+        flex-shrink: 0;
+      }
+      .required-tag {
+        font-family: "Space Mono", monospace;
+        font-size: 8px;
+        letter-spacing: 0.2em;
+        color: var(--red);
+        margin-left: 8px;
+      }
+
       .btn-add {
         padding: 11px 22px;
         background: var(--white);
@@ -315,7 +378,7 @@
         opacity: 0.8;
       }
 
-      /* LIST */
+      /* ===== LIST ===== */
       .list-section {
         background: var(--gray-dark);
         padding: 28px;
@@ -341,16 +404,6 @@
       .expense-item:hover {
         background: rgba(255, 255, 255, 0.05);
       }
-      @keyframes slideIn {
-        from {
-          opacity: 0;
-          transform: translateX(-10px);
-        }
-        to {
-          opacity: 1;
-          transform: translateX(0);
-        }
-      }
       .expense-num {
         font-family: "Bebas Neue", sans-serif;
         font-size: 20px;
@@ -365,18 +418,15 @@
         padding: 4px 9px;
         border-radius: 2px;
         flex-shrink: 0;
-        color: var(--white);
       }
       .expense-name {
         flex: 1;
         font-size: 14px;
-        color: var(--white);
         min-width: 0;
       }
       .expense-amount {
         font-family: "Bebas Neue", sans-serif;
         font-size: 20px;
-        color: var(--white);
         flex-shrink: 0;
       }
       .expense-actions {
@@ -403,6 +453,27 @@
         border-color: rgba(239, 68, 68, 0.35);
         color: var(--red);
       }
+      .photo-thumb {
+        width: 36px;
+        height: 36px;
+        object-fit: cover;
+        border-radius: 2px;
+        cursor: pointer;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        flex-shrink: 0;
+      }
+      .no-photo-badge {
+        font-family: "Space Mono", monospace;
+        font-size: 7px;
+        letter-spacing: 0.1em;
+        color: var(--red);
+        background: rgba(239, 68, 68, 0.1);
+        padding: 3px 7px;
+        border-radius: 2px;
+        flex-shrink: 0;
+        cursor: pointer;
+        border: 1px solid rgba(239, 68, 68, 0.2);
+      }
 
       .empty-state {
         text-align: center;
@@ -413,7 +484,6 @@
         letter-spacing: 0.2em;
         line-height: 2.2;
       }
-
       .reset-row {
         margin-top: 20px;
         display: flex;
@@ -436,7 +506,7 @@
         color: var(--red);
       }
 
-      /* SUMMARY */
+      /* ===== SUMMARY ===== */
       .summary-section {
         background: var(--white);
         color: var(--black);
@@ -466,7 +536,6 @@
         font-family: "Bebas Neue", sans-serif;
         font-size: 30px;
         line-height: 1;
-        color: var(--black);
       }
       .summary-stat-val.green {
         color: #15803d;
@@ -474,10 +543,6 @@
       .summary-stat-val.red {
         color: #b91c1c;
       }
-      .summary-stat-val.orange {
-        color: #b45309;
-      }
-
       .section-label-dark {
         font-family: "Space Mono", monospace;
         font-size: 10px;
@@ -495,143 +560,6 @@
         height: 1px;
         background: rgba(0, 0, 0, 0.08);
       }
-
-      /* PERSON CARDS */
-      .person-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-        gap: 3px;
-        margin-bottom: 32px;
-      }
-      .person-card {
-        padding: 18px 16px;
-        background: rgba(0, 0, 0, 0.04);
-        border-left: 3px solid transparent;
-        transition: background 0.2s;
-        position: relative;
-      }
-      .person-card:hover {
-        background: rgba(0, 0, 0, 0.07);
-      }
-      .person-card.sudah {
-        border-left-color: #16a34a;
-      }
-      .person-card.belum {
-        border-left-color: #dc2626;
-      }
-      .person-card.lebih {
-        border-left-color: #2563eb;
-      }
-
-      .pc-name {
-        font-family: "Space Mono", monospace;
-        font-size: 9px;
-        letter-spacing: 0.2em;
-        color: rgba(0, 0, 0, 0.45);
-        margin-bottom: 6px;
-        text-transform: uppercase;
-      }
-      .pc-paid {
-        font-family: "Bebas Neue", sans-serif;
-        font-size: 24px;
-        line-height: 1;
-        color: var(--black);
-        margin-bottom: 4px;
-      }
-      .pc-status {
-        font-family: "Space Mono", monospace;
-        font-size: 9px;
-        letter-spacing: 0.05em;
-        margin-top: 2px;
-      }
-      .pc-status.ok {
-        color: #15803d;
-      }
-      .pc-status.hutang {
-        color: #b91c1c;
-      }
-      .pc-status.lebih {
-        color: #1d4ed8;
-      }
-      .pc-tag {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        font-size: 14px;
-      }
-
-      /* TRANSFER LIST */
-      .transfer-section {
-        margin-top: 8px;
-      }
-      .transfer-item {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 14px 18px;
-        background: rgba(0, 0, 0, 0.04);
-        margin-bottom: 3px;
-        gap: 12px;
-        flex-wrap: wrap;
-        transition: background 0.2s;
-      }
-      .transfer-item:hover {
-        background: rgba(0, 0, 0, 0.07);
-      }
-      .transfer-left {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        flex-wrap: wrap;
-      }
-      .t-from {
-        font-family: "Space Mono", monospace;
-        font-size: 10px;
-        letter-spacing: 0.1em;
-        background: var(--black);
-        color: var(--white);
-        padding: 5px 11px;
-        border-radius: 2px;
-      }
-      .t-arrow {
-        color: rgba(0, 0, 0, 0.25);
-        font-size: 16px;
-      }
-      .t-to {
-        font-family: "Space Mono", monospace;
-        font-size: 10px;
-        letter-spacing: 0.1em;
-        background: rgba(0, 0, 0, 0.08);
-        color: var(--black);
-        padding: 5px 11px;
-        border-radius: 2px;
-      }
-      .t-amount {
-        font-family: "Bebas Neue", sans-serif;
-        font-size: 26px;
-        color: var(--black);
-      }
-      .t-desc {
-        font-family: "Space Mono", monospace;
-        font-size: 8px;
-        letter-spacing: 0.1em;
-        color: rgba(0, 0, 0, 0.35);
-        margin-top: 2px;
-      }
-
-      .settled-msg {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        font-family: "Space Mono", monospace;
-        font-size: 11px;
-        letter-spacing: 0.15em;
-        color: #15803d;
-        padding: 20px;
-        background: rgba(22, 163, 74, 0.06);
-        border: 1px solid rgba(22, 163, 74, 0.15);
-      }
-
       .sisa-note {
         margin-top: 16px;
         padding: 16px 20px;
@@ -656,7 +584,252 @@
         color: #78350f;
       }
 
-      /* TOAST */
+      /* ===== IURAN TAB ===== */
+      .iuran-panel {
+        background: var(--gray-dark);
+        padding: 28px;
+        margin-bottom: 3px;
+        animation: fadeUp 0.5s ease both;
+      }
+      .iuran-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-bottom: 24px;
+      }
+      .iuran-stats {
+        display: flex;
+        gap: 3px;
+        flex-wrap: wrap;
+      }
+      .iuran-stat {
+        padding: 14px 20px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      .iuran-stat-val {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 32px;
+        line-height: 1;
+      }
+      .iuran-stat-label {
+        font-family: "Space Mono", monospace;
+        font-size: 8px;
+        letter-spacing: 0.2em;
+        color: var(--gray-mid);
+        text-transform: uppercase;
+        margin-top: 3px;
+      }
+      .iuran-progress-track {
+        height: 4px;
+        background: rgba(255, 255, 255, 0.06);
+        border-radius: 99px;
+        margin-bottom: 24px;
+        overflow: hidden;
+      }
+      .iuran-progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--green), #4ade80);
+        border-radius: 99px;
+        transition: width 0.5s ease;
+      }
+      .member-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 3px;
+      }
+      .member-card {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        padding: 18px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        cursor: pointer;
+        transition: all 0.25s;
+        position: relative;
+        overflow: hidden;
+        user-select: none;
+      }
+      .member-card.paid {
+        border-color: rgba(34, 197, 94, 0.3);
+        background: rgba(34, 197, 94, 0.06);
+      }
+      .member-card:hover {
+        border-color: rgba(255, 255, 255, 0.18);
+      }
+      .member-card.paid:hover {
+        border-color: rgba(34, 197, 94, 0.5);
+      }
+      .member-checkbox {
+        width: 22px;
+        height: 22px;
+        border: 1.5px solid rgba(255, 255, 255, 0.2);
+        border-radius: 3px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s;
+        position: relative;
+        z-index: 1;
+      }
+      .member-card.paid .member-checkbox {
+        background: var(--green);
+        border-color: var(--green);
+      }
+      .member-checkbox-tick {
+        font-size: 13px;
+        color: var(--black);
+        font-weight: 700;
+        opacity: 0;
+        transition: opacity 0.2s;
+      }
+      .member-card.paid .member-checkbox-tick {
+        opacity: 1;
+      }
+      .member-info {
+        flex: 1;
+        position: relative;
+        z-index: 1;
+      }
+      .member-name {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 22px;
+        line-height: 1;
+        letter-spacing: 0.04em;
+      }
+      .member-status {
+        font-family: "Space Mono", monospace;
+        font-size: 8px;
+        letter-spacing: 0.15em;
+        margin-top: 4px;
+        text-transform: uppercase;
+      }
+      .member-card.paid .member-status {
+        color: var(--green);
+      }
+      .member-card:not(.paid) .member-status {
+        color: rgba(255, 255, 255, 0.25);
+      }
+      .member-amount {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 18px;
+        color: var(--gray-mid);
+        flex-shrink: 0;
+        position: relative;
+        z-index: 1;
+      }
+      .member-card.paid .member-amount {
+        color: var(--green);
+      }
+      .member-paid-time {
+        font-family: "Space Mono", monospace;
+        font-size: 7px;
+        letter-spacing: 0.1em;
+        color: rgba(255, 255, 255, 0.25);
+        margin-top: 3px;
+        text-transform: uppercase;
+      }
+      .iuran-proof-area {
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px solid rgba(255, 255, 255, 0.04);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        position: relative;
+        z-index: 1;
+      }
+      .iuran-proof-btn {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px dashed rgba(255, 255, 255, 0.12);
+        color: var(--gray-mid);
+        cursor: pointer;
+        padding: 5px 10px;
+        font-family: "Space Mono", monospace;
+        font-size: 8px;
+        letter-spacing: 0.12em;
+        transition: all 0.2s;
+        text-transform: uppercase;
+      }
+      .iuran-proof-btn:hover {
+        border-color: rgba(255, 255, 255, 0.3);
+        color: var(--white);
+      }
+      .iuran-proof-img {
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+        border-radius: 2px;
+        cursor: pointer;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .all-paid-banner {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: rgba(34, 197, 94, 0.08);
+        border: 1px solid rgba(34, 197, 94, 0.2);
+        padding: 20px 24px;
+        margin-bottom: 12px;
+        animation: fadeUp 0.4s ease;
+      }
+      .all-paid-banner-icon {
+        font-size: 28px;
+      }
+      .all-paid-banner-text {
+        font-family: "Space Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        color: var(--green);
+        text-transform: uppercase;
+        line-height: 1.7;
+      }
+
+      /* ===== LIGHTBOX ===== */
+      .lightbox {
+        position: fixed;
+        inset: 0;
+        z-index: 9998;
+        background: rgba(0, 0, 0, 0.92);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s;
+      }
+      .lightbox.open {
+        opacity: 1;
+        pointer-events: all;
+      }
+      .lightbox img {
+        max-width: 90vw;
+        max-height: 88vh;
+        object-fit: contain;
+        border-radius: 4px;
+      }
+      .lightbox-close {
+        position: absolute;
+        top: 20px;
+        right: 24px;
+        font-size: 28px;
+        color: var(--white);
+        cursor: pointer;
+        opacity: 0.5;
+        transition: opacity 0.2s;
+        background: none;
+        border: none;
+      }
+      .lightbox-close:hover {
+        opacity: 1;
+      }
+
+      /* ===== TOAST ===== */
       .toast {
         position: fixed;
         bottom: 24px;
@@ -679,41 +852,10 @@
         transform: translateX(-50%) translateY(0);
       }
 
-      @keyframes fadeUp {
-        from {
-          opacity: 0;
-          transform: translateY(20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      footer {
-        border-top: 1px solid var(--gray-dark);
-        padding: 36px 5vw;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 16px;
-      }
-      .footer-logo {
-        font-family: "Bebas Neue", sans-serif;
-        font-size: 26px;
-      }
-      .footer-tag {
-        font-family: "Space Mono", monospace;
-        font-size: 10px;
-        color: var(--gray-mid);
-        letter-spacing: 0.2em;
-      }
-
-      /* Edit inline */
+      /* ===== EDIT INLINE ===== */
       .edit-row {
         display: grid;
-        grid-template-columns: 160px 1fr 140px auto;
+        grid-template-columns: 150px 1fr 130px auto;
         gap: 8px;
         width: 100%;
         margin-top: 10px;
@@ -757,148 +899,329 @@
         border-color: rgba(255, 255, 255, 0.3);
         color: var(--white);
       }
+
+      footer {
+        border-top: 1px solid var(--gray-dark);
+        padding: 36px 5vw;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+      .footer-logo {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 26px;
+      }
+      .footer-tag {
+        font-family: "Space Mono", monospace;
+        font-size: 10px;
+        color: var(--gray-mid);
+        letter-spacing: 0.2em;
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateX(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
     </style>
   </head>
   <body>
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+      <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+      <img id="lightboxImg" src="" alt="Bukti" />
+    </div>
+
     <div class="toast" id="toast"></div>
 
     <nav>
       <div class="nav-logo">MINSOULZ</div>
-      <a href="index.html" class="nav-back">← Kembali</a>
+      <div class="nav-tabs">
+        <button class="nav-tab active" onclick="switchTab('pengeluaran',this)">
+          💸 Pengeluaran
+        </button>
+        <button class="nav-tab" onclick="switchTab('iuran',this)">
+          💰 Iuran
+        </button>
+      </div>
     </nav>
 
     <div class="page-hero">
       <p class="hero-eyebrow">BBQ Night · 9 Mei 2026</p>
       <h1 class="hero-title">
-        <span>KALKULATOR</span>
-        <span class="outline">PATUNGAN</span>
+        <span>KALKULATOR</span><br /><span class="outline">PATUNGAN</span>
       </h1>
     </div>
 
     <div class="main-wrap">
-      <!-- BUDGET BANNER -->
-      <div class="budget-banner" id="budgetBanner">
-        <div class="budget-banner-left">
-          <div class="budget-banner-label">Kas BBQ Night</div>
-          <div class="budget-banner-row">
-            <div class="budget-stat">
-              <div class="budget-stat-val" id="budgetPerOrang">Rp 50.000</div>
-              <div class="budget-stat-label">Per Orang</div>
-            </div>
-            <div class="budget-divider"></div>
-            <div class="budget-stat">
-              <div class="budget-stat-val" id="budgetTotal">Rp 450.000</div>
-              <div class="budget-stat-label">Total Kas (9 orang)</div>
-            </div>
-            <div class="budget-divider"></div>
-            <div class="budget-stat">
-              <div
-                class="budget-stat-val"
-                id="budgetTerpakai"
-                style="color: var(--gray-mid)"
-              >
-                Rp 0
+      <!-- ============ TAB 1: PENGELUARAN ============ -->
+      <div class="tab-content active" id="tab-pengeluaran">
+        <div class="budget-banner" id="budgetBanner">
+          <div>
+            <div class="budget-banner-label">Kas BBQ Night</div>
+            <div class="budget-banner-row">
+              <div>
+                <div class="budget-stat-val" id="budgetPerOrang">Rp 50.000</div>
+                <div class="budget-stat-label">Per Orang</div>
               </div>
-              <div class="budget-stat-label">Terpakai</div>
+              <div class="budget-divider"></div>
+              <div>
+                <div class="budget-stat-val" id="budgetTotal">Rp 450.000</div>
+                <div class="budget-stat-label">Total Kas (9 orang)</div>
+              </div>
+              <div class="budget-divider"></div>
+              <div>
+                <div
+                  class="budget-stat-val"
+                  id="budgetTerpakai"
+                  style="color: var(--gray-mid)"
+                >
+                  Rp 0
+                </div>
+                <div class="budget-stat-label">Terpakai</div>
+              </div>
+              <div class="budget-divider"></div>
+              <div>
+                <div class="budget-stat-val" id="budgetSisa">Rp 450.000</div>
+                <div class="budget-stat-label">Sisa Kas</div>
+              </div>
             </div>
-            <div class="budget-divider"></div>
-            <div class="budget-stat">
-              <div class="budget-stat-val" id="budgetSisa">Rp 450.000</div>
-              <div class="budget-stat-label">Sisa Kas</div>
+          </div>
+          <div id="budgetEditArea">
+            <button class="budget-edit-btn" onclick="toggleBudgetEdit()">
+              ✏ Ubah Budget
+            </button>
+          </div>
+        </div>
+
+        <!-- Input -->
+        <div class="input-section">
+          <div class="section-label">Tambah Pengeluaran</div>
+          <div class="input-grid">
+            <div>
+              <div class="field-label">Yang Bayar</div>
+              <select class="field-input" id="inPayer">
+                <option value="">— Pilih —</option>
+                <option>ALFRED</option>
+                <option>ANDREW</option>
+                <option>DAVIN</option>
+                <option>DEDI</option>
+                <option>GRACE</option>
+                <option>KARIN</option>
+                <option>SHIRLENE</option>
+                <option>VINCENT</option>
+                <option>VELLICIA</option>
+              </select>
+            </div>
+            <div>
+              <div class="field-label">Nama Item</div>
+              <input
+                class="field-input"
+                id="inItem"
+                type="text"
+                placeholder="Contoh: Ayam 2kg..."
+                maxlength="60"
+              />
+            </div>
+            <div>
+              <div class="field-label">Harga (Rp)</div>
+              <input
+                class="field-input"
+                id="inAmount"
+                type="number"
+                placeholder="50000"
+                min="0"
+              />
+            </div>
+            <button class="btn-add" onclick="addExpense()">+ TAMBAH</button>
+          </div>
+
+          <!-- Photo upload zone -->
+          <div>
+            <div class="field-label" style="margin-bottom: 8px">
+              Foto Struk / Bukti Bayar
+              <span class="required-tag">* WAJIB</span>
+            </div>
+            <div
+              class="photo-upload-zone"
+              id="photoUploadZone"
+              onclick="triggerPhotoUpload()"
+            >
+              <div class="puz-icon" id="puzIcon">📷</div>
+              <div class="puz-text">
+                <div class="puz-title" id="puzTitle">Upload Foto Struk</div>
+                <div class="puz-sub" id="puzSub">
+                  Tap untuk pilih foto · JPG, PNG, HEIC
+                </div>
+              </div>
+              <span class="puz-badge" id="puzBadge" style="display: none"
+                >✓ Siap</span
+              >
+            </div>
+            <div
+              id="photoPreviewRow"
+              style="
+                display: none;
+                margin-top: 8px;
+                align-items: center;
+                gap: 12px;
+              "
+            >
+              <img
+                id="photoPreviewImg"
+                style="
+                  width: 72px;
+                  height: 72px;
+                  object-fit: cover;
+                  border-radius: 3px;
+                  border: 1px solid rgba(255, 255, 255, 0.12);
+                  cursor: pointer;
+                "
+                onclick="openLightbox(document.getElementById('photoPreviewImg').src)"
+                alt="preview"
+              />
+              <div>
+                <div
+                  style="
+                    font-family: 'Space Mono', monospace;
+                    font-size: 9px;
+                    letter-spacing: 0.15em;
+                    color: var(--green);
+                  "
+                >
+                  📸 FOTO TERSIMPAN
+                </div>
+                <button
+                  onclick="clearPendingPhoto()"
+                  style="
+                    margin-top: 6px;
+                    background: none;
+                    border: 1px solid rgba(255, 255, 255, 0.1);
+                    color: var(--gray-mid);
+                    padding: 4px 10px;
+                    font-family: 'Space Mono', monospace;
+                    font-size: 8px;
+                    letter-spacing: 0.12em;
+                    cursor: pointer;
+                    text-transform: uppercase;
+                  "
+                >
+                  ✕ Ganti
+                </button>
+              </div>
             </div>
           </div>
         </div>
-        <div id="budgetEditArea">
-          <button class="budget-edit-btn" onclick="toggleBudgetEdit()">
-            ✏ Ubah Budget
-          </button>
+
+        <!-- List -->
+        <div class="list-section">
+          <div class="section-label">Daftar Pengeluaran</div>
+          <div class="expense-list" id="expenseList">
+            <div class="empty-state" id="emptyState">
+              BELUM ADA PENGELUARAN<br />TAMBAH DI ATAS YA
+            </div>
+          </div>
+          <div class="reset-row">
+            <button class="btn-reset" onclick="resetAll()">
+              ↺ RESET SEMUA
+            </button>
+          </div>
+        </div>
+
+        <!-- Summary -->
+        <div class="summary-section" id="summarySection" style="display: none">
+          <div class="section-label-dark" style="margin-bottom: 20px">
+            Rekap Kas &amp; Pengeluaran
+          </div>
+          <div class="summary-top" id="summaryTop"></div>
+          <div id="sisaSection"></div>
         </div>
       </div>
 
-      <!-- INPUT -->
-      <div class="input-section">
-        <div class="section-label">Tambah Pengeluaran</div>
-        <div class="input-grid">
-          <div>
-            <div class="field-label">Yang Bayar</div>
-            <select class="field-input" id="inPayer">
-              <option value="">— Pilih —</option>
-              <option>ALFRED</option>
-              <option>ANDREW</option>
-              <option>DAVIN</option>
-              <option>DEDI</option>
-              <option>GRACE</option>
-              <option>KARIN</option>
-              <option>SHIRLENE</option>
-              <option>VINCENT</option>
-              <option>VELLICIA</option>
-            </select>
+      <!-- ============ TAB 2: IURAN ============ -->
+      <div class="tab-content" id="tab-iuran">
+        <div class="iuran-panel">
+          <div class="section-label">Status Iuran Rp 50.000/orang</div>
+
+          <div id="allPaidBanner" style="display: none" class="all-paid-banner">
+            <div class="all-paid-banner-icon">🎉</div>
+            <div class="all-paid-banner-text">
+              SEMUA SUDAH IURAN!<br />KAS TERKUMPUL PENUH
+            </div>
           </div>
-          <div>
-            <div class="field-label">Nama Item</div>
-            <input
-              class="field-input"
-              id="inItem"
-              type="text"
-              placeholder="Contoh: Ayam 2kg..."
-              maxlength="50"
-            />
+
+          <div class="iuran-stats" id="iuranStats">
+            <div class="iuran-stat">
+              <div
+                class="iuran-stat-val"
+                id="iuranSudah"
+                style="color: var(--green)"
+              >
+                0
+              </div>
+              <div class="iuran-stat-label">Sudah Bayar</div>
+            </div>
+            <div class="iuran-stat">
+              <div
+                class="iuran-stat-val"
+                id="iuranBelum"
+                style="color: var(--red)"
+              >
+                9
+              </div>
+              <div class="iuran-stat-label">Belum Bayar</div>
+            </div>
+            <div class="iuran-stat">
+              <div class="iuran-stat-val" id="iuranTerkumpul">Rp 0</div>
+              <div class="iuran-stat-label">Terkumpul</div>
+            </div>
           </div>
-          <div>
-            <div class="field-label">Harga (Rp)</div>
-            <input
-              class="field-input"
-              id="inAmount"
-              type="number"
-              placeholder="50000"
-              min="0"
-            />
+
+          <div class="iuran-progress-track" style="margin-top: 12px">
+            <div
+              class="iuran-progress-fill"
+              id="iuranProgressFill"
+              style="width: 0%"
+            ></div>
           </div>
-          <button class="btn-add" onclick="addExpense()">+ TAMBAH</button>
+
+          <div class="member-grid" id="memberGrid"></div>
         </div>
-      </div>
-
-      <!-- LIST -->
-      <div class="list-section">
-        <div class="section-label">Daftar Pengeluaran</div>
-        <div class="expense-list" id="expenseList">
-          <div class="empty-state" id="emptyState">
-            BELUM ADA PENGELUARAN<br />TAMBAH DI ATAS YA 👆
-          </div>
-        </div>
-        <div class="reset-row">
-          <button class="btn-reset" onclick="resetAll()">↺ RESET SEMUA</button>
-        </div>
-      </div>
-
-      <!-- SUMMARY -->
-      <div class="summary-section" id="summarySection" style="display: none">
-        <div class="section-label-dark" style="margin-bottom: 20px">
-          Rekap Kas &amp; Pengeluaran
-        </div>
-
-        <!-- Stats top -->
-        <div class="summary-top" id="summaryTop"></div>
-
-        <!-- Per orang -->
-        <div class="section-label-dark">Status Per Orang</div>
-        <div class="person-grid" id="personGrid"></div>
-
-        <!-- Transfer -->
-        <div class="section-label-dark">Yang Harus Transfer</div>
-        <div class="transfer-section" id="transferSection"></div>
-
-        <!-- Sisa kas -->
-        <div id="sisaSection"></div>
       </div>
     </div>
+    <!-- end main-wrap -->
 
     <footer>
       <div class="footer-logo">MINSOULZ</div>
       <div class="footer-tag">BBQ NIGHT · 9 MEI 2026 · PONTIANAK</div>
     </footer>
 
+    <input
+      type="file"
+      id="hiddenFileInput"
+      accept="image/*"
+      capture="environment"
+      style="display: none"
+    />
+
     <script>
+      // ============ STATE ============
       const MEMBERS = [
         "ALFRED",
         "ANDREW",
@@ -910,45 +1233,140 @@
         "VINCENT",
         "VELLICIA",
       ];
-      const N = MEMBERS.length; // 9
+      const N = MEMBERS.length;
 
-      let expenses = JSON.parse(
-        localStorage.getItem("bbq_patungan_v2") || "[]"
-      );
-      let budgetPerOrang = parseInt(
-        localStorage.getItem("bbq_budget") || "50000"
-      );
-      let editingId = null;
+      let expenses = [],
+        budgetPerOrang = 50000,
+        editingId = null;
+      let iuranData = [];
 
-      function save() {
-        localStorage.setItem("bbq_patungan_v2", JSON.stringify(expenses));
-        localStorage.setItem("bbq_budget", budgetPerOrang);
+      function loadState() {
+        try {
+          expenses = JSON.parse(localStorage.getItem("bbq_v4_exp") || "[]");
+          budgetPerOrang = parseInt(
+            localStorage.getItem("bbq_v4_budget") || "50000"
+          );
+          const savedIuran = JSON.parse(
+            localStorage.getItem("bbq_v4_iuran") || "[]"
+          );
+          iuranData = MEMBERS.map((m) => {
+            const found = savedIuran.find((x) => x.name === m);
+            return found || { name: m, paid: false, paidAt: "", photo: null };
+          });
+        } catch (e) {
+          expenses = [];
+          iuranData = MEMBERS.map((m) => ({
+            name: m,
+            paid: false,
+            paidAt: "",
+            photo: null,
+          }));
+        }
       }
 
+      function saveState() {
+        try {
+          localStorage.setItem("bbq_v4_exp", JSON.stringify(expenses));
+          localStorage.setItem("bbq_v4_budget", budgetPerOrang);
+          localStorage.setItem("bbq_v4_iuran", JSON.stringify(iuranData));
+        } catch (e) {}
+      }
+      loadState();
+
+      // ============ UTILS ============
       function fmt(n) {
         return "Rp " + Math.round(Math.abs(n)).toLocaleString("id-ID");
       }
-
       function showToast(msg) {
         const t = document.getElementById("toast");
         t.textContent = msg;
         t.classList.add("show");
-        setTimeout(() => t.classList.remove("show"), 3000);
+        clearTimeout(t._to);
+        t._to = setTimeout(() => t.classList.remove("show"), 3000);
+      }
+      function openLightbox(src) {
+        document.getElementById("lightboxImg").src = src;
+        document.getElementById("lightbox").classList.add("open");
+      }
+      function closeLightbox() {
+        document.getElementById("lightbox").classList.remove("open");
       }
 
-      /* ---- BUDGET EDIT ---- */
+      // ============ PENDING PHOTO ============
+      let pendingPhotoData = null;
+
+      function triggerPhotoUpload() {
+        const input = document.getElementById("hiddenFileInput");
+        input.onchange = (e) => {
+          const file = e.target.files[0];
+          if (!file) return;
+          const reader = new FileReader();
+          reader.onload = (ev) => {
+            pendingPhotoData = ev.target.result;
+            updatePhotoZone();
+          };
+          reader.readAsDataURL(file);
+          input.value = "";
+        };
+        input.click();
+      }
+
+      function updatePhotoZone(shake = false) {
+        const zone = document.getElementById("photoUploadZone");
+        const title = document.getElementById("puzTitle");
+        const sub = document.getElementById("puzSub");
+        const badge = document.getElementById("puzBadge");
+        const icon = document.getElementById("puzIcon");
+        const previewRow = document.getElementById("photoPreviewRow");
+        const previewImg = document.getElementById("photoPreviewImg");
+        if (pendingPhotoData) {
+          zone.classList.remove("required-empty");
+          zone.classList.add("has-photo");
+          title.textContent = "Foto Tersimpan";
+          sub.textContent = "Tap untuk ganti foto";
+          icon.textContent = "✅";
+          badge.style.display = "";
+          previewRow.style.display = "flex";
+          previewImg.src = pendingPhotoData;
+        } else {
+          zone.classList.remove("has-photo");
+          if (shake) zone.classList.add("required-empty");
+          else zone.classList.remove("required-empty");
+          title.textContent = "Upload Foto Struk";
+          sub.textContent = "Tap untuk pilih foto · JPG, PNG, HEIC";
+          icon.textContent = "📷";
+          badge.style.display = "none";
+          previewRow.style.display = "none";
+          previewImg.src = "";
+        }
+      }
+
+      function clearPendingPhoto() {
+        pendingPhotoData = null;
+        updatePhotoZone();
+      }
+
+      // ============ TAB ============
+      function switchTab(tab, btn) {
+        document
+          .querySelectorAll(".tab-content")
+          .forEach((e) => e.classList.remove("active"));
+        document
+          .querySelectorAll(".nav-tab")
+          .forEach((e) => e.classList.remove("active"));
+        document.getElementById("tab-" + tab).classList.add("active");
+        if (btn) btn.classList.add("active");
+        if (tab === "iuran") renderIuranTab();
+      }
+
+      // ============ BUDGET ============
       function toggleBudgetEdit() {
         const area = document.getElementById("budgetEditArea");
-        area.innerHTML = `
-          <div class="budget-edit-row">
-            <div>
-              <div class="field-label" style="color:var(--gray-mid);margin-bottom:4px;">Budget / Orang (Rp)</div>
-              <input class="budget-input" id="budgetInput" type="number" value="${budgetPerOrang}" min="0" placeholder="50000" />
-            </div>
-            <button class="budget-save-btn" onclick="saveBudget()">SIMPAN</button>
-            <button class="budget-edit-btn" onclick="cancelBudgetEdit()">BATAL</button>
-          </div>
-        `;
+        area.innerHTML = `<div style="display:flex;align-items:flex-end;gap:8px;flex-wrap:wrap;">
+          <div><div class="field-label" style="color:var(--gray-mid);">Budget / Orang (Rp)</div>
+          <input class="budget-input" id="budgetInput" type="number" value="${budgetPerOrang}" min="0"/></div>
+          <button class="budget-save-btn" onclick="saveBudget()">SIMPAN</button>
+          <button class="budget-edit-btn" onclick="cancelBudgetEdit()">BATAL</button></div>`;
         setTimeout(() => document.getElementById("budgetInput")?.focus(), 50);
         document
           .getElementById("budgetInput")
@@ -956,7 +1374,6 @@
             if (e.key === "Enter") saveBudget();
           });
       }
-
       function saveBudget() {
         const val = parseInt(
           document.getElementById("budgetInput")?.value || 0
@@ -966,28 +1383,26 @@
           return;
         }
         budgetPerOrang = val;
-        save();
+        saveState();
         cancelBudgetEdit();
         render();
         showToast("✅ Budget diperbarui!");
       }
-
       function cancelBudgetEdit() {
-        const area = document.getElementById("budgetEditArea");
-        area.innerHTML = `<button class="budget-edit-btn" onclick="toggleBudgetEdit()">✏ Ubah Budget</button>`;
+        document.getElementById(
+          "budgetEditArea"
+        ).innerHTML = `<button class="budget-edit-btn" onclick="toggleBudgetEdit()">✏ Ubah Budget</button>`;
       }
-
-      function updateBudgetBanner(totalPengeluaran) {
-        const totalKas = budgetPerOrang * N;
-        const sisa = totalKas - totalPengeluaran;
+      function updateBudgetBanner(total) {
+        const totalKas = budgetPerOrang * N,
+          sisa = totalKas - total;
         document.getElementById("budgetPerOrang").textContent =
           fmt(budgetPerOrang);
         document.getElementById("budgetTotal").textContent = fmt(totalKas);
-        document.getElementById("budgetTerpakai").textContent =
-          fmt(totalPengeluaran);
-        const sisaEl = document.getElementById("budgetSisa");
-        sisaEl.textContent = (sisa < 0 ? "-" : "") + fmt(sisa);
-        sisaEl.style.color =
+        document.getElementById("budgetTerpakai").textContent = fmt(total);
+        const el = document.getElementById("budgetSisa");
+        el.textContent = (sisa < 0 ? "-" : "") + fmt(sisa);
+        el.style.color =
           sisa < 0
             ? "var(--red)"
             : sisa === 0
@@ -995,7 +1410,7 @@
             : "var(--green)";
       }
 
-      /* ---- ADD / EDIT / DELETE ---- */
+      // ============ EXPENSE ============
       function addExpense() {
         const payer = document.getElementById("inPayer").value;
         const item = document.getElementById("inItem").value.trim();
@@ -1012,8 +1427,24 @@
           showToast("Isi harga yang valid!");
           return;
         }
-        expenses.push({ id: Date.now(), payer, item, amount });
-        save();
+        if (!pendingPhotoData) {
+          showToast("⚠️ Upload foto struk/bukti dulu!");
+          updatePhotoZone(true);
+          document
+            .getElementById("photoUploadZone")
+            .scrollIntoView({ behavior: "smooth", block: "center" });
+          return;
+        }
+        expenses.push({
+          id: Date.now(),
+          payer,
+          item,
+          amount,
+          photo: pendingPhotoData,
+        });
+        pendingPhotoData = null;
+        updatePhotoZone();
+        saveState();
         document.getElementById("inItem").value = "";
         document.getElementById("inAmount").value = "";
         document.getElementById("inPayer").value = "";
@@ -1025,11 +1456,10 @@
         const ex = expenses.find((e) => e.id === id);
         if (!confirm('Hapus "' + ex.item + '"?')) return;
         expenses = expenses.filter((e) => e.id !== id);
-        save();
+        saveState();
         render();
         showToast("🗑️ Dihapus!");
       }
-
       function startEdit(id) {
         editingId = id;
         render();
@@ -1042,7 +1472,6 @@
         editingId = null;
         render();
       }
-
       function saveEdit(id) {
         const payer = document.getElementById("edit-payer-" + id).value;
         const item = document.getElementById("edit-item-" + id).value.trim();
@@ -1058,87 +1487,39 @@
         ex.item = item;
         ex.amount = amount;
         editingId = null;
-        save();
+        saveState();
         render();
         showToast("✏️ Disimpan!");
       }
-
-      function resetAll() {
-        if (!confirm("Reset semua pengeluaran?")) return;
-        expenses = [];
-        save();
-        render();
-        showToast("↺ Semua direset!");
-      }
-
-      /* ---- KALKULASI ---- */
-      function calc() {
-        const totalKas = budgetPerOrang * N;
-        const totalPengeluaran = expenses.reduce((s, e) => s + e.amount, 0);
-        const sisaKas = totalKas - totalPengeluaran;
-
-        // Berapa yang sudah dikeluarkan tiap orang
-        const paid = {};
-        MEMBERS.forEach((m) => (paid[m] = 0));
-        expenses.forEach((e) => (paid[e.payer] += e.amount));
-
-        // Balance: setiap orang punya kewajiban = budgetPerOrang
-        // Yang bayar belanjaan → sudah "setor" sebesar yang dia bayarkan
-        // balance[m] = paid[m] - budgetPerOrang
-        // positif = sudah keluar lebih dari jatah → BERHAK TERIMA
-        // negatif = belum keluar sesuai jatah → HARUS BAYAR
-
-        const balance = {};
-        MEMBERS.forEach((m) => (balance[m] = (paid[m] || 0) - budgetPerOrang));
-
-        // Settlement: yang balance negatif transfer ke yang positif
-        const creditors = MEMBERS.filter((m) => balance[m] > 0.5)
-          .map((m) => ({ name: m, amt: balance[m] }))
-          .sort((a, b) => b.amt - a.amt);
-        const debtors = MEMBERS.filter((m) => balance[m] < -0.5)
-          .map((m) => ({ name: m, amt: -balance[m] }))
-          .sort((a, b) => b.amt - a.amt);
-
-        const transactions = [];
-        let ci = 0,
-          di = 0;
-        const creds = creditors.map((c) => ({ ...c }));
-        const debts = debtors.map((d) => ({ ...d }));
-        while (ci < creds.length && di < debts.length) {
-          const pay = Math.min(creds[ci].amt, debts[di].amt);
-          if (pay > 0.5)
-            transactions.push({
-              from: debts[di].name,
-              to: creds[ci].name,
-              amount: pay,
-            });
-          creds[ci].amt -= pay;
-          debts[di].amt -= pay;
-          if (creds[ci].amt < 0.5) ci++;
-          if (debts[di].amt < 0.5) di++;
-        }
-
-        return {
-          totalKas,
-          totalPengeluaran,
-          sisaKas,
-          paid,
-          balance,
-          transactions,
+      function replacePhotoExpense(id) {
+        const input = document.getElementById("hiddenFileInput");
+        input.onchange = (e) => {
+          const file = e.target.files[0];
+          if (!file) return;
+          const reader = new FileReader();
+          reader.onload = (ev) => {
+            const ex = expenses.find((x) => x.id === id);
+            if (ex) {
+              ex.photo = ev.target.result;
+              saveState();
+              render();
+              showToast("📸 Foto diperbarui!");
+            }
+          };
+          reader.readAsDataURL(file);
+          input.value = "";
         };
+        input.click();
       }
 
-      /* ---- RENDER ---- */
+      // ============ RENDER PENGELUARAN ============
       function render() {
         const list = document.getElementById("expenseList");
         const empty = document.getElementById("emptyState");
         const summary = document.getElementById("summarySection");
-
-        // Clear list (except empty)
         Array.from(list.children).forEach((c) => {
           if (c !== empty) c.remove();
         });
-
         if (expenses.length === 0) {
           empty.style.display = "";
           summary.style.display = "none";
@@ -1146,55 +1527,45 @@
           return;
         }
         empty.style.display = "none";
-
-        // Render expense rows
         expenses.forEach((ex, i) => {
           const div = document.createElement("div");
           div.className = "expense-item";
           if (editingId === ex.id) {
-            div.innerHTML = `
-              <div style="flex:1">
-                <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--gray-mid);letter-spacing:0.25em;margin-bottom:10px;">EDIT ITEM #${
-                  i + 1
-                }</div>
-                <div class="edit-row">
-                  <div>
-                    <div class="field-label">Yang Bayar</div>
-                    <select class="field-input" id="edit-payer-${ex.id}">
-                      ${MEMBERS.map(
-                        (m) =>
-                          `<option${
-                            m === ex.payer ? " selected" : ""
-                          }>${m}</option>`
-                      ).join("")}
-                    </select>
-                  </div>
-                  <div>
-                    <div class="field-label">Nama Item</div>
-                    <input class="field-input" id="edit-item-${
-                      ex.id
-                    }" type="text" value="${ex.item}" maxlength="50" />
-                  </div>
-                  <div>
-                    <div class="field-label">Harga</div>
-                    <input class="field-input" id="edit-amount-${
-                      ex.id
-                    }" type="number" value="${ex.amount}" min="0" />
-                  </div>
-                  <div style="display:flex;gap:4px;align-self:end;">
-                    <button class="btn-save" onclick="saveEdit(${
-                      ex.id
-                    })">SIMPAN</button>
-                    <button class="btn-cancel" onclick="cancelEdit()">BATAL</button>
-                  </div>
-                </div>
-              </div>`;
+            div.innerHTML = `<div style="flex:1">
+              <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--gray-mid);letter-spacing:0.25em;margin-bottom:10px;">EDIT ITEM #${
+                i + 1
+              }</div>
+              <div class="edit-row">
+                <div><div class="field-label">Yang Bayar</div>
+                  <select class="field-input" id="edit-payer-${
+                    ex.id
+                  }">${MEMBERS.map(
+              (m) => `<option${m === ex.payer ? " selected" : ""}>${m}</option>`
+            ).join("")}</select></div>
+                <div><div class="field-label">Nama Item</div>
+                  <input class="field-input" id="edit-item-${
+                    ex.id
+                  }" type="text" value="${ex.item}" maxlength="60"/></div>
+                <div><div class="field-label">Harga</div>
+                  <input class="field-input" id="edit-amount-${
+                    ex.id
+                  }" type="number" value="${ex.amount}" min="0"/></div>
+                <div style="display:flex;gap:4px;align-self:end;">
+                  <button class="btn-save" onclick="saveEdit(${
+                    ex.id
+                  })">SIMPAN</button>
+                  <button class="btn-cancel" onclick="cancelEdit()">BATAL</button></div>
+              </div></div>`;
           } else {
+            const photoHtml = ex.photo
+              ? `<img class="photo-thumb" src="${ex.photo}" onclick="openLightbox('${ex.photo}')" title="Lihat struk"/>`
+              : `<div class="no-photo-badge" onclick="replacePhotoExpense(${ex.id})" title="Upload foto struk">📷 No foto</div>`;
             div.innerHTML = `
               <div class="expense-num">${String(i + 1).padStart(2, "0")}</div>
               <div class="expense-payer">${ex.payer}</div>
               <div class="expense-name">${ex.item}</div>
               <div class="expense-amount">${fmt(ex.amount)}</div>
+              ${photoHtml}
               <div class="expense-actions">
                 <button class="btn-icon" onclick="startEdit(${
                   ex.id
@@ -1206,145 +1577,135 @@
           }
           list.appendChild(div);
         });
-
-        // Calc
-        const {
-          totalKas,
-          totalPengeluaran,
-          sisaKas,
-          paid,
-          balance,
-          transactions,
-        } = calc();
+        const totalPengeluaran = expenses.reduce((s, e) => s + e.amount, 0);
+        const totalKas = budgetPerOrang * N;
+        const sisaKas = totalKas - totalPengeluaran;
         updateBudgetBanner(totalPengeluaran);
-
-        // Show summary
         summary.style.display = "";
-
-        // Stats top
-        const st = document.getElementById("summaryTop");
-        st.innerHTML = `
-          <div class="summary-stat">
-            <div class="summary-stat-label">Total Kas</div>
-            <div class="summary-stat-val">${fmt(totalKas)}</div>
-          </div>
-          <div class="summary-stat">
-            <div class="summary-stat-label">Total Belanja</div>
-            <div class="summary-stat-val">${fmt(totalPengeluaran)}</div>
-          </div>
-          <div class="summary-stat">
-            <div class="summary-stat-label">Sisa Kas</div>
-            <div class="summary-stat-val ${
-              sisaKas < 0 ? "red" : sisaKas > 0 ? "green" : ""
-            }">${sisaKas < 0 ? "-" : ""}${fmt(sisaKas)}</div>
-          </div>
-          <div class="summary-stat">
-            <div class="summary-stat-label">Per Orang (Budget)</div>
-            <div class="summary-stat-val">${fmt(budgetPerOrang)}</div>
-          </div>
-        `;
-
-        // Per orang
-        const pg = document.getElementById("personGrid");
-        pg.innerHTML = "";
-        MEMBERS.forEach((m) => {
-          const sp = paid[m] || 0;
-          const bal = balance[m];
-          let cardClass = "person-card";
-          let statusText = "",
-            statusClass = "",
-            tag = "";
-
-          if (bal > 0.5) {
-            // Sudah bayar lebih dari jatah → berhak terima balik
-            cardClass += " lebih";
-            statusText = `Terima balik ${fmt(bal)}`;
-            statusClass = "lebih";
-            tag = "💰";
-          } else if (bal < -0.5) {
-            // Belum cukup setor
-            cardClass += " belum";
-            statusText = `Harus transfer ${fmt(-bal)}`;
-            statusClass = "hutang";
-            tag = "⚠️";
-          } else {
-            cardClass += " sudah";
-            statusText = "Sudah pas ✓";
-            statusClass = "ok";
-            tag = "✅";
-          }
-
-          const card = document.createElement("div");
-          card.className = cardClass;
-          card.innerHTML = `
-            <div class="pc-tag">${tag}</div>
-            <div class="pc-name">${m}</div>
-            <div class="pc-paid">${sp === 0 ? "Rp 0" : fmt(sp)}</div>
-            <div class="pc-status ${statusClass}">${statusText}</div>
-          `;
-          pg.appendChild(card);
-        });
-
-        // Transfers
-        const ts = document.getElementById("transferSection");
-        if (transactions.length === 0) {
-          ts.innerHTML = `<div class="settled-msg">🎉 Semua sudah seimbang! Tidak ada yang perlu transfer.</div>`;
-        } else {
-          ts.innerHTML = "";
-          transactions.forEach((t) => {
-            const desc = `${t.from} belum setor sesuai jatah → transfer ke ${t.to} yang sudah nombokin`;
-            const el = document.createElement("div");
-            el.className = "transfer-item";
-            el.innerHTML = `
-              <div>
-                <div class="transfer-left">
-                  <div class="t-from">${t.from}</div>
-                  <div class="t-arrow">→</div>
-                  <div class="t-to">${t.to}</div>
-                </div>
-                <div class="t-desc">${desc}</div>
-              </div>
-              <div class="t-amount">${fmt(t.amount)}</div>
-            `;
-            ts.appendChild(el);
-          });
-        }
-
-        // Sisa kas
+        document.getElementById("summaryTop").innerHTML = `
+          <div class="summary-stat"><div class="summary-stat-label">Total Kas</div><div class="summary-stat-val">${fmt(
+            totalKas
+          )}</div></div>
+          <div class="summary-stat"><div class="summary-stat-label">Total Belanja</div><div class="summary-stat-val">${fmt(
+            totalPengeluaran
+          )}</div></div>
+          <div class="summary-stat"><div class="summary-stat-label">Sisa Kas</div><div class="summary-stat-val ${
+            sisaKas < 0 ? "red" : sisaKas > 0 ? "green" : ""
+          }">${sisaKas < 0 ? "-" : ""}${fmt(sisaKas)}</div></div>
+          <div class="summary-stat"><div class="summary-stat-label">Per Orang (Budget)</div><div class="summary-stat-val">${fmt(
+            budgetPerOrang
+          )}</div></div>`;
         const sisaSec = document.getElementById("sisaSection");
         if (sisaKas > 0.5) {
           const perOrang = sisaKas / N;
-          sisaSec.innerHTML = `
-            <div class="sisa-note">
-              <div>
-                <div class="sisa-label">💰 Sisa Kas</div>
-                <div style="font-family:'Space Mono',monospace;font-size:9px;color:rgba(0,0,0,0.4);margin-top:4px;">
-                  Dibagi rata = ${fmt(perOrang)}/orang dikembaliin
-                </div>
-              </div>
-              <div class="sisa-val">${fmt(sisaKas)}</div>
-            </div>
-          `;
+          sisaSec.innerHTML = `<div class="sisa-note"><div><div class="sisa-label">Sisa Kas</div><div style="font-family:'Space Mono',monospace;font-size:9px;color:rgba(0,0,0,0.4);margin-top:4px;">Dibagi rata = ${fmt(
+            perOrang
+          )}/orang dikembaliin</div></div><div class="sisa-val">${fmt(
+            sisaKas
+          )}</div></div>`;
         } else if (sisaKas < -0.5) {
-          sisaSec.innerHTML = `
-            <div class="sisa-note" style="background:rgba(239,68,68,0.06);border-color:rgba(239,68,68,0.2);">
-              <div>
-                <div class="sisa-label" style="color:#991b1b;">⚠️ Budget Kurang!</div>
-                <div style="font-family:'Space Mono',monospace;font-size:9px;color:rgba(0,0,0,0.4);margin-top:4px;">
-                  Belanja melebihi kas. Perlu tambah iuran.
-                </div>
-              </div>
-              <div class="sisa-val" style="color:#991b1b;">-${fmt(
-                -sisaKas
-              )}</div>
-            </div>
-          `;
+          sisaSec.innerHTML = `<div class="sisa-note" style="background:rgba(239,68,68,0.06);border-color:rgba(239,68,68,0.2);"><div><div class="sisa-label" style="color:#991b1b;">⚠️ Budget Kurang!</div><div style="font-family:'Space Mono',monospace;font-size:9px;color:rgba(0,0,0,0.4);margin-top:4px;">Belanja melebihi kas. Perlu tambah iuran.</div></div><div class="sisa-val" style="color:#991b1b;">-${fmt(
+            -sisaKas
+          )}</div></div>`;
         } else {
           sisaSec.innerHTML = "";
         }
       }
 
-      // Keyboard shortcuts
+      // ============ IURAN TAB ============
+      function renderIuranTab() {
+        const grid = document.getElementById("memberGrid");
+        const banner = document.getElementById("allPaidBanner");
+        const sudahEl = document.getElementById("iuranSudah");
+        const belumEl = document.getElementById("iuranBelum");
+        const terkumpulEl = document.getElementById("iuranTerkumpul");
+        const progressEl = document.getElementById("iuranProgressFill");
+        grid.innerHTML = "";
+        const sudah = iuranData.filter((x) => x.paid).length;
+        const belum = N - sudah;
+        sudahEl.textContent = sudah;
+        belumEl.textContent = belum;
+        terkumpulEl.textContent = fmt(sudah * budgetPerOrang);
+        progressEl.style.width = Math.round((sudah / N) * 100) + "%";
+        banner.style.display = sudah === N ? "flex" : "none";
+
+        iuranData.forEach((member, idx) => {
+          const card = document.createElement("div");
+          card.className = "member-card" + (member.paid ? " paid" : "");
+
+          const proofHtml = member.photo
+            ? `<img class="iuran-proof-img" src="${member.photo}" onclick="openLightbox('${member.photo}');event.stopPropagation();" title="Lihat bukti"/><span style="font-family:'Space Mono',monospace;font-size:7px;letter-spacing:0.1em;color:var(--green);">BUKTI ADA</span>`
+            : `<span style="font-family:'Space Mono',monospace;font-size:7px;letter-spacing:0.1em;color:var(--gray-mid);">Belum ada bukti</span>`;
+
+          const timeStr = member.paidAt
+            ? `<div class="member-paid-time">✓ ${member.paidAt}</div>`
+            : "";
+
+          card.innerHTML = `
+            <div class="member-checkbox"><span class="member-checkbox-tick">✓</span></div>
+            <div class="member-info">
+              <div class="member-name">${member.name}</div>
+              <div class="member-status">${
+                member.paid ? "SUDAH BAYAR" : "BELUM BAYAR"
+              }</div>
+              ${timeStr}
+              <div class="iuran-proof-area">
+                <button class="iuran-proof-btn" onclick="uploadIuranProof(${idx},event)">📷 Bukti</button>
+                ${proofHtml}
+              </div>
+            </div>
+            <div class="member-amount">${fmt(budgetPerOrang)}</div>`;
+
+          // Klik seluruh card = toggle paid
+          card.addEventListener("click", () => toggleIuran(idx));
+
+          grid.appendChild(card);
+        });
+      }
+
+      function toggleIuran(idx) {
+        const member = iuranData[idx];
+        member.paid = !member.paid;
+        if (member.paid) {
+          const now = new Date();
+          member.paidAt = now.toLocaleDateString("id-ID", {
+            day: "2-digit",
+            month: "short",
+            hour: "2-digit",
+            minute: "2-digit",
+          });
+        } else {
+          member.paidAt = "";
+        }
+        saveState();
+        renderIuranTab();
+        showToast(
+          member.paid
+            ? "✅ " + member.name + " sudah bayar!"
+            : "↩ " + member.name + " ditandai belum bayar"
+        );
+      }
+
+      function uploadIuranProof(idx, e) {
+        e.stopPropagation();
+        const input = document.getElementById("hiddenFileInput");
+        input.onchange = (ev) => {
+          const file = ev.target.files[0];
+          if (!file) return;
+          const reader = new FileReader();
+          reader.onload = (evr) => {
+            iuranData[idx].photo = evr.target.result;
+            saveState();
+            renderIuranTab();
+            showToast("📸 Bukti iuran tersimpan!");
+          };
+          reader.readAsDataURL(file);
+          input.value = "";
+        };
+        input.click();
+      }
+
+      // ============ KEYBOARD ============
       document.getElementById("inAmount").addEventListener("keydown", (e) => {
         if (e.key === "Enter") addExpense();
       });
@@ -1352,7 +1713,14 @@
         if (e.key === "Enter") document.getElementById("inAmount").focus();
       });
 
-      // Init
+      // ============ INIT ============
+      function resetAll() {
+        if (!confirm("Reset semua pengeluaran?")) return;
+        expenses = [];
+        saveState();
+        render();
+        showToast("↺ Semua direset!");
+      }
       updateBudgetBanner(expenses.reduce((s, e) => s + e.amount, 0));
       render();
     </script>
