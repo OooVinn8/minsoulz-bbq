@@ -227,6 +227,24 @@
         color: transparent;
         -webkit-text-stroke: 1px rgba(255, 255, 255, 0.6);
       }
+
+      .particle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: particleUp var(--dur) ease-in var(--delay) infinite;
+  bottom: 0;
+  left: var(--x);
+  background: var(--col);
+  opacity: 0;
+  z-index: 1;
+}
+@keyframes particleUp {
+  0%   { opacity: 0; transform: translateY(0) scale(0.5); }
+  15%  { opacity: 0.85; }
+  80%  { opacity: 0.3; }
+  100% { opacity: 0; transform: translateY(-110vh) translateX(var(--drift)) scale(1.8); }
+}
       @keyframes glowPulse {
         0%,
         100% {
@@ -2099,7 +2117,7 @@ document.getElementById('logoutOverlay').addEventListener('click', function(e) {
         { src: "music/bbq-night.mp3", title: "BBQ Night Vibes 🔥" },
       ];
       const audio = new Audio();
-      audio.volume = 0.02;
+      audio.volume = 1;
       let currentTrack = 0,
         isPlaying = false;
       function loadTrack(i) {
@@ -2125,6 +2143,24 @@ document.getElementById('logoutOverlay').addEventListener('click', function(e) {
           bt.textContent = "▶";
         }
       }
+
+      (function() {
+  const hero = document.getElementById('hero');
+  const colors = ['#ff5500','#ff7733','#ffaa44','#ffcc66','#ffffff'];
+  for (let i = 0; i < 30; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const size = 4 + Math.random() * 4;
+    p.style.width  = size + 'px';
+    p.style.height = size + 'px';
+    p.style.setProperty('--x',     Math.random() * 100 + '%');
+    p.style.setProperty('--dur',   (2 + Math.random() * 6) + 's');
+    p.style.setProperty('--delay', (Math.random() * 2) + 's');
+    p.style.setProperty('--col',   colors[Math.floor(Math.random() * colors.length)]);
+    p.style.setProperty('--drift', (Math.random() * 80 - 40) + 'px');
+    hero.appendChild(p);
+  }
+})();
       audio.addEventListener("ended", () => {
         currentTrack = (currentTrack + 1) % PLAYLIST.length;
         loadTrack(currentTrack);
@@ -2270,57 +2306,57 @@ document.getElementById('logoutOverlay').addEventListener('click', function(e) {
       });
 
       const timelineData = [
-        {
-          time: "14:00",
-          title: "Kumpul dulu",
-          desc: "Ngumpul semua, bagi-bagi tugas siapa belanja siapa yang setup.",
-        },
-        {
-          time: "14:30",
-          title: "Mode Belanja",
-          desc: "Beli daging, arang, bumbu, minuman, dan keperluan lainnya.",
-        },
-        {
-          time: "15:30",
-          title: "Marinasi daging",
-          desc: "Bumbu diolesin, rendam minimal 1 jam. Sambil nunggu ya rebahan dulu.",
-        },
-        {
-          time: "16:30",
-          title: "Istirahat",
-          desc: "Santai dulu, ngobrol, main kartu, tidur siang juga boleh.",
-        },
-        {
-          time: "17:30",
-          title: "Setup panggangan",
-          desc: "Nyalain arang, susun meja, beresin area bakar-bakaran.",
-        },
-        {
-          time: "18:00",
-          title: "Bakar-bakaran!",
-          desc: "Api udah panas, daging masuk. Ini dia acara utamanya — jangan lupa difoto.",
-        },
-        {
-          time: "19:30",
-          title: "Makan-makan",
-          desc: "Duduk, makan, ngobrol. Foto dulu sebelum langsung dihabisin ya.",
-        },
-        {
-          time: "20:30",
-          title: "Foto-foto",
-          desc: "Perut kenyang, saatnya foto bareng. Upload ke gallery Minsoulz!",
-        },
-        {
-          time: "21:15",
-          title: "Beres-beres",
-          desc: "Gotong royong beresin semuanya. Cepet kalau rame yang bantu.",
-        },
-        {
-          time: "22:00",
-          title: "Pulang",
-          desc: "Sampai jumpa di BBQ berikutnya. Jangan lupa share fotonya!",
-        },
-      ];
+  {
+    time: "13:00",
+    title: "Kumpul dulu",
+    desc: "Ngumpul semua, bagi-bagi tugas siapa belanja siapa yang setup.",
+  },
+  {
+    time: "13:30",
+    title: "Mode Belanja",
+    desc: "Beli daging, arang, bumbu, minuman, dan keperluan lainnya.",
+  },
+  {
+    time: "14:30",
+    title: "Marinasi daging",
+    desc: "Bumbu diolesin dan direndam. Santai dulu sambil nunggu.",
+  },
+  {
+    time: "15:30",
+    title: "Istirahat",
+    desc: "Santai dulu, ngobrol, main kartu, tidur siang juga boleh.",
+  },
+  {
+    time: "17:30",
+    title: "Setup panggangan",
+    desc: "Nyalain arang, susun meja, beresin area bakar-bakaran.",
+  },
+  {
+    time: "18:00",
+    title: "Bakar-bakaran!",
+    desc: "Api udah panas, daging masuk. Ini dia acara utamanya — jangan lupa difoto.",
+  },
+  {
+    time: "19:30",
+    title: "Makan-makan",
+    desc: "Duduk, makan, ngobrol. Foto dulu sebelum langsung dihabisin ya.",
+  },
+  {
+    time: "20:30",
+    title: "Foto-foto",
+    desc: "Perut kenyang, saatnya foto bareng. Upload ke gallery Minsoulz",
+  },
+  {
+    time: "20:45",
+    title: "Beres-beres",
+    desc: "Gotong royong beresin semuanya. Cepet kalau rame yang bantu.",
+  },
+  {
+    time: "21:45",
+    title: "Pulang",
+    desc: "Sampai jumpa di BBQ berikutnya. Jangan lupa share fotonya!",
+  },
+];
       function renderTimeline() {
         const c = document.getElementById("timelineList");
         c.innerHTML = "";

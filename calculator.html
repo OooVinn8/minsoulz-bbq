@@ -46,6 +46,45 @@
         z-index: 9997;
       }
 
+      /* SYNC */
+      .sync-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--gray-mid);
+        display: inline-block;
+        margin-right: 6px;
+        transition: background 0.3s;
+      }
+      .sync-dot.connected {
+        background: var(--green);
+      }
+      .sync-dot.syncing {
+        background: var(--yellow);
+        animation: pulse 0.8s infinite;
+      }
+      .sync-dot.error {
+        background: var(--red);
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.3;
+        }
+      }
+      .sync-label {
+        font-family: "Space Mono", monospace;
+        font-size: 8px;
+        letter-spacing: 0.15em;
+        color: var(--gray-mid);
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+      }
+
       nav {
         position: fixed;
         top: 0;
@@ -59,6 +98,13 @@
         background: rgba(10, 10, 10, 0.95);
         backdrop-filter: blur(12px);
         border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .nav-left {
+        display: flex;
+        align-items: center;
+        gap: 16px;
       }
       .nav-logo {
         font-family: "Bebas Neue", sans-serif;
@@ -122,7 +168,7 @@
         display: block;
       }
 
-      /* ===== BUDGET BANNER ===== */
+      /* BUDGET */
       .budget-banner {
         background: var(--gray-dark);
         border: 1px solid rgba(255, 255, 255, 0.06);
@@ -208,7 +254,6 @@
         opacity: 0.8;
       }
 
-      /* ===== MAIN WRAP ===== */
       .main-wrap {
         max-width: 1200px;
         margin: 0 auto;
@@ -260,7 +305,7 @@
         background: #1a1a1a;
       }
 
-      /* ===== INPUT SECTION ===== */
+      /* INPUT SECTION */
       .input-section {
         background: var(--gray-dark);
         padding: 28px;
@@ -291,7 +336,6 @@
         }
       }
 
-      /* PHOTO UPLOAD ZONE for expense */
       .photo-upload-zone {
         border: 1.5px dashed rgba(255, 255, 255, 0.12);
         padding: 14px 18px;
@@ -335,13 +379,6 @@
         color: var(--gray-mid);
         margin-top: 3px;
       }
-      .puz-preview {
-        width: 52px;
-        height: 52px;
-        object-fit: cover;
-        border-radius: 2px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-      }
       .puz-badge {
         font-family: "Space Mono", monospace;
         font-size: 8px;
@@ -377,8 +414,12 @@
       .btn-add:hover {
         opacity: 0.8;
       }
+      .btn-add:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
 
-      /* ===== LIST ===== */
+      /* LIST */
       .list-section {
         background: var(--gray-dark);
         padding: 28px;
@@ -423,6 +464,9 @@
         flex: 1;
         font-size: 14px;
         min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
       .expense-amount {
         font-family: "Bebas Neue", sans-serif;
@@ -474,7 +518,6 @@
         cursor: pointer;
         border: 1px solid rgba(239, 68, 68, 0.2);
       }
-
       .empty-state {
         text-align: center;
         padding: 48px 0;
@@ -506,7 +549,7 @@
         color: var(--red);
       }
 
-      /* ===== SUMMARY ===== */
+      /* SUMMARY */
       .summary-section {
         background: var(--white);
         color: var(--black);
@@ -584,20 +627,12 @@
         color: #78350f;
       }
 
-      /* ===== IURAN TAB ===== */
+      /* IURAN */
       .iuran-panel {
         background: var(--gray-dark);
         padding: 28px;
         margin-bottom: 3px;
         animation: fadeUp 0.5s ease both;
-      }
-      .iuran-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        gap: 12px;
-        margin-bottom: 24px;
       }
       .iuran-stats {
         display: flex;
@@ -626,7 +661,7 @@
         height: 4px;
         background: rgba(255, 255, 255, 0.06);
         border-radius: 99px;
-        margin-bottom: 24px;
+        margin: 12px 0 24px;
         overflow: hidden;
       }
       .iuran-progress-fill {
@@ -673,8 +708,6 @@
         align-items: center;
         justify-content: center;
         transition: all 0.2s;
-        position: relative;
-        z-index: 1;
       }
       .member-card.paid .member-checkbox {
         background: var(--green);
@@ -692,8 +725,6 @@
       }
       .member-info {
         flex: 1;
-        position: relative;
-        z-index: 1;
       }
       .member-name {
         font-family: "Bebas Neue", sans-serif;
@@ -719,8 +750,6 @@
         font-size: 18px;
         color: var(--gray-mid);
         flex-shrink: 0;
-        position: relative;
-        z-index: 1;
       }
       .member-card.paid .member-amount {
         color: var(--green);
@@ -741,8 +770,6 @@
         align-items: center;
         gap: 10px;
         flex-wrap: wrap;
-        position: relative;
-        z-index: 1;
       }
       .iuran-proof-btn {
         background: rgba(255, 255, 255, 0.04);
@@ -790,7 +817,50 @@
         line-height: 1.7;
       }
 
-      /* ===== LIGHTBOX ===== */
+      /* LOADING */
+      .loading-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 9996;
+        background: var(--black);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        transition: opacity 0.4s;
+      }
+      .loading-overlay.hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+      .loading-logo {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 48px;
+        letter-spacing: 0.1em;
+      }
+      .loading-text {
+        font-family: "Space Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.3em;
+        color: var(--gray-mid);
+        text-transform: uppercase;
+      }
+      .loading-spinner {
+        width: 24px;
+        height: 24px;
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-top-color: var(--white);
+        border-radius: 50%;
+        animation: spin 0.7s linear infinite;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* LIGHTBOX */
       .lightbox {
         position: fixed;
         inset: 0;
@@ -829,7 +899,7 @@
         opacity: 1;
       }
 
-      /* ===== TOAST ===== */
+      /* TOAST */
       .toast {
         position: fixed;
         bottom: 24px;
@@ -852,7 +922,7 @@
         transform: translateX(-50%) translateY(0);
       }
 
-      /* ===== EDIT INLINE ===== */
+      /* EDIT INLINE */
       .edit-row {
         display: grid;
         grid-template-columns: 150px 1fr 130px auto;
@@ -943,6 +1013,12 @@
     </style>
   </head>
   <body>
+    <div class="loading-overlay" id="loadingOverlay">
+      <div class="loading-logo">MINSOULZ</div>
+      <div class="loading-spinner"></div>
+      <div class="loading-text">Menghubungkan ke Firebase...</div>
+    </div>
+
     <div class="lightbox" id="lightbox" onclick="closeLightbox()">
       <button class="lightbox-close" onclick="closeLightbox()">✕</button>
       <img id="lightboxImg" src="" alt="Bukti" />
@@ -951,7 +1027,13 @@
     <div class="toast" id="toast"></div>
 
     <nav>
-      <div class="nav-logo">MINSOULZ</div>
+      <div class="nav-left">
+        <div class="nav-logo">MINSOULZ</div>
+        <div class="sync-label">
+          <span class="sync-dot" id="syncDot"></span>
+          <span id="syncLabel">Menghubungkan...</span>
+        </div>
+      </div>
       <div class="nav-tabs">
         <button class="nav-tab active" onclick="switchTab('pengeluaran',this)">
           💸 Pengeluaran
@@ -970,9 +1052,9 @@
     </div>
 
     <div class="main-wrap">
-      <!-- ============ TAB 1: PENGELUARAN ============ -->
+      <!-- TAB 1: PENGELUARAN -->
       <div class="tab-content active" id="tab-pengeluaran">
-        <div class="budget-banner" id="budgetBanner">
+        <div class="budget-banner">
           <div>
             <div class="budget-banner-label">Kas BBQ Night</div>
             <div class="budget-banner-row">
@@ -1010,7 +1092,6 @@
           </div>
         </div>
 
-        <!-- Input -->
         <div class="input-section">
           <div class="section-label">Tambah Pengeluaran</div>
           <div class="input-grid">
@@ -1049,14 +1130,13 @@
                 min="0"
               />
             </div>
-            <button class="btn-add" onclick="addExpense()">+ TAMBAH</button>
+            <button class="btn-add" id="btnAdd" onclick="addExpense()">
+              + TAMBAH
+            </button>
           </div>
-
-          <!-- Photo upload zone -->
           <div>
             <div class="field-label" style="margin-bottom: 8px">
-              Foto Struk / Bukti Bayar
-              <span class="required-tag">* WAJIB</span>
+              Foto Struk / Bukti Bayar <span class="required-tag">* WAJIB</span>
             </div>
             <div
               class="photo-upload-zone"
@@ -1093,7 +1173,7 @@
                   border: 1px solid rgba(255, 255, 255, 0.12);
                   cursor: pointer;
                 "
-                onclick="openLightbox(document.getElementById('photoPreviewImg').src)"
+                onclick="openLightbox(this.src)"
                 alt="preview"
               />
               <div>
@@ -1129,7 +1209,6 @@
           </div>
         </div>
 
-        <!-- List -->
         <div class="list-section">
           <div class="section-label">Daftar Pengeluaran</div>
           <div class="expense-list" id="expenseList">
@@ -1144,7 +1223,6 @@
           </div>
         </div>
 
-        <!-- Summary -->
         <div class="summary-section" id="summarySection" style="display: none">
           <div class="section-label-dark" style="margin-bottom: 20px">
             Rekap Kas &amp; Pengeluaran
@@ -1154,19 +1232,17 @@
         </div>
       </div>
 
-      <!-- ============ TAB 2: IURAN ============ -->
+      <!-- TAB 2: IURAN -->
       <div class="tab-content" id="tab-iuran">
         <div class="iuran-panel">
           <div class="section-label">Status Iuran Rp 50.000/orang</div>
-
           <div id="allPaidBanner" style="display: none" class="all-paid-banner">
             <div class="all-paid-banner-icon">🎉</div>
             <div class="all-paid-banner-text">
               SEMUA SUDAH IURAN!<br />KAS TERKUMPUL PENUH
             </div>
           </div>
-
-          <div class="iuran-stats" id="iuranStats">
+          <div class="iuran-stats">
             <div class="iuran-stat">
               <div
                 class="iuran-stat-val"
@@ -1192,20 +1268,17 @@
               <div class="iuran-stat-label">Terkumpul</div>
             </div>
           </div>
-
-          <div class="iuran-progress-track" style="margin-top: 12px">
+          <div class="iuran-progress-track">
             <div
               class="iuran-progress-fill"
               id="iuranProgressFill"
               style="width: 0%"
             ></div>
           </div>
-
           <div class="member-grid" id="memberGrid"></div>
         </div>
       </div>
     </div>
-    <!-- end main-wrap -->
 
     <footer>
       <div class="footer-logo">MINSOULZ</div>
@@ -1220,8 +1293,31 @@
       style="display: none"
     />
 
-    <script>
-      // ============ STATE ============
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+      import {
+        getDatabase,
+        ref,
+        onValue,
+        set,
+        push,
+        remove,
+        update,
+      } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+      // ===== FIREBASE =====
+      const app = initializeApp({
+        apiKey: "AIzaSyCsfOGvVR7FtihQ51Iqaw1h5iJf0WFkU3Y",
+        authDomain: "bbq-minsoulz.firebaseapp.com",
+        databaseURL:
+          "https://bbq-minsoulz-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "bbq-minsoulz",
+        storageBucket: "bbq-minsoulz.firebasestorage.app",
+        messagingSenderId: "788013415717",
+        appId: "1:788013415717:web:21cf137065741bbe95aecc",
+      });
+      const db = getDatabase(app);
+
       const MEMBERS = [
         "ALFRED",
         "ANDREW",
@@ -1235,119 +1331,87 @@
       ];
       const N = MEMBERS.length;
 
-      let expenses = [],
-        budgetPerOrang = 50000,
-        editingId = null;
-      let iuranData = [];
+      let expenses = {};
+      let budgetPerOrang = 50000;
+      let iuranData = {};
+      let editingId = null;
+      let pendingPhoto = null;
+      let currentTab = "pengeluaran";
 
-      function loadState() {
-        try {
-          expenses = JSON.parse(localStorage.getItem("bbq_v4_exp") || "[]");
-          budgetPerOrang = parseInt(
-            localStorage.getItem("bbq_v4_budget") || "50000"
-          );
-          const savedIuran = JSON.parse(
-            localStorage.getItem("bbq_v4_iuran") || "[]"
-          );
-          iuranData = MEMBERS.map((m) => {
-            const found = savedIuran.find((x) => x.name === m);
-            return found || { name: m, paid: false, paidAt: "", photo: null };
-          });
-        } catch (e) {
-          expenses = [];
-          iuranData = MEMBERS.map((m) => ({
-            name: m,
-            paid: false,
-            paidAt: "",
-            photo: null,
-          }));
+      // ===== SYNC STATUS =====
+      function setSyncStatus(status, label) {
+        document.getElementById("syncDot").className = "sync-dot " + status;
+        document.getElementById("syncLabel").textContent = label;
+      }
+
+      // ===== FIREBASE LISTENERS =====
+      onValue(ref(db, ".info/connected"), (snap) => {
+        if (snap.val()) {
+          setSyncStatus("connected", "Realtime · Live");
+          document.getElementById("loadingOverlay").classList.add("hidden");
+        } else {
+          setSyncStatus("error", "Offline");
         }
-      }
+      });
 
-      function saveState() {
-        try {
-          localStorage.setItem("bbq_v4_exp", JSON.stringify(expenses));
-          localStorage.setItem("bbq_v4_budget", budgetPerOrang);
-          localStorage.setItem("bbq_v4_iuran", JSON.stringify(iuranData));
-        } catch (e) {}
-      }
-      loadState();
+      onValue(ref(db, "budget"), (snap) => {
+        if (snap.exists()) budgetPerOrang = snap.val();
+        renderExpenseList();
+      });
 
-      // ============ UTILS ============
+      onValue(ref(db, "expenses"), (snap) => {
+        expenses = snap.exists() ? snap.val() : {};
+        renderExpenseList();
+      });
+
+      onValue(ref(db, "iuran"), (snap) => {
+        const raw = snap.exists() ? snap.val() : {};
+        iuranData = {};
+        MEMBERS.forEach((m) => {
+          iuranData[m] = raw[m] || { paid: false, paidAt: "", photo: null };
+        });
+        if (currentTab === "iuran") renderIuranTab();
+      });
+
+      // ===== UTILS =====
       function fmt(n) {
         return "Rp " + Math.round(Math.abs(n)).toLocaleString("id-ID");
       }
+
       function showToast(msg) {
         const t = document.getElementById("toast");
         t.textContent = msg;
         t.classList.add("show");
-        clearTimeout(t._to);
-        t._to = setTimeout(() => t.classList.remove("show"), 3000);
+        clearTimeout(t._t);
+        t._t = setTimeout(() => t.classList.remove("show"), 3000);
       }
-      function openLightbox(src) {
+
+      window.openLightbox = (src) => {
         document.getElementById("lightboxImg").src = src;
         document.getElementById("lightbox").classList.add("open");
-      }
-      function closeLightbox() {
+      };
+      window.closeLightbox = () =>
         document.getElementById("lightbox").classList.remove("open");
-      }
 
-      // ============ PENDING PHOTO ============
-      let pendingPhotoData = null;
-
-      function triggerPhotoUpload() {
-        const input = document.getElementById("hiddenFileInput");
-        input.onchange = (e) => {
-          const file = e.target.files[0];
-          if (!file) return;
-          const reader = new FileReader();
-          reader.onload = (ev) => {
-            pendingPhotoData = ev.target.result;
-            updatePhotoZone();
+      function compressImage(file, maxW, q, cb) {
+        const r = new FileReader();
+        r.onload = (ev) => {
+          const img = new Image();
+          img.onload = () => {
+            const s = Math.min(1, maxW / img.width);
+            const c = document.createElement("canvas");
+            c.width = img.width * s;
+            c.height = img.height * s;
+            c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+            cb(c.toDataURL("image/jpeg", q));
           };
-          reader.readAsDataURL(file);
-          input.value = "";
+          img.src = ev.target.result;
         };
-        input.click();
+        r.readAsDataURL(file);
       }
 
-      function updatePhotoZone(shake = false) {
-        const zone = document.getElementById("photoUploadZone");
-        const title = document.getElementById("puzTitle");
-        const sub = document.getElementById("puzSub");
-        const badge = document.getElementById("puzBadge");
-        const icon = document.getElementById("puzIcon");
-        const previewRow = document.getElementById("photoPreviewRow");
-        const previewImg = document.getElementById("photoPreviewImg");
-        if (pendingPhotoData) {
-          zone.classList.remove("required-empty");
-          zone.classList.add("has-photo");
-          title.textContent = "Foto Tersimpan";
-          sub.textContent = "Tap untuk ganti foto";
-          icon.textContent = "✅";
-          badge.style.display = "";
-          previewRow.style.display = "flex";
-          previewImg.src = pendingPhotoData;
-        } else {
-          zone.classList.remove("has-photo");
-          if (shake) zone.classList.add("required-empty");
-          else zone.classList.remove("required-empty");
-          title.textContent = "Upload Foto Struk";
-          sub.textContent = "Tap untuk pilih foto · JPG, PNG, HEIC";
-          icon.textContent = "📷";
-          badge.style.display = "none";
-          previewRow.style.display = "none";
-          previewImg.src = "";
-        }
-      }
-
-      function clearPendingPhoto() {
-        pendingPhotoData = null;
-        updatePhotoZone();
-      }
-
-      // ============ TAB ============
-      function switchTab(tab, btn) {
+      // ===== TAB =====
+      window.switchTab = (tab, btn) => {
         document
           .querySelectorAll(".tab-content")
           .forEach((e) => e.classList.remove("active"));
@@ -1356,25 +1420,27 @@
           .forEach((e) => e.classList.remove("active"));
         document.getElementById("tab-" + tab).classList.add("active");
         if (btn) btn.classList.add("active");
+        currentTab = tab;
         if (tab === "iuran") renderIuranTab();
-      }
+      };
 
-      // ============ BUDGET ============
-      function toggleBudgetEdit() {
-        const area = document.getElementById("budgetEditArea");
-        area.innerHTML = `<div style="display:flex;align-items:flex-end;gap:8px;flex-wrap:wrap;">
-          <div><div class="field-label" style="color:var(--gray-mid);">Budget / Orang (Rp)</div>
-          <input class="budget-input" id="budgetInput" type="number" value="${budgetPerOrang}" min="0"/></div>
-          <button class="budget-save-btn" onclick="saveBudget()">SIMPAN</button>
-          <button class="budget-edit-btn" onclick="cancelBudgetEdit()">BATAL</button></div>`;
+      // ===== BUDGET =====
+      window.toggleBudgetEdit = () => {
+        document.getElementById(
+          "budgetEditArea"
+        ).innerHTML = `<div style="display:flex;align-items:flex-end;gap:8px;flex-wrap:wrap;">
+            <div><div class="field-label" style="color:var(--gray-mid)">Budget / Orang (Rp)</div>
+            <input class="budget-input" id="budgetInput" type="number" value="${budgetPerOrang}" min="0"/></div>
+            <button class="budget-save-btn" onclick="saveBudget()">SIMPAN</button>
+            <button class="budget-edit-btn" onclick="cancelBudgetEdit()">BATAL</button></div>`;
         setTimeout(() => document.getElementById("budgetInput")?.focus(), 50);
         document
           .getElementById("budgetInput")
           ?.addEventListener("keydown", (e) => {
-            if (e.key === "Enter") saveBudget();
+            if (e.key === "Enter") window.saveBudget();
           });
-      }
-      function saveBudget() {
+      };
+      window.saveBudget = async () => {
         const val = parseInt(
           document.getElementById("budgetInput")?.value || 0
         );
@@ -1382,23 +1448,23 @@
           showToast("Masukkan budget yang valid!");
           return;
         }
-        budgetPerOrang = val;
-        saveState();
-        cancelBudgetEdit();
-        render();
+        setSyncStatus("syncing", "Menyimpan...");
+        await set(ref(db, "budget"), val);
+        window.cancelBudgetEdit();
         showToast("✅ Budget diperbarui!");
-      }
-      function cancelBudgetEdit() {
+      };
+      window.cancelBudgetEdit = () => {
         document.getElementById(
           "budgetEditArea"
         ).innerHTML = `<button class="budget-edit-btn" onclick="toggleBudgetEdit()">✏ Ubah Budget</button>`;
-      }
+      };
+
       function updateBudgetBanner(total) {
-        const totalKas = budgetPerOrang * N,
-          sisa = totalKas - total;
+        const kas = budgetPerOrang * N,
+          sisa = kas - total;
         document.getElementById("budgetPerOrang").textContent =
           fmt(budgetPerOrang);
-        document.getElementById("budgetTotal").textContent = fmt(totalKas);
+        document.getElementById("budgetTotal").textContent = fmt(kas);
         document.getElementById("budgetTerpakai").textContent = fmt(total);
         const el = document.getElementById("budgetSisa");
         el.textContent = (sisa < 0 ? "-" : "") + fmt(sisa);
@@ -1410,8 +1476,55 @@
             : "var(--green)";
       }
 
-      // ============ EXPENSE ============
-      function addExpense() {
+      // ===== PHOTO =====
+      window.triggerPhotoUpload = () => {
+        const input = document.getElementById("hiddenFileInput");
+        input.onchange = (e) => {
+          const file = e.target.files[0];
+          if (!file) return;
+          compressImage(file, 800, 0.7, (data) => {
+            pendingPhoto = data;
+            updatePhotoZone();
+          });
+          input.value = "";
+        };
+        input.click();
+      };
+
+      function updatePhotoZone(shake = false) {
+        const zone = document.getElementById("photoUploadZone");
+        const prev = document.getElementById("photoPreviewRow");
+        const img = document.getElementById("photoPreviewImg");
+        if (pendingPhoto) {
+          zone.classList.remove("required-empty");
+          zone.classList.add("has-photo");
+          document.getElementById("puzTitle").textContent = "Foto Tersimpan";
+          document.getElementById("puzSub").textContent =
+            "Tap untuk ganti foto";
+          document.getElementById("puzIcon").textContent = "✅";
+          document.getElementById("puzBadge").style.display = "";
+          prev.style.display = "flex";
+          img.src = pendingPhoto;
+        } else {
+          zone.classList.remove("has-photo");
+          if (shake) zone.classList.add("required-empty");
+          else zone.classList.remove("required-empty");
+          document.getElementById("puzTitle").textContent = "Upload Foto Struk";
+          document.getElementById("puzSub").textContent =
+            "Tap untuk pilih foto · JPG, PNG, HEIC";
+          document.getElementById("puzIcon").textContent = "📷";
+          document.getElementById("puzBadge").style.display = "none";
+          prev.style.display = "none";
+          img.src = "";
+        }
+      }
+      window.clearPendingPhoto = () => {
+        pendingPhoto = null;
+        updatePhotoZone();
+      };
+
+      // ===== ADD EXPENSE =====
+      window.addExpense = async () => {
         const payer = document.getElementById("inPayer").value;
         const item = document.getElementById("inItem").value.trim();
         const amount = parseFloat(document.getElementById("inAmount").value);
@@ -1427,7 +1540,7 @@
           showToast("Isi harga yang valid!");
           return;
         }
-        if (!pendingPhotoData) {
+        if (!pendingPhoto) {
           showToast("⚠️ Upload foto struk/bukti dulu!");
           updatePhotoZone(true);
           document
@@ -1435,294 +1548,279 @@
             .scrollIntoView({ behavior: "smooth", block: "center" });
           return;
         }
-        expenses.push({
-          id: Date.now(),
-          payer,
-          item,
-          amount,
-          photo: pendingPhotoData,
-        });
-        pendingPhotoData = null;
-        updatePhotoZone();
-        saveState();
-        document.getElementById("inItem").value = "";
-        document.getElementById("inAmount").value = "";
-        document.getElementById("inPayer").value = "";
-        render();
-        showToast("✅ " + item + " ditambahkan!");
-      }
+        const btn = document.getElementById("btnAdd");
+        btn.disabled = true;
+        btn.textContent = "Menyimpan...";
+        setSyncStatus("syncing", "Menyimpan...");
+        try {
+          await push(ref(db, "expenses"), {
+            payer,
+            item,
+            amount,
+            photo: pendingPhoto,
+            createdAt: Date.now(),
+          });
+          pendingPhoto = null;
+          updatePhotoZone();
+          document.getElementById("inItem").value = "";
+          document.getElementById("inAmount").value = "";
+          document.getElementById("inPayer").value = "";
+          showToast("✅ " + item + " ditambahkan!");
+        } catch (e) {
+          showToast("❌ Gagal menyimpan, cek koneksi!");
+        }
+        btn.disabled = false;
+        btn.textContent = "+ TAMBAH";
+      };
 
-      function deleteExpense(id) {
-        const ex = expenses.find((e) => e.id === id);
-        if (!confirm('Hapus "' + ex.item + '"?')) return;
-        expenses = expenses.filter((e) => e.id !== id);
-        saveState();
-        render();
+      window.deleteExpense = async (key) => {
+        if (!confirm('Hapus "' + expenses[key].item + '"?')) return;
+        setSyncStatus("syncing", "Menghapus...");
+        await remove(ref(db, "expenses/" + key));
         showToast("🗑️ Dihapus!");
-      }
-      function startEdit(id) {
-        editingId = id;
-        render();
+      };
+      window.startEdit = (key) => {
+        editingId = key;
+        renderExpenseList();
         setTimeout(
-          () => document.getElementById("edit-item-" + id)?.focus(),
+          () => document.getElementById("edit-item-" + key)?.focus(),
           50
         );
-      }
-      function cancelEdit() {
+      };
+      window.cancelEdit = () => {
         editingId = null;
-        render();
-      }
-      function saveEdit(id) {
-        const payer = document.getElementById("edit-payer-" + id).value;
-        const item = document.getElementById("edit-item-" + id).value.trim();
+        renderExpenseList();
+      };
+      window.saveEdit = async (key) => {
+        const payer = document.getElementById("edit-payer-" + key).value;
+        const item = document.getElementById("edit-item-" + key).value.trim();
         const amount = parseFloat(
-          document.getElementById("edit-amount-" + id).value
+          document.getElementById("edit-amount-" + key).value
         );
         if (!payer || !item || !amount || amount <= 0) {
           showToast("Lengkapi dulu ya!");
           return;
         }
-        const ex = expenses.find((e) => e.id === id);
-        ex.payer = payer;
-        ex.item = item;
-        ex.amount = amount;
+        setSyncStatus("syncing", "Menyimpan...");
+        await update(ref(db, "expenses/" + key), { payer, item, amount });
         editingId = null;
-        saveState();
-        render();
         showToast("✏️ Disimpan!");
-      }
-      function replacePhotoExpense(id) {
+      };
+      window.replacePhotoExpense = (key) => {
         const input = document.getElementById("hiddenFileInput");
         input.onchange = (e) => {
           const file = e.target.files[0];
           if (!file) return;
-          const reader = new FileReader();
-          reader.onload = (ev) => {
-            const ex = expenses.find((x) => x.id === id);
-            if (ex) {
-              ex.photo = ev.target.result;
-              saveState();
-              render();
-              showToast("📸 Foto diperbarui!");
-            }
-          };
-          reader.readAsDataURL(file);
+          compressImage(file, 800, 0.7, async (data) => {
+            setSyncStatus("syncing", "Mengupload...");
+            await update(ref(db, "expenses/" + key), { photo: data });
+            showToast("📸 Foto diperbarui!");
+          });
           input.value = "";
         };
         input.click();
-      }
+      };
+      window.resetAll = async () => {
+        if (!confirm("Reset semua pengeluaran?")) return;
+        setSyncStatus("syncing", "Mereset...");
+        await remove(ref(db, "expenses"));
+        showToast("↺ Semua direset!");
+      };
 
-      // ============ RENDER PENGELUARAN ============
-      function render() {
+      // ===== RENDER EXPENSE =====
+      function renderExpenseList() {
         const list = document.getElementById("expenseList");
         const empty = document.getElementById("emptyState");
         const summary = document.getElementById("summarySection");
         Array.from(list.children).forEach((c) => {
           if (c !== empty) c.remove();
         });
-        if (expenses.length === 0) {
+
+        const keys = Object.keys(expenses).sort(
+          (a, b) => (expenses[a].createdAt || 0) - (expenses[b].createdAt || 0)
+        );
+
+        if (keys.length === 0) {
           empty.style.display = "";
           summary.style.display = "none";
           updateBudgetBanner(0);
           return;
         }
         empty.style.display = "none";
-        expenses.forEach((ex, i) => {
+
+        keys.forEach((key, i) => {
+          const ex = expenses[key];
           const div = document.createElement("div");
           div.className = "expense-item";
-          if (editingId === ex.id) {
+          if (editingId === key) {
             div.innerHTML = `<div style="flex:1">
-              <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--gray-mid);letter-spacing:0.25em;margin-bottom:10px;">EDIT ITEM #${
+              <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--gray-mid);letter-spacing:.25em;margin-bottom:10px;">EDIT ITEM #${
                 i + 1
               }</div>
               <div class="edit-row">
                 <div><div class="field-label">Yang Bayar</div>
-                  <select class="field-input" id="edit-payer-${
-                    ex.id
-                  }">${MEMBERS.map(
+                  <select class="field-input" id="edit-payer-${key}">${MEMBERS.map(
               (m) => `<option${m === ex.payer ? " selected" : ""}>${m}</option>`
             ).join("")}</select></div>
                 <div><div class="field-label">Nama Item</div>
-                  <input class="field-input" id="edit-item-${
-                    ex.id
-                  }" type="text" value="${ex.item}" maxlength="60"/></div>
+                  <input class="field-input" id="edit-item-${key}" type="text" value="${
+              ex.item
+            }" maxlength="60"/></div>
                 <div><div class="field-label">Harga</div>
-                  <input class="field-input" id="edit-amount-${
-                    ex.id
-                  }" type="number" value="${ex.amount}" min="0"/></div>
+                  <input class="field-input" id="edit-amount-${key}" type="number" value="${
+              ex.amount
+            }" min="0"/></div>
                 <div style="display:flex;gap:4px;align-self:end;">
-                  <button class="btn-save" onclick="saveEdit(${
-                    ex.id
-                  })">SIMPAN</button>
+                  <button class="btn-save" onclick="saveEdit('${key}')">SIMPAN</button>
                   <button class="btn-cancel" onclick="cancelEdit()">BATAL</button></div>
               </div></div>`;
           } else {
-            const photoHtml = ex.photo
+            const ph = ex.photo
               ? `<img class="photo-thumb" src="${ex.photo}" onclick="openLightbox('${ex.photo}')" title="Lihat struk"/>`
-              : `<div class="no-photo-badge" onclick="replacePhotoExpense(${ex.id})" title="Upload foto struk">📷 No foto</div>`;
+              : `<div class="no-photo-badge" onclick="replacePhotoExpense('${key}')" title="Upload struk">📷 No foto</div>`;
             div.innerHTML = `
               <div class="expense-num">${String(i + 1).padStart(2, "0")}</div>
               <div class="expense-payer">${ex.payer}</div>
               <div class="expense-name">${ex.item}</div>
               <div class="expense-amount">${fmt(ex.amount)}</div>
-              ${photoHtml}
+              ${ph}
               <div class="expense-actions">
-                <button class="btn-icon" onclick="startEdit(${
-                  ex.id
-                })" title="Edit">✏️</button>
-                <button class="btn-icon del" onclick="deleteExpense(${
-                  ex.id
-                })" title="Hapus">🗑️</button>
+                <button class="btn-icon" onclick="startEdit('${key}')">✏️</button>
+                <button class="btn-icon del" onclick="deleteExpense('${key}')">🗑️</button>
               </div>`;
           }
           list.appendChild(div);
         });
-        const totalPengeluaran = expenses.reduce((s, e) => s + e.amount, 0);
-        const totalKas = budgetPerOrang * N;
-        const sisaKas = totalKas - totalPengeluaran;
-        updateBudgetBanner(totalPengeluaran);
+
+        const totalP = keys.reduce((s, k) => s + (expenses[k].amount || 0), 0);
+        const totalK = budgetPerOrang * N;
+        const sisa = totalK - totalP;
+        updateBudgetBanner(totalP);
         summary.style.display = "";
         document.getElementById("summaryTop").innerHTML = `
           <div class="summary-stat"><div class="summary-stat-label">Total Kas</div><div class="summary-stat-val">${fmt(
-            totalKas
+            totalK
           )}</div></div>
           <div class="summary-stat"><div class="summary-stat-label">Total Belanja</div><div class="summary-stat-val">${fmt(
-            totalPengeluaran
+            totalP
           )}</div></div>
           <div class="summary-stat"><div class="summary-stat-label">Sisa Kas</div><div class="summary-stat-val ${
-            sisaKas < 0 ? "red" : sisaKas > 0 ? "green" : ""
-          }">${sisaKas < 0 ? "-" : ""}${fmt(sisaKas)}</div></div>
+            sisa < 0 ? "red" : sisa > 0 ? "green" : ""
+          }">${sisa < 0 ? "-" : ""}${fmt(sisa)}</div></div>
           <div class="summary-stat"><div class="summary-stat-label">Per Orang (Budget)</div><div class="summary-stat-val">${fmt(
             budgetPerOrang
           )}</div></div>`;
+
         const sisaSec = document.getElementById("sisaSection");
-        if (sisaKas > 0.5) {
-          const perOrang = sisaKas / N;
-          sisaSec.innerHTML = `<div class="sisa-note"><div><div class="sisa-label">Sisa Kas</div><div style="font-family:'Space Mono',monospace;font-size:9px;color:rgba(0,0,0,0.4);margin-top:4px;">Dibagi rata = ${fmt(
-            perOrang
+        if (sisa > 0.5) {
+          sisaSec.innerHTML = `<div class="sisa-note"><div><div class="sisa-label">Sisa Kas</div><div style="font-family:'Space Mono',monospace;font-size:9px;color:rgba(0,0,0,.4);margin-top:4px;">Dibagi rata = ${fmt(
+            sisa / N
           )}/orang dikembaliin</div></div><div class="sisa-val">${fmt(
-            sisaKas
+            sisa
           )}</div></div>`;
-        } else if (sisaKas < -0.5) {
-          sisaSec.innerHTML = `<div class="sisa-note" style="background:rgba(239,68,68,0.06);border-color:rgba(239,68,68,0.2);"><div><div class="sisa-label" style="color:#991b1b;">⚠️ Budget Kurang!</div><div style="font-family:'Space Mono',monospace;font-size:9px;color:rgba(0,0,0,0.4);margin-top:4px;">Belanja melebihi kas. Perlu tambah iuran.</div></div><div class="sisa-val" style="color:#991b1b;">-${fmt(
-            -sisaKas
+        } else if (sisa < -0.5) {
+          sisaSec.innerHTML = `<div class="sisa-note" style="background:rgba(239,68,68,.06);border-color:rgba(239,68,68,.2);"><div><div class="sisa-label" style="color:#991b1b;">⚠️ Budget Kurang!</div><div style="font-family:'Space Mono',monospace;font-size:9px;color:rgba(0,0,0,.4);margin-top:4px;">Belanja melebihi kas. Perlu tambah iuran.</div></div><div class="sisa-val" style="color:#991b1b;">-${fmt(
+            -sisa
           )}</div></div>`;
         } else {
           sisaSec.innerHTML = "";
         }
+
+        setSyncStatus("connected", "Realtime · Live");
       }
 
-      // ============ IURAN TAB ============
+      // ===== RENDER IURAN =====
       function renderIuranTab() {
         const grid = document.getElementById("memberGrid");
-        const banner = document.getElementById("allPaidBanner");
-        const sudahEl = document.getElementById("iuranSudah");
-        const belumEl = document.getElementById("iuranBelum");
-        const terkumpulEl = document.getElementById("iuranTerkumpul");
-        const progressEl = document.getElementById("iuranProgressFill");
         grid.innerHTML = "";
-        const sudah = iuranData.filter((x) => x.paid).length;
-        const belum = N - sudah;
-        sudahEl.textContent = sudah;
-        belumEl.textContent = belum;
-        terkumpulEl.textContent = fmt(sudah * budgetPerOrang);
-        progressEl.style.width = Math.round((sudah / N) * 100) + "%";
-        banner.style.display = sudah === N ? "flex" : "none";
+        const sudah = MEMBERS.filter((m) => iuranData[m]?.paid).length;
+        document.getElementById("iuranSudah").textContent = sudah;
+        document.getElementById("iuranBelum").textContent = N - sudah;
+        document.getElementById("iuranTerkumpul").textContent = fmt(
+          sudah * budgetPerOrang
+        );
+        document.getElementById("iuranProgressFill").style.width =
+          Math.round((sudah / N) * 100) + "%";
+        document.getElementById("allPaidBanner").style.display =
+          sudah === N ? "flex" : "none";
 
-        iuranData.forEach((member, idx) => {
+        MEMBERS.forEach((m) => {
+          const member = iuranData[m] || {
+            paid: false,
+            paidAt: "",
+            photo: null,
+          };
           const card = document.createElement("div");
           card.className = "member-card" + (member.paid ? " paid" : "");
-
-          const proofHtml = member.photo
-            ? `<img class="iuran-proof-img" src="${member.photo}" onclick="openLightbox('${member.photo}');event.stopPropagation();" title="Lihat bukti"/><span style="font-family:'Space Mono',monospace;font-size:7px;letter-spacing:0.1em;color:var(--green);">BUKTI ADA</span>`
-            : `<span style="font-family:'Space Mono',monospace;font-size:7px;letter-spacing:0.1em;color:var(--gray-mid);">Belum ada bukti</span>`;
-
-          const timeStr = member.paidAt
+          const proof = member.photo
+            ? `<img class="iuran-proof-img" src="${member.photo}" onclick="openLightbox('${member.photo}');event.stopPropagation();" title="Lihat bukti"/>
+               <span style="font-family:'Space Mono',monospace;font-size:7px;letter-spacing:.1em;color:var(--green);">BUKTI ADA</span>`
+            : `<span style="font-family:'Space Mono',monospace;font-size:7px;letter-spacing:.1em;color:var(--gray-mid);">Belum ada bukti</span>`;
+          const time = member.paidAt
             ? `<div class="member-paid-time">✓ ${member.paidAt}</div>`
             : "";
-
           card.innerHTML = `
             <div class="member-checkbox"><span class="member-checkbox-tick">✓</span></div>
             <div class="member-info">
-              <div class="member-name">${member.name}</div>
+              <div class="member-name">${m}</div>
               <div class="member-status">${
                 member.paid ? "SUDAH BAYAR" : "BELUM BAYAR"
               }</div>
-              ${timeStr}
+              ${time}
               <div class="iuran-proof-area">
-                <button class="iuran-proof-btn" onclick="uploadIuranProof(${idx},event)">📷 Bukti</button>
-                ${proofHtml}
+                <button class="iuran-proof-btn" onclick="uploadIuranProof('${m}',event)">📷 Bukti</button>
+                ${proof}
               </div>
             </div>
             <div class="member-amount">${fmt(budgetPerOrang)}</div>`;
-
-          // Klik seluruh card = toggle paid
-          card.addEventListener("click", () => toggleIuran(idx));
-
+          card.addEventListener("click", () => window.toggleIuran(m));
           grid.appendChild(card);
         });
       }
 
-      function toggleIuran(idx) {
-        const member = iuranData[idx];
-        member.paid = !member.paid;
-        if (member.paid) {
-          const now = new Date();
-          member.paidAt = now.toLocaleDateString("id-ID", {
-            day: "2-digit",
-            month: "short",
-            hour: "2-digit",
-            minute: "2-digit",
-          });
-        } else {
-          member.paidAt = "";
-        }
-        saveState();
-        renderIuranTab();
+      window.toggleIuran = async (m) => {
+        const cur = iuranData[m] || { paid: false };
+        const newPaid = !cur.paid;
+        const paidAt = newPaid
+          ? new Date().toLocaleDateString("id-ID", {
+              day: "2-digit",
+              month: "short",
+              hour: "2-digit",
+              minute: "2-digit",
+            })
+          : "";
+        setSyncStatus("syncing", "Menyimpan...");
+        await update(ref(db, "iuran/" + m), { paid: newPaid, paidAt });
         showToast(
-          member.paid
-            ? "✅ " + member.name + " sudah bayar!"
-            : "↩ " + member.name + " ditandai belum bayar"
+          newPaid
+            ? "✅ " + m + " sudah bayar!"
+            : "↩ " + m + " ditandai belum bayar"
         );
-      }
+      };
 
-      function uploadIuranProof(idx, e) {
+      window.uploadIuranProof = (m, e) => {
         e.stopPropagation();
         const input = document.getElementById("hiddenFileInput");
         input.onchange = (ev) => {
           const file = ev.target.files[0];
           if (!file) return;
-          const reader = new FileReader();
-          reader.onload = (evr) => {
-            iuranData[idx].photo = evr.target.result;
-            saveState();
-            renderIuranTab();
+          compressImage(file, 800, 0.7, async (data) => {
+            setSyncStatus("syncing", "Mengupload...");
+            await update(ref(db, "iuran/" + m), { photo: data });
             showToast("📸 Bukti iuran tersimpan!");
-          };
-          reader.readAsDataURL(file);
+          });
           input.value = "";
         };
         input.click();
-      }
+      };
 
-      // ============ KEYBOARD ============
+      // ===== KEYBOARD =====
       document.getElementById("inAmount").addEventListener("keydown", (e) => {
-        if (e.key === "Enter") addExpense();
+        if (e.key === "Enter") window.addExpense();
       });
       document.getElementById("inItem").addEventListener("keydown", (e) => {
         if (e.key === "Enter") document.getElementById("inAmount").focus();
       });
-
-      // ============ INIT ============
-      function resetAll() {
-        if (!confirm("Reset semua pengeluaran?")) return;
-        expenses = [];
-        saveState();
-        render();
-        showToast("↺ Semua direset!");
-      }
-      updateBudgetBanner(expenses.reduce((s, e) => s + e.amount, 0));
-      render();
     </script>
   </body>
 </html>
